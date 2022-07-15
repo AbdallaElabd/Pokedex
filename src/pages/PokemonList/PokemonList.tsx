@@ -1,4 +1,5 @@
 import { useGetPokemonList } from "@api/pokemonList";
+import { Spinner } from "@components";
 import { Link } from "react-router-dom";
 import { PaginationButtons } from "./PaginationButtons";
 
@@ -6,7 +7,7 @@ export const PokemonList = () => {
   const { pokemonList, isLoading, previousPage, nextPage } =
     useGetPokemonList();
 
-  if (isLoading || !pokemonList) return <h2>loading</h2>;
+  if (isLoading || !pokemonList) return <Spinner />;
 
   return (
     <div>

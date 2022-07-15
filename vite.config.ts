@@ -1,12 +1,16 @@
+import { fileURLToPath, URL } from "url";
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@api": "./src/api",
+      "@api": fileURLToPath(new URL("./src/api", import.meta.url)),
+      "@components": fileURLToPath(
+        new URL("./src/components", import.meta.url)
+      ),
     },
   },
 });
