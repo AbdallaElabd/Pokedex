@@ -5,9 +5,9 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
+    'plugin:@typescript-eslint/recommended',
     'airbnb',
-    'prettier',
+    'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -17,17 +17,13 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-    '@typescript-eslint',
-    'simple-import-sort'
-  ],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
-    "import/extensions": {
-      "tsx": "never",
+    'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
+    'import/extensions': {
+      ts: 'never',
+      tsx: 'never',
     },
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    'prettier/prettier': 'error',
   },
 };

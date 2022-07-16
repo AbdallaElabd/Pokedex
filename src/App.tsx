@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { QueryClientProvider } from "react-query";
-import { queryClient } from "./api/api";
-import { PokemonList } from "./pages/PokemonList";
-import { PokemonDetails } from "./pages/PokemonDetails";
-import { Page } from "@components/Page/Page";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { QueryClientProvider } from 'react-query';
+import { Page } from '@components';
+import { queryClient } from '@api/api';
+import { PokemonList } from '@pages/PokemonList';
+import { PokemonDetails } from '@pages/PokemonDetails';
 
 function App() {
   return (

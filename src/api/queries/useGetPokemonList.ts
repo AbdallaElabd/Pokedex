@@ -1,11 +1,11 @@
-import { useCallback, useMemo, useState } from "react";
-import { useQuery } from "react-query";
-import { pokemonCache } from "../cache";
+import { useCallback, useState } from 'react';
+import { useQuery } from 'react-query';
+import { pokemonCache } from '../cache';
 
 type Limit = 10 | 20 | 50;
-type SearchByAttribute = "name" | "ability";
-export type SortByAttribute = "name" | "height" | "weight";
-export type SortOrder = "ascending" | "descending";
+type SearchByAttribute = 'name' | 'ability';
+export type SortByAttribute = 'name' | 'height' | 'weight';
+export type SortOrder = 'ascending' | 'descending';
 
 type GetPokemonListParams = {
   limit: Limit;
@@ -32,20 +32,20 @@ const getPokemonListQuery = async ({
     .map(([_name, pokemon]) => pokemon)
     .filter((pokemon) => {
       if (!searchText) return true;
-      if (searchBy === "name")
+      if (searchBy === 'name')
         return pokemon.name.includes(searchText.toLowerCase());
       return pokemon.abilities.some((ability) =>
         ability.includes(searchText.toLowerCase())
       );
     })
     .sort((p1, p2) => {
-      return sortOrder === "descending"
+      return sortOrder === 'descending'
         ? p1[sortBy] < p2[sortBy]
-          ? -1
-          : 1
+          ? 1
+          : -1
         : p2[sortBy] > p1[sortBy]
-        ? 1
-        : -1;
+        ? -1
+        : 1;
     })
     .slice(offset, offset + limit);
 
@@ -55,13 +55,13 @@ const getPokemonListQuery = async ({
 export const useGetPokemonList = () => {
   const [limit, setLimit] = useState<Limit>(10);
   const [offset, setOffset] = useState<number>(0);
-  const [searchText, setSearchText] = useState<string>("");
-  const [searchBy, setSearchBy] = useState<SearchByAttribute>("name");
-  const [sortBy, setSortBy] = useState<SortByAttribute>("name");
-  const [sortOrder, setSortOrder] = useState<SortOrder>("ascending");
+  const [searchText, setSearchText] = useState<string>('');
+  const [searchBy, setSearchBy] = useState<SearchByAttribute>('name');
+  const [sortBy, setSortBy] = useState<SortByAttribute>('name');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('ascending');
 
   const { data, isLoading, isSuccess } = useQuery(
-    ["pokemonList", limit, offset, searchText, searchBy, sortBy, sortOrder],
+    ['pokemonList', limit, offset, searchText, searchBy, sortBy, sortOrder],
     () =>
       getPokemonListQuery({
         limit,
@@ -71,9 +71,7 @@ export const useGetPokemonList = () => {
         sortBy,
         sortOrder,
       }),
-    {
-      keepPreviousData: true,
-    }
+    { keepPreviousData: true }
   );
 
   const hasPrevious = offset > 0;
@@ -92,8 +90,23 @@ export const useGetPokemonList = () => {
 
   const toggleSortOrder = useCallback(() => {
     setSortOrder((currentOrder) =>
-      currentOrder === "ascending" ? "descending" : "ascending"
+      currentOrder === 'ascending' ? 'descending' : 'ascending'
     );
+    setOffset(0);
+  }, []);
+
+  const search = useCallback((text: string) => {
+    setSearchText(text);
+    setOffset(0);
+  }, []);
+
+  const setPageSize = useCallback((limit: Limit) => {
+    setLimit(limit);
+    setOffset(0);
+  }, []);
+
+  const setSortAttribute = useCallback((sortByAttribute: SortByAttribute) => {
+    setSortBy(sortByAttribute);
     setOffset(0);
   }, []);
 
@@ -111,10 +124,10 @@ export const useGetPokemonList = () => {
     hasPrevious,
     next,
     previous,
-    setLimit,
-    setSearchText,
+    search,
+    setPageSize,
     setSearchBy,
-    setSortBy,
+    setSortAttribute,
     toggleSortOrder,
   };
 };

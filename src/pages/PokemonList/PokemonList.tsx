@@ -1,16 +1,17 @@
-import { useGetPokemonList } from "@api/queries";
-import { Spinner } from "@components";
-import { PaginationButtons } from "./PaginationButtons";
+import { useGetPokemonList } from '@api/queries';
+import { Spinner } from '@components';
+import { PaginationButtons } from './PaginationButtons';
 
-import styled from "styled-components";
+import styled, { css } from 'styled-components';
 
-import { PokemonCard } from "./PokemonCard";
-import { SortByDropdown } from "./SortByDropdown";
+import { PokemonCard } from './PokemonCard';
+import { SortByDropdown } from './SortByDropdown';
+import { onXS, onLarge, onSmall, onBreakPoint } from '../../styles';
 
 export const PokemonList = () => {
   const {
     sortBy,
-    setSortBy,
+    setSortAttribute,
     sortOrder,
     toggleSortOrder,
     pokemonList,
@@ -21,9 +22,12 @@ export const PokemonList = () => {
     next,
   } = useGetPokemonList();
 
-  if (isLoading || !pokemonList) return <Spinner />;
-
-  console.log({ isLoading, pokemonList, sortBy, sortOrder });
+  if (isLoading || !pokemonList)
+    return (
+      <Container>
+        <StyledSpinner />
+      </Container>
+    );
 
   return (
     <Container>
@@ -31,7 +35,7 @@ export const PokemonList = () => {
         <SortByDropdown
           sortBy={sortBy}
           sortOrder={sortOrder}
-          setSortBy={setSortBy}
+          setSortAttribute={setSortAttribute}
           toggleSortOrder={toggleSortOrder}
         />
         <PaginationButtons {...{ hasPrevious, previous, hasNext, next }} />
@@ -49,19 +53,45 @@ export const PokemonList = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  min-height: 30vh;
   gap: 1rem;
 `;
 
+const StyledSpinner = styled(Spinner)`
+  margin: 4rem 0;
+`;
+
 const TopRow = styled.div`
+  align-self: stretch;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
 const CardsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  row-gap: 1rem;
-  column-gap: 2rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  gap: 2rem;
+
+  --columns: 1;
+  ${onBreakPoint(
+    'sm',
+    css`
+      --columns: 2;
+    `
+  )};
+  ${onBreakPoint(
+    'md',
+    css`
+      --columns: 3;
+    `
+  )};
+  ${onBreakPoint(
+    'lg',
+    css`
+      --columns: 5;
+    `
+  )};
 `;

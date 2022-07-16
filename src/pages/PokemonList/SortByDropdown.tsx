@@ -1,37 +1,36 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronDown,
   faSortAlphaAsc,
   faSortAlphaDesc,
   faSortAmountAsc,
   faSortAmountDesc,
-} from "@fortawesome/free-solid-svg-icons";
-import { Button } from "@components";
-import styled from "styled-components";
-import { FunctionComponent } from "react";
-import { SortByAttribute, SortOrder } from "@api/queries";
+} from '@fortawesome/free-solid-svg-icons';
+import { Button } from '@components';
+import styled from 'styled-components';
+import { FunctionComponent } from 'react';
+import { SortByAttribute, SortOrder } from '@api/queries';
 
-const SORT_BY_ATTRIBUTES: SortByAttribute[] = ["name", "height", "weight"];
+const SORT_BY_ATTRIBUTES: SortByAttribute[] = ['name', 'height', 'weight'];
 
 interface SortByDropdownProps {
   sortBy: SortByAttribute;
-  setSortBy: (orderBy: SortByAttribute) => void;
+  setSortAttribute: (orderBy: SortByAttribute) => void;
   sortOrder: SortOrder;
   toggleSortOrder: () => void;
 }
 
 export const SortByDropdown: FunctionComponent<SortByDropdownProps> = ({
   sortBy,
-  setSortBy,
+  setSortAttribute,
   sortOrder,
   toggleSortOrder,
 }) => {
-  let sortIcon;
-  if (sortBy === "name") {
-    sortIcon = sortOrder ? faSortAlphaAsc : faSortAlphaDesc;
-  } else {
-    sortIcon = sortOrder ? faSortAmountAsc : faSortAmountDesc;
+  let sortIcon = sortOrder === 'ascending' ? faSortAlphaAsc : faSortAlphaDesc;
+  if (sortBy !== 'name') {
+    sortIcon = sortOrder === 'ascending' ? faSortAmountAsc : faSortAmountDesc;
   }
+
   return (
     <Container>
       <DropDownButton>
@@ -43,8 +42,8 @@ export const SortByDropdown: FunctionComponent<SortByDropdownProps> = ({
           {SORT_BY_ATTRIBUTES.map((attribute) => (
             <Option
               key={attribute}
-              isSelected={sortBy === "name"}
-              onClick={() => setSortBy(attribute)}
+              isSelected={sortBy === 'name'}
+              onClick={() => setSortAttribute(attribute)}
             >
               {attribute}
             </Option>
@@ -88,7 +87,7 @@ const Option = styled.button<{ isSelected: boolean }>`
   text-transform: capitalize;
 
   border: none;
-  background: ${({ isSelected }) => (isSelected ? "#bbb" : "initial")};
+  background: ${({ isSelected }) => (isSelected ? '#bbb' : 'initial')};
   cursor: pointer;
 
   :not(:last-child) {

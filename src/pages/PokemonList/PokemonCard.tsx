@@ -1,17 +1,17 @@
-import { Card } from "@components";
-import { GetPokemonDetails } from "@api/pokemonDetails";
-import { Link } from "react-router-dom";
-import { FunctionComponent } from "react";
-import styled from "styled-components";
+import { Card, LazyImage } from '@components';
+import { Link } from 'react-router-dom';
+import { FunctionComponent } from 'react';
+import styled from 'styled-components';
+import { Pokemon } from '@api/cache';
 
-export const PokemonCard: FunctionComponent<{ pokemon: GetPokemonDetails }> = ({
+export const PokemonCard: FunctionComponent<{ pokemon: Pokemon }> = ({
   pokemon,
 }) => {
   return (
     <Link to={`/pokemon/${pokemon.name}`}>
       <Card>
         <Container>
-          <Image src={pokemon.image} alt={pokemon.name} />
+          <StyledLazyImage src={pokemon.image} alt={pokemon.name} />
           <Row>{pokemon.name}</Row>
           <Row>Height: {pokemon.height} decimetres</Row>
           <Row>Weight: {pokemon.weight} hectograms</Row>
@@ -27,9 +27,11 @@ const Container = styled.div`
   gap: 0.3rem;
 `;
 
-const Image = styled.img`
+const StyledLazyImage = styled(LazyImage)`
   align-self: center;
+  height: auto;
   width: clamp(5rem, 10vw, 10rem);
+  height: clamp(5rem, 10vw, 10rem);
 `;
 
 const Row = styled.span`

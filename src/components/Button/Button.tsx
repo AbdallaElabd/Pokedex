@@ -1,13 +1,12 @@
 import {
   ButtonHTMLAttributes,
   FunctionComponent,
-  HTMLProps,
   PropsWithChildren,
-} from "react";
-import styled from "styled-components";
+} from 'react';
+import styled from 'styled-components';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: "primary" | "secondary";
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant: 'primary' | 'secondary';
 }
 
 export const Button: FunctionComponent<PropsWithChildren<ButtonProps>> = ({

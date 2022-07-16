@@ -1,4 +1,4 @@
-import { API_URL, endpoint } from "./api";
+import { API_URL, endpoint } from './api';
 
 export type Pokemon = {
   id: string;
@@ -35,7 +35,8 @@ class PokemonCache {
             name: pokemonData.name,
             height: pokemonData.height,
             weight: pokemonData.weight,
-            image: pokemonData.sprites?.other?.official_artwork?.front_default,
+            image:
+              pokemonData.sprites?.other?.['official-artwork']?.front_default,
             abilities: (pokemonData.abilities ?? []).map(
               (ability: any) => ability?.ability?.name
             ),
