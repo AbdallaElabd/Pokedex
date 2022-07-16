@@ -1,4 +1,3 @@
-import { useGetPokemonDetails } from "@api/pokemonDetails";
 import { Spinner } from "@components";
 import { useParams } from "react-router-dom";
 

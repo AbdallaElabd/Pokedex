@@ -1,26 +1,67 @@
-import { useGetPokemonList } from "@api/pokemonList";
+import { useGetPokemonList } from "@api/queries";
 import { Spinner } from "@components";
-import { Link } from "react-router-dom";
 import { PaginationButtons } from "./PaginationButtons";
 
+import styled from "styled-components";
+
+import { PokemonCard } from "./PokemonCard";
+import { SortByDropdown } from "./SortByDropdown";
+
 export const PokemonList = () => {
-  const { pokemonList, isLoading, previousPage, nextPage } =
-    useGetPokemonList();
+  const {
+    sortBy,
+    setSortBy,
+    sortOrder,
+    toggleSortOrder,
+    pokemonList,
+    isLoading,
+    hasPrevious,
+    previous,
+    hasNext,
+    next,
+  } = useGetPokemonList();
 
   if (isLoading || !pokemonList) return <Spinner />;
 
+  console.log({ isLoading, pokemonList, sortBy, sortOrder });
+
   return (
-    <div>
-      <h2>Pokemon list</h2>
-      <div>
-        <PaginationButtons previous={previousPage} next={nextPage} />
+    <Container>
+      <TopRow>
+        <SortByDropdown
+          sortBy={sortBy}
+          sortOrder={sortOrder}
+          setSortBy={setSortBy}
+          toggleSortOrder={toggleSortOrder}
+        />
+        <PaginationButtons {...{ hasPrevious, previous, hasNext, next }} />
+      </TopRow>
+      <CardsContainer>
         {pokemonList.map((pokemon) => (
-          <Link to={`/pokemon/${pokemon.name}`} key={pokemon.name}>
-            <div>{pokemon.name}</div>
-          </Link>
+          <PokemonCard pokemon={pokemon} key={pokemon.name} />
         ))}
-        <PaginationButtons previous={previousPage} next={nextPage} />
-      </div>
-    </div>
+      </CardsContainer>
+      <PaginationButtons {...{ hasPrevious, previous, hasNext, next }} />
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const TopRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const CardsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  column-gap: 2rem;
+`;

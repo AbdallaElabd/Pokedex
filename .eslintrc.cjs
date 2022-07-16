@@ -5,6 +5,7 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'airbnb',
     'prettier',
   ],
@@ -19,11 +20,14 @@ module.exports = {
   plugins: [
     'react',
     '@typescript-eslint',
+    'simple-import-sort'
   ],
   rules: {
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "import/extensions": {
       "tsx": "never",
-    }
+    },
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
   },
 };
