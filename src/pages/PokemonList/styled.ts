@@ -52,6 +52,12 @@ export const CardsContainer = styled.div`
   ${onBreakPoint(
     "lg",
     css`
+      --columns: 4;
+    `
+  )};
+  ${onBreakPoint(
+    "xl",
+    css`
       --columns: 5;
     `
   )};

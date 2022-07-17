@@ -13,39 +13,52 @@ const shimmer = keyframes`
 }
 `;
 
-export const Placeholder = styled.div<{ noImage: boolean }>`
+export const StyledImage = styled.div<{
+  src: string | undefined;
+  isLoading: boolean;
+  isError: boolean;
+}>`
   display: flex;
+  height: 100%;
+  width: 100%;
   position: relative;
   overflow: hidden;
-  background-color: #e5e5e5;
-
-  ${({ noImage }) =>
-    noImage
-      ? css`
-          background-image: url(${noPokemonImage});
-          background-size: contain;
-          background-repeat: no-repeat;
-        `
-      : css`
-          :after {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: linear-gradient(
-              90deg,
-              rgba(255, 255, 255, 0) 0,
-              rgba(255, 255, 255, 0.2) 20%,
-              rgba(255, 255, 255, 0.5) 60%,
-              rgba(255, 255, 255, 0)
-            );
-            animation: ${shimmer} 1s infinite;
-            content: "";
-          }
-        `}
-`;
-
-export const StyledImage = styled.img`
   animation: ${animations.fadeIn} ${theme.transition.normal};
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  ${({ src, isLoading, isError }) => {
+    if (!src || isError)
+      return css`
+        background-image: url(${noPokemonImage});
+      `;
+
+    if (isLoading)
+      return css`
+        background-color: #e5e5e5;
+
+        :after {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0,
+            rgba(255, 255, 255, 0.2) 20%,
+            rgba(255, 255, 255, 0.5) 60%,
+            rgba(255, 255, 255, 0)
+          );
+          animation: ${shimmer} 1s infinite;
+          content: "";
+        }
+      `;
+
+    return css`
+      background-image: url(${src});
+    `;
+  }}
 `;

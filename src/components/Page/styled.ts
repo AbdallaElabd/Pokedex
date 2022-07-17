@@ -2,6 +2,8 @@ import { onBreakPoint } from "@styles";
 import { theme } from "@styles/theme";
 import styled, { css } from "styled-components";
 
+import { Text } from "../Text";
+
 export const Backdrop = styled.div`
   position: absolute;
   width: 100vw;
@@ -30,18 +32,15 @@ export const Container = styled.div`
   )};
 `;
 
-export const Title = styled.h1`
-  position: relative;
+export const Title = styled(Text).attrs({ variant: "h2" })`
   z-index: 1;
   color: #fff;
-  font-size: 3rem;
-  margin: 1rem 0;
+  padding: 1rem 0;
   text-align: center;
   ${onBreakPoint(
     "sm",
     css`
       text-align: initial;
-      margin: 0 0 2rem 0;
     `
   )}
 `;

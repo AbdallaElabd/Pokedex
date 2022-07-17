@@ -59,6 +59,7 @@ module.exports = {
     "react-hooks/exhaustive-deps": "warn",
     "react/react-in-jsx-scope": "off",
     "react/require-default-props": "off",
+    "@typescript-eslint/no-unused-vars": "error",
   },
   settings: {
     "import/parsers": {

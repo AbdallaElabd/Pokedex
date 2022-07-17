@@ -76,7 +76,12 @@ export function PokemonList() {
       ) : (
         <CardsContainer>
           {pokemonList.map((pokemon) => (
-            <PokemonCard pokemon={pokemon} key={pokemon.name} />
+            <PokemonCard
+              key={pokemon.name}
+              pokemon={pokemon}
+              searchText={searchText}
+              searchBy={searchBy}
+            />
           ))}
         </CardsContainer>
       )}

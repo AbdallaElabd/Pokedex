@@ -19,12 +19,8 @@ export const cssReset = css`
   body {
     height: 100%;
   }
-  /* Typographic tweaks!
-      Add accessible line-height
-      Improve text rendering
-  */
+  /* Improve text rendering */
   body {
-    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
   /* Improve media defaults */
