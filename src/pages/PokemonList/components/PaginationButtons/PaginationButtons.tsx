@@ -1,7 +1,7 @@
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Container, StyledButton } from './styled';
+import { Container, StyledButton } from "./styled";
 
 interface PaginationButtonsProps {
   hasPrevious: boolean;
@@ -18,7 +18,11 @@ export function PaginationButtons({
 }: PaginationButtonsProps) {
   return (
     <Container>
-      <StyledButton disabled={!hasPrevious} variant="primary" onClick={previous}>
+      <StyledButton
+        disabled={!hasPrevious}
+        variant="primary"
+        onClick={previous}
+      >
         <FontAwesomeIcon icon={faArrowLeft} />
         Previous
       </StyledButton>

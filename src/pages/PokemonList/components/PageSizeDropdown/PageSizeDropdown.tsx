@@ -1,13 +1,11 @@
-import { PageSize } from '@api/queries';
-import { Dropdown } from '@components';
-import {
-  faChevronDown,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { PageSize } from "@api/queries";
+import { Dropdown } from "@components";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Container, Option, StyledButton } from './styled';
+import { Container, Option, StyledButton } from "./styled";
 
-const PAGE_SIZE_OPTIONS: PageSize[] = ['10', '20', '50'];
+const PAGE_SIZE_OPTIONS: PageSize[] = ["10", "20", "50"];
 
 interface PageSizeDropdownProps {
   pageSize: PageSize;
@@ -21,15 +19,13 @@ export function PageSizeDropdown({
   return (
     <Container>
       <Dropdown
-        toggler={(
+        toggler={
           <StyledButton variant="primary">
-            Page size:
-            {' '}
-            {pageSize}
+            Page size: {pageSize}
             <FontAwesomeIcon icon={faChevronDown} />
           </StyledButton>
-        )}
-        content={(
+        }
+        content={
           <>
             {PAGE_SIZE_OPTIONS.map((option) => (
               <Option
@@ -41,7 +37,7 @@ export function PageSizeDropdown({
               </Option>
             ))}
           </>
-        )}
+        }
       />
     </Container>
   );

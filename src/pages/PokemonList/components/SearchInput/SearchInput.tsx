@@ -1,12 +1,12 @@
-import { SearchByAttribute } from '@api/queries';
-import { Dropdown } from '@components';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { theme } from '@styles/theme';
-import { ChangeEventHandler, useCallback } from 'react';
-import styled from 'styled-components';
+import { SearchByAttribute } from "@api/queries";
+import { Dropdown } from "@components";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { theme } from "@styles/theme";
+import { ChangeEventHandler, useCallback } from "react";
+import styled from "styled-components";
 
-import { StyledButton } from './styled';
+import { StyledButton } from "./styled";
 
 interface SearchInputProps {
   searchText: string;
@@ -21,7 +21,7 @@ const StyledInput = styled.input`
   border: 1px solid ${theme.colors.black};
 `;
 
-const SEARCH_BY_ATTRIBUTES: SearchByAttribute[] = ['name', 'ability'];
+const SEARCH_BY_ATTRIBUTES: SearchByAttribute[] = ["name", "ability"];
 
 export function SearchInput({
   searchText,
@@ -33,25 +33,20 @@ export function SearchInput({
     (event) => {
       setSearchText(event.target.value);
     },
-    [setSearchText],
+    [setSearchText]
   );
   return (
     <>
       <Dropdown
-        toggler={(
+        toggler={
           <StyledButton variant="primary">
-            Search by:
-            {' '}
-            {searchBy}
+            Search by: {searchBy}
             <FontAwesomeIcon icon={faSearch} />
           </StyledButton>
-        )}
+        }
         content={SEARCH_BY_ATTRIBUTES.map((attribute) => (
           // eslint-disable-next-line react/button-has-type
-          <button
-            key={attribute}
-            onClick={() => setSearchBy(attribute)}
-          >
+          <button key={attribute} onClick={() => setSearchBy(attribute)}>
             {attribute}
           </button>
         ))}

@@ -1,10 +1,11 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren } from "react";
 
-import {
-  Backdrop, Container, Content, Title,
-} from './styled';
+import { Backdrop, Container, Content, Title } from "./styled";
 
-export function Page({ title, children }: PropsWithChildren<{ title: string }>) {
+export function Page({
+  title,
+  children,
+}: PropsWithChildren<{ title: string }>) {
   return (
     <>
       <Backdrop />

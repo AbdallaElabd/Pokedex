@@ -1,13 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import {
-  ImgHTMLAttributes,
-  useEffect,
-  useState,
-} from 'react';
+import { ImgHTMLAttributes, useEffect, useState } from "react";
 
-import { Placeholder, StyledImage } from './styled';
+import { Placeholder, StyledImage } from "./styled";
 
-export function LazyImage({ src, ...rest }:ImgHTMLAttributes<HTMLImageElement>) {
+export function LazyImage({
+  src,
+  ...rest
+}: ImgHTMLAttributes<HTMLImageElement>) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   useEffect(() => {

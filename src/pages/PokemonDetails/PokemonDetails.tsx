@@ -1,6 +1,6 @@
-import { useGetPokemonDetails } from '@api/queries';
-import { Spinner } from '@components';
-import { useParams } from 'react-router-dom';
+import { useGetPokemonDetails } from "@api/queries";
+import { Spinner } from "@components";
+import { useParams } from "react-router-dom";
 
 export function PokemonDetails() {
   const { pokemonName } = useParams();

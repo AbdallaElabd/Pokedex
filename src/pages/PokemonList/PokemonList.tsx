@@ -1,14 +1,20 @@
-import { useGetPokemonList } from '@api/queries';
+import { useGetPokemonList } from "@api/queries";
 
 import {
   PageSizeDropdown,
-  PaginationButtons, PokemonCard, SearchInput, SortByDropdown,
-} from './components';
+  PaginationButtons,
+  PokemonCard,
+  SearchInput,
+  SortByDropdown,
+} from "./components";
 import {
-  CardsContainer, Container, NotFound,
+  CardsContainer,
+  Container,
+  NotFound,
   Separator,
-  StyledSpinner, TopRow,
-} from './styled';
+  StyledSpinner,
+  TopRow,
+} from "./styled";
 
 export function PokemonList() {
   const {
@@ -76,12 +82,12 @@ export function PokemonList() {
       )}
 
       {pokemonList.length !== 0 && (
-      <PaginationButtons
-        hasPrevious={hasPrevious}
-        previous={previous}
-        hasNext={hasNext}
-        next={next}
-      />
+        <PaginationButtons
+          hasPrevious={hasPrevious}
+          previous={previous}
+          hasNext={hasNext}
+          next={next}
+        />
       )}
     </Container>
   );

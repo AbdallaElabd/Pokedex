@@ -1,26 +1,17 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { type PokeAPI } from 'pokeapi-types';
+import { type PokeAPI } from "pokeapi-types";
 
 interface PokemonSprites extends PokeAPI.PokemonSprites {
   other: {
-    ['official-artwork']?: {
+    ["official-artwork"]?: {
       front_default?: string;
-    }
-  }
+    };
+  };
 }
 
 export interface Pokemon extends PokeAPI.Pokemon {
-  sprites: PokemonSprites
+  sprites: PokemonSprites;
 }
-
-// {
-//   id: string;
-//   name: string;
-//   weight: number;
-//   height: number;
-//   image: string;
-//   abilities: string[];
-// };
 
 type PokemonListReponse = {
   count: number;
@@ -28,18 +19,6 @@ type PokemonListReponse = {
   previous: string | null;
   results: { name: string; url: string }[];
 };
-
-const mapPokemon = (pokemonDetails: any) => ({
-  id: pokemonDetails.id,
-  name: pokemonDetails.name,
-  height: pokemonDetails.height,
-  weight: pokemonDetails.weight,
-  image:
-      pokemonDetails.sprites?.other?.['official-artwork']?.front_default,
-  abilities: (pokemonDetails.abilities ?? []).map(
-    (ability: any) => ability?.ability?.name,
-  ),
-});
 
 class PokemonCache {
   private allPokemon: Map<string, Pokemon> | null = null;
@@ -53,15 +32,19 @@ class PokemonCache {
   async getAllPokemon() {
     if (this.allPokemon !== null) return this.allPokemon;
     try {
-      const { results: pokemonList } = await PokemonCache.endpoint('https://pokeapi.co/api/v2/pokemon?offset=0&limit=1500') as PokemonListReponse;
+      const { results: pokemonList } = (await PokemonCache.endpoint(
+        "https://pokeapi.co/api/v2/pokemon?offset=0&limit=1500"
+      )) as PokemonListReponse;
 
       const pokemonData = new Map<string, Pokemon>();
 
       const pokemonListDetails: Pokemon[] = await Promise.all(
-        pokemonList.map(({ url }) => PokemonCache.endpoint(url)),
+        pokemonList.map(({ url }) => PokemonCache.endpoint(url))
       );
 
-      pokemonListDetails.forEach((pokemon) => pokemonData.set(pokemon.name, pokemon));
+      pokemonListDetails.forEach((pokemon) =>
+        pokemonData.set(pokemon.name, pokemon)
+      );
       this.allPokemon = pokemonData;
       return this.allPokemon;
     } catch (error) {

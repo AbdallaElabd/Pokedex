@@ -1,1 +1,1 @@
-export * from './PageSizeDropdown';
+export * from "./PageSizeDropdown";

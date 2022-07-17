@@ -1,5 +1,5 @@
-import { Button } from '@components';
-import styled from 'styled-components';
+import { Button } from "@components";
+import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ export const Option = styled.button<{ isSelected: boolean }>`
   text-transform: capitalize;
 
   border: none;
-  background: ${({ isSelected }) => (isSelected ? '#fff' : '#fff')};
+  background: ${({ isSelected }) => (isSelected ? "#fff" : "#fff")};
   cursor: pointer;
 
   :not(:last-child) {

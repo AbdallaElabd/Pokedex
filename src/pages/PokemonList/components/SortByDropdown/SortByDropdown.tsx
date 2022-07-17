@@ -1,17 +1,17 @@
-import { SortByAttribute, SortOrder } from '@api/queries';
-import { Button, Dropdown } from '@components';
+import { SortByAttribute, SortOrder } from "@api/queries";
+import { Button, Dropdown } from "@components";
 import {
   faChevronDown,
   faSortAlphaAsc,
   faSortAlphaDesc,
   faSortAmountAsc,
   faSortAmountDesc,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Container, Option, StyledButton } from './styled';
+import { Container, Option, StyledButton } from "./styled";
 
-const SORT_BY_ATTRIBUTES: SortByAttribute[] = ['name', 'height', 'weight'];
+const SORT_BY_ATTRIBUTES: SortByAttribute[] = ["name", "height", "weight"];
 
 interface SortByDropdownProps {
   sortBy: SortByAttribute;
@@ -26,35 +26,33 @@ export function SortByDropdown({
   sortOrder,
   toggleSortOrder,
 }: SortByDropdownProps) {
-  let sortIcon = sortOrder === 'ascending' ? faSortAlphaAsc : faSortAlphaDesc;
-  if (sortBy !== 'name') {
-    sortIcon = sortOrder === 'ascending' ? faSortAmountAsc : faSortAmountDesc;
+  let sortIcon = sortOrder === "ascending" ? faSortAlphaAsc : faSortAlphaDesc;
+  if (sortBy !== "name") {
+    sortIcon = sortOrder === "ascending" ? faSortAmountAsc : faSortAmountDesc;
   }
 
   return (
     <Container>
       <Dropdown
-        toggler={(
+        toggler={
           <StyledButton variant="primary">
-            Sort by:
-            {' '}
-            {sortBy}
+            Sort by: {sortBy}
             <FontAwesomeIcon icon={faChevronDown} />
           </StyledButton>
-        )}
-        content={(
+        }
+        content={
           <>
             {SORT_BY_ATTRIBUTES.map((attribute) => (
               <Option
                 key={attribute}
-                isSelected={sortBy === 'name'}
+                isSelected={sortBy === "name"}
                 onClick={() => setSortAttribute(attribute)}
               >
                 {attribute}
               </Option>
             ))}
           </>
-        )}
+        }
       />
 
       <Button variant="primary" onClick={toggleSortOrder}>

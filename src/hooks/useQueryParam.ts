@@ -1,16 +1,20 @@
-import { useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export const useQueryParam = <T>(
-  type: 'string'|'number',
+  type: "string" | "number",
   parameter: string,
-  defaultValue: T,
-):[T, (text: T) => void] => {
+  defaultValue: T
+): [T, (text: T) => void] => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const valueFromURL = searchParams.get(parameter);
 
-  const value = ((type === 'number') ? (Number(valueFromURL) || defaultValue) : (valueFromURL || defaultValue)) as T;
+  const value = (
+    type === "number"
+      ? Number(valueFromURL) || defaultValue
+      : valueFromURL || defaultValue
+  ) as T;
 
   const setValue = useCallback(
     (newValue: T) => {
@@ -24,7 +28,7 @@ export const useQueryParam = <T>(
 
       setSearchParams(newSearchParams.toString());
     },
-    [defaultValue, setSearchParams, parameter],
+    [defaultValue, setSearchParams, parameter]
   );
 
   return [value, setValue];

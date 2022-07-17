@@ -1,6 +1,6 @@
-import { theme } from '@styles/theme';
-import { PropsWithChildren } from 'react';
-import styled from 'styled-components';
+import { theme } from "@styles/theme";
+import { PropsWithChildren } from "react";
+import styled from "styled-components";
 
 const Container = styled.div`
   border-radius: 1rem;
@@ -8,6 +8,6 @@ const Container = styled.div`
   box-shadow: ${theme.shadow.one};
 `;
 
-export function Card({ children }:PropsWithChildren) {
+export function Card({ children }: PropsWithChildren) {
   return <Container>{children}</Container>;
 }
