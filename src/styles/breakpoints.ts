@@ -2,7 +2,7 @@ import { css, FlattenSimpleInterpolation } from 'styled-components';
 
 export const onBreakPoint = (
   breakpoint: 'sm' | 'md' | 'lg' | 'xl',
-  styles: FlattenSimpleInterpolation
+  styles: FlattenSimpleInterpolation,
 ) => {
   switch (breakpoint) {
     case 'sm':

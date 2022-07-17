@@ -2,7 +2,7 @@ import { useGetPokemonDetails } from '@api/queries';
 import { Spinner } from '@components';
 import { useParams } from 'react-router-dom';
 
-export const PokemonDetails = () => {
+export function PokemonDetails() {
   const { pokemonName } = useParams();
 
   const { isLoading, pokemonDetails } = useGetPokemonDetails(pokemonName);
@@ -16,4 +16,4 @@ export const PokemonDetails = () => {
       <h2>{pokemonDetails?.name}</h2>
     </div>
   );
-};
+}

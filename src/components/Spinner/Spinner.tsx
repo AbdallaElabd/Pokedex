@@ -1,6 +1,5 @@
 import { animations } from '@styles/animations';
-import { FunctionComponent } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 import pokeball from './pokeball.png';
 
@@ -24,10 +23,10 @@ interface SpinnerProps {
   size?: Size;
 }
 
-export const Spinner: FunctionComponent<SpinnerProps> = ({
+export function Spinner({
   className,
   size = 'lg',
-}) => {
+}: SpinnerProps) {
   return (
     <StyledImage
       className={className}
@@ -36,4 +35,4 @@ export const Spinner: FunctionComponent<SpinnerProps> = ({
       size={size}
     />
   );
-};
+}

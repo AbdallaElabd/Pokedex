@@ -1,5 +1,3 @@
-import { API_URL, endpoint } from './api';
-
 export type Pokemon = {
   id: string;
   name: string;
@@ -19,38 +17,38 @@ type PokemonListReponse = {
 class PokemonCache {
   private allPokemon: Map<string, Pokemon> | null = null;
 
+  static async endpoint(url: string) {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(response.statusText);
+    return response.json();
+  }
+
   async getAllPokemon() {
     if (this.allPokemon !== null) return this.allPokemon;
     try {
-      const { results: pokemonList } = await endpoint<PokemonListReponse>(
-        `${API_URL}/pokemon?offset=0&limit=1500`
-      );
+      const { results: pokemonList } = await PokemonCache.endpoint('https://pokeapi.co/api/v2/pokemon?offset=0&limit=1500') as PokemonListReponse;
 
       const pokemonData = new Map<string, Pokemon>();
 
       const pokemonListDetails: Pokemon[] = await Promise.all(
-        pokemonList.map(({ url }) =>
-          endpoint(url).then((pokemonData: any) => ({
-            id: pokemonData.id,
-            name: pokemonData.name,
-            height: pokemonData.height,
-            weight: pokemonData.weight,
-            image:
-              pokemonData.sprites?.other?.['official-artwork']?.front_default,
-            abilities: (pokemonData.abilities ?? []).map(
-              (ability: any) => ability?.ability?.name
-            ),
-          }))
-        )
+        pokemonList.map(({ url }) => PokemonCache.endpoint(url).then((pokemonDetails) => ({
+          id: pokemonDetails.id,
+          name: pokemonDetails.name,
+          height: pokemonDetails.height,
+          weight: pokemonDetails.weight,
+          image:
+              pokemonDetails.sprites?.other?.['official-artwork']?.front_default,
+          abilities: (pokemonDetails.abilities ?? []).map(
+            (ability: any) => ability?.ability?.name,
+          ),
+        }))),
       );
 
-      pokemonListDetails.forEach((pokemon) =>
-        pokemonData.set(pokemon.name, pokemon)
-      );
+      pokemonListDetails.forEach((pokemon) => pokemonData.set(pokemon.name, pokemon));
       this.allPokemon = pokemonData;
       return this.allPokemon;
     } catch (error) {
-      console.error("Couldn't load pokemon list.");
+      throw new Error(`Couldn't load pokemon list. Error: ${error}`);
     }
   }
 
