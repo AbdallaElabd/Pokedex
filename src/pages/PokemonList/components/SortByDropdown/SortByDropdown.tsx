@@ -36,6 +36,8 @@ export function SortByDropdown({
       <Dropdown
         toggler={(
           <StyledButton variant="primary">
+            Sort by:
+            {' '}
             {sortBy}
             <FontAwesomeIcon icon={faChevronDown} />
           </StyledButton>

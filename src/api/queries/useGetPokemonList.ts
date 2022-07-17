@@ -1,17 +1,17 @@
 import { useQueryParam } from '@hooks/useQueryParam';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useQuery } from 'react-query';
 
 import { pokemonCache } from '../cache';
 
-type Limit = '10' | '20' | '50';
-const defaultLimit: Limit = '10';
-type SearchByAttribute = 'name' | 'ability';
+export type PageSize = '10' | '20' | '50';
+const defaultPageSize: PageSize = '10';
+export type SearchByAttribute = 'name' | 'ability';
 export type SortByAttribute = 'name' | 'height' | 'weight';
 export type SortOrder = 'ascending' | 'descending';
 
 type GetPokemonListParams = {
-  limit: Limit;
+  pageSize: PageSize;
   offset: number;
   searchText: string;
   searchBy: SearchByAttribute;
@@ -20,7 +20,7 @@ type GetPokemonListParams = {
 };
 
 const getPokemonListQuery = async ({
-  limit,
+  pageSize,
   offset,
   searchText,
   searchBy,
@@ -31,44 +31,49 @@ const getPokemonListQuery = async ({
 
   if (!allPokemonList) return undefined;
 
-  const pokemonList = [...allPokemonList]
+  const filteredList = [...allPokemonList]
     .map(([, pokemon]) => pokemon)
     .filter((pokemon) => {
       if (!searchText) return true;
       if (searchBy === 'name') {
         return pokemon.name.includes(searchText.toLowerCase());
       }
-      return pokemon.abilities.some((ability) => ability.includes(searchText.toLowerCase()));
+      return pokemon.abilities.some(
+        (ability) => ability.ability.name.includes(searchText.toLowerCase()),
+      );
     })
     .sort((p1, p2) => {
       if (sortOrder === 'descending') {
         return p1[sortBy] < p2[sortBy] ? 1 : -1;
       }
       return p2[sortBy] > p1[sortBy] ? -1 : 1;
-    })
-    .slice(offset, offset + Number(limit) || Number(defaultLimit));
+    });
 
-  return { totalCount: allPokemonList.size, pokemonList };
+  const sliced = filteredList.slice(offset, offset + Number(pageSize) || Number(defaultPageSize));
+
+  return { totalCount: filteredList.length, pokemonList: sliced };
 };
 
 export const useGetPokemonList = () => {
-  const [limit, setLimit] = useQueryParam<Limit>('limit', defaultLimit);
-  const [offset, setOffset] = useState<number>(0);
-  const [searchText, setSearchText] = useQueryParam<string>('searchText', '');
+  const [pageSize, setPageSize] = useQueryParam<PageSize>('string', 'pageSize', defaultPageSize);
+  const [offset, setOffset] = useQueryParam<number>('number', 'offset', 0);
+  const [searchText, setSearchText] = useQueryParam<string>('string', 'searchText', '');
   const [searchBy, setSearchBy] = useQueryParam<SearchByAttribute>(
+    'string',
     'searchBy',
     'name',
   );
-  const [sortBy, setSortBy] = useQueryParam<SortByAttribute>('sortBy', 'name');
+  const [sortBy, setSortBy] = useQueryParam<SortByAttribute>('string', 'sortBy', 'name');
   const [sortOrder, setSortOrder] = useQueryParam<SortOrder>(
+    'string',
     'sortOrder',
     'ascending',
   );
 
   const { data, isLoading, isSuccess } = useQuery(
-    ['pokemonList', limit, offset, searchText, searchBy, sortBy, sortOrder],
+    ['pokemonList', pageSize, offset, searchText, searchBy, sortBy, sortOrder],
     () => getPokemonListQuery({
-      limit,
+      pageSize,
       offset,
       searchText,
       searchBy,
@@ -81,21 +86,21 @@ export const useGetPokemonList = () => {
   const hasPrevious = offset > 0;
   const previous = useCallback(() => {
     if (hasPrevious) {
-      setOffset(offset - (Number(limit) || Number(defaultLimit)));
+      setOffset(offset - (Number(pageSize) || Number(defaultPageSize)));
     }
-  }, [hasPrevious, offset, limit]);
+  }, [hasPrevious, setOffset, offset, pageSize]);
 
-  const hasNext = !!(data && data.pokemonList.length > offset);
+  const hasNext = !!(data && data.totalCount > (Number(pageSize) + offset));
   const next = useCallback(() => {
     if (hasNext) {
-      setOffset(offset + (Number(limit) || Number(defaultLimit)));
+      setOffset(offset + (Number(pageSize) || Number(defaultPageSize)));
     }
-  }, [hasNext, limit, offset]);
+  }, [hasNext, pageSize, offset, setOffset]);
 
   const toggleSortOrder = useCallback(() => {
     setSortOrder(sortOrder === 'ascending' ? 'descending' : 'ascending');
     setOffset(0);
-  }, [setSortOrder, sortOrder]);
+  }, [setOffset, setSortOrder, sortOrder]);
 
   const setSortAttribute = useCallback(
     (sortByAttribute: SortByAttribute) => {
@@ -103,7 +108,7 @@ export const useGetPokemonList = () => {
       setSortOrder('ascending');
       setOffset(0);
     },
-    [setSortBy, setSortOrder],
+    [setOffset, setSortBy, setSortOrder],
   );
 
   const search = useCallback(
@@ -111,22 +116,22 @@ export const useGetPokemonList = () => {
       setSearchText(text);
       setOffset(0);
     },
-    [setSearchText],
+    [setOffset, setSearchText],
   );
 
-  const setPageSize = useCallback(
-    (newLimit: Limit) => {
-      setLimit(newLimit);
+  const changePageSize = useCallback(
+    (newPageSize: PageSize) => {
+      setPageSize(newPageSize);
       setOffset(0);
     },
-    [setLimit],
+    [setPageSize, setOffset],
   );
 
   return {
     pokemonList: data?.pokemonList,
     isLoading,
     isSuccess,
-    limit,
+    pageSize,
     offset,
     searchText,
     searchBy,
@@ -137,7 +142,7 @@ export const useGetPokemonList = () => {
     next,
     previous,
     search,
-    setPageSize,
+    changePageSize,
     setSearchBy,
     setSortAttribute,
     toggleSortOrder,

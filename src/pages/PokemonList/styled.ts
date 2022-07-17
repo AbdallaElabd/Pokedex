@@ -18,7 +18,16 @@ export const TopRow = styled.div`
 align-self: stretch;
 display: flex;
 align-items: center;
-justify-content: space-between;
+justify-content: flex-end;
+flex-wrap: wrap;
+gap: 1rem;
+`;
+
+export const Separator = styled.div`
+background-color: #d3e1e5;
+height: 1px;
+width: 100%;
+margin: 0.5rem 0;
 `;
 
 export const CardsContainer = styled.div`
@@ -46,4 +55,12 @@ ${onBreakPoint(
     --columns: 5;
   `,
   )};
+`;
+
+export const NotFound = styled.div`
+display: flex;
+flex-direction: column;
+flex: 1;
+margin: 2rem;
+font-size: 1.5rem;
 `;

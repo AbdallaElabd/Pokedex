@@ -11,7 +11,7 @@ export function PokemonCard({
     <Link to={`/pokemon/${pokemon.name}`}>
       <Card>
         <Container>
-          <StyledLazyImage src={pokemon.image} alt={pokemon.name} />
+          <StyledLazyImage src={pokemon.sprites.other?.['official-artwork']?.front_default} alt={pokemon.name} />
           <Row>{pokemon.name}</Row>
           <Row>
             Height:

@@ -18,18 +18,14 @@ export function PaginationButtons({
 }: PaginationButtonsProps) {
   return (
     <Container>
-      {hasPrevious && (
-      <StyledButton variant="primary" onClick={previous}>
+      <StyledButton disabled={!hasPrevious} variant="primary" onClick={previous}>
         <FontAwesomeIcon icon={faArrowLeft} />
         Previous
       </StyledButton>
-      )}
-      {hasNext && (
-      <StyledButton variant="primary" onClick={next}>
+      <StyledButton disabled={!hasNext} variant="primary" onClick={next}>
         Next
         <FontAwesomeIcon icon={faArrowRight} />
       </StyledButton>
-      )}
     </Container>
   );
 }

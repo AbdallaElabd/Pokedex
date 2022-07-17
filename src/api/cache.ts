@@ -1,11 +1,26 @@
-export type Pokemon = {
-  id: string;
-  name: string;
-  weight: number;
-  height: number;
-  image: string;
-  abilities: string[];
-};
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { type PokeAPI } from 'pokeapi-types';
+
+interface PokemonSprites extends PokeAPI.PokemonSprites {
+  other: {
+    ['official-artwork']?: {
+      front_default?: string;
+    }
+  }
+}
+
+export interface Pokemon extends PokeAPI.Pokemon {
+  sprites: PokemonSprites
+}
+
+// {
+//   id: string;
+//   name: string;
+//   weight: number;
+//   height: number;
+//   image: string;
+//   abilities: string[];
+// };
 
 type PokemonListReponse = {
   count: number;
@@ -13,6 +28,18 @@ type PokemonListReponse = {
   previous: string | null;
   results: { name: string; url: string }[];
 };
+
+const mapPokemon = (pokemonDetails: any) => ({
+  id: pokemonDetails.id,
+  name: pokemonDetails.name,
+  height: pokemonDetails.height,
+  weight: pokemonDetails.weight,
+  image:
+      pokemonDetails.sprites?.other?.['official-artwork']?.front_default,
+  abilities: (pokemonDetails.abilities ?? []).map(
+    (ability: any) => ability?.ability?.name,
+  ),
+});
 
 class PokemonCache {
   private allPokemon: Map<string, Pokemon> | null = null;
@@ -31,17 +58,7 @@ class PokemonCache {
       const pokemonData = new Map<string, Pokemon>();
 
       const pokemonListDetails: Pokemon[] = await Promise.all(
-        pokemonList.map(({ url }) => PokemonCache.endpoint(url).then((pokemonDetails) => ({
-          id: pokemonDetails.id,
-          name: pokemonDetails.name,
-          height: pokemonDetails.height,
-          weight: pokemonDetails.weight,
-          image:
-              pokemonDetails.sprites?.other?.['official-artwork']?.front_default,
-          abilities: (pokemonDetails.abilities ?? []).map(
-            (ability: any) => ability?.ability?.name,
-          ),
-        }))),
+        pokemonList.map(({ url }) => PokemonCache.endpoint(url)),
       );
 
       pokemonListDetails.forEach((pokemon) => pokemonData.set(pokemon.name, pokemon));

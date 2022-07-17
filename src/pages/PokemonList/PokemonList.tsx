@@ -1,10 +1,13 @@
 import { useGetPokemonList } from '@api/queries';
 
 import {
+  PageSizeDropdown,
   PaginationButtons, PokemonCard, SearchInput, SortByDropdown,
 } from './components';
 import {
-  CardsContainer, Container, StyledSpinner, TopRow,
+  CardsContainer, Container, NotFound,
+  Separator,
+  StyledSpinner, TopRow,
 } from './styled';
 
 export function PokemonList() {
@@ -21,6 +24,10 @@ export function PokemonList() {
     next,
     search,
     searchText,
+    searchBy,
+    setSearchBy,
+    changePageSize,
+    pageSize,
   } = useGetPokemonList();
 
   if (isLoading || !pokemonList) {
@@ -34,27 +41,48 @@ export function PokemonList() {
   return (
     <Container>
       <TopRow>
-        <SearchInput searchText={searchText} setSearchText={search} />
+        <SearchInput
+          searchText={searchText}
+          setSearchText={search}
+          searchBy={searchBy}
+          setSearchBy={setSearchBy}
+        />
         <SortByDropdown
           sortBy={sortBy}
           sortOrder={sortOrder}
           setSortAttribute={setSortAttribute}
           toggleSortOrder={toggleSortOrder}
         />
-        <PaginationButtons {...{
-          hasPrevious, previous, hasNext, next,
-        }}
+        <div style={{ flex: 1 }} />
+        <PageSizeDropdown changePageSize={changePageSize} pageSize={pageSize} />
+        <PaginationButtons
+          hasPrevious={hasPrevious}
+          previous={previous}
+          hasNext={hasNext}
+          next={next}
         />
       </TopRow>
-      <CardsContainer>
-        {pokemonList.map((pokemon) => (
-          <PokemonCard pokemon={pokemon} key={pokemon.name} />
-        ))}
-      </CardsContainer>
-      <PaginationButtons {...{
-        hasPrevious, previous, hasNext, next,
-      }}
+
+      <Separator />
+
+      {pokemonList.length === 0 ? (
+        <NotFound>No Pokémon. Try a different search term.</NotFound>
+      ) : (
+        <CardsContainer>
+          {pokemonList.map((pokemon) => (
+            <PokemonCard pokemon={pokemon} key={pokemon.name} />
+          ))}
+        </CardsContainer>
+      )}
+
+      {pokemonList.length !== 0 && (
+      <PaginationButtons
+        hasPrevious={hasPrevious}
+        previous={previous}
+        hasNext={hasNext}
+        next={next}
       />
+      )}
     </Container>
   );
 }
