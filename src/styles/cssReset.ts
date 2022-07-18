@@ -14,10 +14,9 @@ export const cssReset = css`
   * {
     margin: 0;
   }
-  /* Allow percentage-based heights in the application */
   html,
   body {
-    height: 100%;
+    min-height: 100%;
   }
   /* Improve text rendering */
   body {
@@ -32,13 +31,7 @@ export const cssReset = css`
     display: block;
     max-width: 100%;
   }
-  /* Remove built-in form typography styles */
-  input,
-  button,
-  textarea,
-  select {
-    font: inherit;
-  }
+
   /* Avoid text overflows */
   p,
   h1,
@@ -49,6 +42,11 @@ export const cssReset = css`
   h6 {
     overflow-wrap: break-word;
   }
+
+  button {
+    font-size: 1rem;
+  }
+
   /* Create a root stacking context */
   #root {
     isolation: isolate;

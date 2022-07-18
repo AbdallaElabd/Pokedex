@@ -12,6 +12,7 @@ module.exports = {
     "airbnb",
     "prettier",
     "plugin:@typescript-eslint/recommended",
+    "plugin:storybook/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -36,7 +37,7 @@ module.exports = {
         usePrettierrc: false,
       },
     ],
-    "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
+    "react/jsx-filename-extension": [1, { extensions: [".tsx", ".mdx"] }],
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -49,7 +50,7 @@ module.exports = {
     ],
     "import/no-extraneous-dependencies": [
       "error",
-      { devDependencies: ["**/*.test.(ts|tsx)", "vite.config.ts"] },
+      { devDependencies: ["**/*.test.(ts|tsx)"] },
     ],
     "import/no-unresolved": "error",
     "import/prefer-default-export": "off",

@@ -14,9 +14,8 @@ const shimmer = keyframes`
 `;
 
 export const StyledImage = styled.div<{
-  src: string | undefined;
-  isLoading: boolean;
-  isError: boolean;
+  image: string | undefined;
+  status: AsyncStatus;
 }>`
   display: flex;
   height: 100%;
@@ -29,13 +28,8 @@ export const StyledImage = styled.div<{
   background-repeat: no-repeat;
   background-position: center center;
 
-  ${({ src, isLoading, isError }) => {
-    if (!src || isError)
-      return css`
-        background-image: url(${noPokemonImage});
-      `;
-
-    if (isLoading)
+  ${({ image, status }) => {
+    if (status === "pending")
       return css`
         background-color: #e5e5e5;
 
@@ -58,7 +52,9 @@ export const StyledImage = styled.div<{
       `;
 
     return css`
-      background-image: url(${src});
+      background-image: url(${!image || status === "failed"
+        ? noPokemonImage
+        : image});
     `;
   }}
 `;

@@ -15,8 +15,8 @@ export const Backdrop = styled.div`
 
 export const Container = styled.div`
   position: relative;
-  min-height: calc(100vh - 2 * var(--gutter));
-  padding: var(--gutter);
+  /* min-height: calc(100vh - 2 * var(--gutter)); */
+  padding: 0 var(--gutter);
   --gutter: 0rem;
   ${onBreakPoint(
     "sm",
@@ -37,9 +37,11 @@ export const Title = styled(Text).attrs({ variant: "h2" })`
   color: #fff;
   padding: 1rem 0;
   text-align: center;
+  padding: 0.5em 0;
   ${onBreakPoint(
     "sm",
     css`
+      padding: 0.8em 0;
       text-align: initial;
     `
   )}
@@ -51,7 +53,7 @@ export const Content = styled.div`
   background-color: ${theme.colors.white};
   padding: 2rem;
   border-radius: 0;
-  box-shadow: ${theme.shadow.five};
+  box-shadow: ${theme.shadow[8]};
   ${onBreakPoint(
     "sm",
     css`

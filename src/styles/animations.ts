@@ -9,6 +9,17 @@ const fadeIn = keyframes`
   }
 `;
 
+const slideIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const bouncing = keyframes`
   20%,50%,80%,to {
     transform: translateY(0);
@@ -24,4 +35,4 @@ const bouncing = keyframes`
   }
 `;
 
-export const animations = { fadeIn, bouncing };
+export const animations = { fadeIn, slideIn, bouncing };

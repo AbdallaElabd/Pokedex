@@ -1,12 +1,19 @@
 import { SearchByAttribute } from "@api/queries";
 import { Dropdown } from "@components";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBoltLightning,
+  faFont,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { theme } from "@styles/theme";
-import { ChangeEventHandler, useCallback } from "react";
-import styled from "styled-components";
 
-import { StyledButton } from "./styled";
+import {
+  SearchIconContainer,
+  SearchInputContainer,
+  StyledInput,
+  StyledText,
+} from "./styled";
 
 interface SearchInputProps {
   searchText: string;
@@ -14,12 +21,6 @@ interface SearchInputProps {
   searchBy: SearchByAttribute;
   setSearchBy: (attribute: SearchByAttribute) => void;
 }
-
-const StyledInput = styled.input`
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  border: 1px solid ${theme.colors.black};
-`;
 
 const SEARCH_BY_ATTRIBUTES: SearchByAttribute[] = ["name", "ability"];
 
@@ -29,29 +30,43 @@ export function SearchInput({
   searchBy,
   setSearchBy,
 }: SearchInputProps) {
-  const handleOnChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (event) => {
-      setSearchText(event.target.value);
-    },
-    [setSearchText]
-  );
   return (
     <>
       <Dropdown
         toggler={
-          <StyledButton variant="primary">
-            Search by: {searchBy}
-            <FontAwesomeIcon icon={faSearch} />
-          </StyledButton>
+          <StyledText variant="button">
+            {`Search by ${searchBy}`}
+            <FontAwesomeIcon
+              icon={searchBy === "ability" ? faBoltLightning : faFont}
+            />
+          </StyledText>
         }
-        content={SEARCH_BY_ATTRIBUTES.map((attribute) => (
-          // eslint-disable-next-line react/button-has-type
-          <button key={attribute} onClick={() => setSearchBy(attribute)}>
-            {attribute}
-          </button>
-        ))}
+        options={SEARCH_BY_ATTRIBUTES}
+        selected={searchBy}
+        renderOption={(option) => (
+          <StyledText variant="body2" capitalize>
+            <FontAwesomeIcon
+              icon={option === "ability" ? faBoltLightning : faFont}
+              size="sm"
+            />
+            {option}
+          </StyledText>
+        )}
+        onOptionClicked={setSearchBy}
       />
-      <StyledInput value={searchText} onChange={handleOnChange} />
+
+      <SearchInputContainer>
+        <StyledInput
+          value={searchText}
+          onChange={(event) => setSearchText(event.target.value)}
+        />
+        <SearchIconContainer>
+          <FontAwesomeIcon
+            icon={faSearch}
+            color={theme.colors.secondaryShadow}
+          />
+        </SearchIconContainer>
+      </SearchInputContainer>
     </>
   );
 }

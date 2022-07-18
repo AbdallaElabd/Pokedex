@@ -5,37 +5,28 @@ import { generateCssVariables } from "./generateCSSVariables";
 import { themeValues } from "./theme";
 
 export const GlobalStyle = createGlobalStyle`
+  ${cssReset};
+
   :root {
     font-family: 'Roboto', Inter, Avenir, Helvetica, Arial, sans-serif;
     ${generateCssVariables(themeValues).join("")};
+    font-size: 16px;
   }
 
-  ${cssReset};
-
   html, body {
-    --font-size-base: 16px;
-    --font-size-base: font-size: clamp(2rem, 4vw, 3rem);
     margin: 0 auto;
-    font-size: var(--font-size-base);
     background-color: #E5E5E5;
+    /**
+      * Fluid Typography
+      * @see https://clamp.font-size.app/?config=eyJyb290IjoiMTYiLCJtaW5XaWR0aCI6IjMyMHB4IiwibWF4V2lkdGgiOiIxMjAwcHgiLCJtaW5Gb250U2l6ZSI6IjE2cHgiLCJtYXhGb250U2l6ZSI6IjM2cHgifQ%3D%3D
+      */
+    font-size: clamp(1.6rem, 0.5rem + 2vw, 2.25rem);
   }
 
   body {
     min-width: 20rem;
     max-width: 90rem;
   }
-
-  /* @media screen and (min-width: 320px) {
-    html {
-      --font-size-base: calc(var(--font-size-base) + 6 * ((100vw - 320px) / 680));
-      
-    }
-  }
-  @media screen and (min-width: 1000px) {
-    html {
-      --font-size-base: 22px;
-    }
-  } */
 
   #root {
     min-height: 100vh;

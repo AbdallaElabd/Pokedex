@@ -2,63 +2,59 @@ import { PropsWithChildren } from "react";
 import styled from "styled-components";
 
 /**
- * @see https://material.io/design/typography/the-type-system.html
+ * h1 | 2em    | 32px
+ * h2 | 1.5em  | 24px
+ * h3 | 1.17em | 18.72px
+ * h4 | 1em    | 16px
+ * h5 | 0.83em | 13.28px
+ * h6 | 0.67em | 10.72px
  */
 const variants = {
   h1: styled.h1`
-    font-size: 6rem;
-    letter-spacing: calc(-1.5 / 1rem);
-    font-weight: light;
+    font-size: 4.6rem;
+    font-weight: lighter;
     margin: 0;
   `,
   h2: styled.h2`
-    font-size: 5rem;
-    letter-spacing: calc(-2.5 / 1rem);
-    font-weight: light;
+    font-size: 3.6rem;
+    font-weight: lighter;
     margin: 0;
   `,
   h3: styled.h3`
-    font-size: 3rem;
-    letter-spacing: 0;
-    font-weight: regular;
+    font-size: 2.8rem;
+    font-weight: lighter;
     margin: 0;
   `,
   h4: styled.h4`
-    font-size: 2.125rem;
-    letter-spacing: calc(0.25 / 1rem);
-    font-weight: regular;
+    font-size: 2.2rem;
+    font-weight: lighter;
     margin: 0;
   `,
   h5: styled.h5`
-    font-size: 1.5rem;
-    letter-spacing: 0;
-    font-weight: regular;
+    font-size: 1.8rem;
+    font-weight: lighter;
     margin: 0;
   `,
   h6: styled.h6`
-    font-size: 1.25rem;
-    letter-spacing: calc(0.15 / 1rem);
+    font-size: 1.6rem;
     font-weight: medium;
+    font-weight: lighter;
     margin: 0;
   `,
   body1: styled.span`
     font-size: 1rem;
-    letter-spacing: calc(0.5 / 1rem);
     font-weight: normal;
   `,
   body2: styled.span`
     font-size: 0.875rem;
-    letter-spacing: calc(0.25 / 1rem);
     font-weight: normal;
   `,
   button: styled.span`
     font-size: 0.875rem;
-    letter-spacing: calc(1.25 / 1rem);
-    font-weight: medium;
+    font-weight: normal;
   `,
   caption: styled.span`
     font-size: 0.75rem;
-    letter-spacing: calc(0.4 / 1rem);
     font-weight: normal;
   `,
 };

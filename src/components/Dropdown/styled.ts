@@ -1,35 +1,49 @@
+import { animations } from "@styles/animations";
 import { theme } from "@styles/theme";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const Content = styled.div`
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #fff;
-  min-width: 110%;
-  z-index: 1;
-  box-shadow: ${theme.shadow.two};
-  border-radius: 0.3rem;
-  overflow: hidden;
+export const PopoverRoot = styled.div`
   display: flex;
-  flex-direction: column;
-  opacity: 0;
-  transform: translateY(-1rem);
-  transition: opacity ${theme.transition.normal},
-    transform ${theme.transition.normal};
-  pointer-events: none;
+  position: relative;
 `;
 
-export const DropDownButton = styled.div`
-  position: relative;
+export const PopoverContent = styled.div<{
+  isOpen: boolean;
+  position: "left" | "right";
+}>`
+  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+  position: absolute;
+  top: calc(100% + 2px);
+  ${({ position }) =>
+    position === "left"
+      ? css`
+          left: 0;
+        `
+      : css`
+          right: 0;
+        `}
+  z-index: 1;
+  flex-direction: column;
+  width: 5rem;
+  box-shadow: ${theme.shadow[2]};
+  overflow: hidden;
+  border-radius: 0.3rem;
+  animation: ${animations.slideIn} ${theme.transition.fast};
+`;
+
+export const Option = styled.button<{ isSelected: boolean }>`
+  background: ${({ isSelected }) => (isSelected ? "#eee" : "#fff")};
+  padding: 0.5rem;
+  cursor: pointer;
+  border: none;
+
+  :not(:last-child) {
+    border-bottom: 1px solid lightgrey;
+  }
 
   :hover,
-  :active,
-  :focus-within {
-    & ${Content} {
-      pointer-events: auto;
-      opacity: 1;
-      transform: translateY(0);
-    }
+  :focus {
+    outline: 0;
+    background: #eee;
   }
 `;

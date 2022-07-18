@@ -59,7 +59,6 @@ export function PokemonList() {
           setSortAttribute={setSortAttribute}
           toggleSortOrder={toggleSortOrder}
         />
-        <div style={{ flex: 1 }} />
         <PageSizeDropdown changePageSize={changePageSize} pageSize={pageSize} />
         <PaginationButtons
           hasPrevious={hasPrevious}

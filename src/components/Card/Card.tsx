@@ -1,15 +1,7 @@
-import { theme } from "@styles/theme";
-import { PropsWithChildren } from "react";
+import { Theme, theme } from "@styles/theme";
 import styled from "styled-components";
 
-const Container = styled.div`
+export const Card = styled.div<{ elevation: keyof Theme["shadow"] }>`
   border-radius: 1rem;
-  box-shadow: ${theme.shadow.one};
+  box-shadow: ${({ elevation }) => theme.shadow[elevation]};
 `;
-
-export function Card({
-  className,
-  children,
-}: PropsWithChildren<{ className?: string }>) {
-  return <Container className={className}>{children}</Container>;
-}
