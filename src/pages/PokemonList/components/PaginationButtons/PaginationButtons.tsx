@@ -1,35 +1,70 @@
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { PageSize } from "@api/queries";
+import { Dropdown, Text } from "@components";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faChevronDown,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { usePokedex } from "@providers/Pokedex";
 
-import { Container, StyledButton } from "./styled";
+import {
+  ButtonsContainer,
+  Container,
+  StyledButton,
+  StyledText,
+} from "./styled";
 
-interface PaginationButtonsProps {
-  hasPrevious: boolean;
-  hasNext: boolean;
-  previous: () => void;
-  next: () => void;
-}
+const PAGE_SIZE_OPTIONS: PageSize[] = ["10", "20", "50"];
 
-export function PaginationButtons({
-  hasPrevious,
-  hasNext,
-  previous,
-  next,
-}: PaginationButtonsProps) {
+export function PaginationButtons() {
+  const {
+    totalCount,
+    hasPrevious,
+    hasNext,
+    previous,
+    next,
+    offset,
+    pageSize,
+    changePageSize,
+  } = usePokedex();
+
+  const pageStart = Number(offset);
+  const pageEnd = Math.min(Number(offset) + Number(pageSize), totalCount ?? 0);
+
   return (
     <Container>
-      <StyledButton
-        disabled={!hasPrevious}
-        variant="primary"
-        onClick={previous}
-      >
-        <FontAwesomeIcon icon={faArrowLeft} />
-        Previous
-      </StyledButton>
-      <StyledButton disabled={!hasNext} variant="primary" onClick={next}>
-        Next
-        <FontAwesomeIcon icon={faArrowRight} />
-      </StyledButton>
+      <StyledText variant="body1">Pokemon per page:</StyledText>
+
+      <Dropdown
+        toggler={
+          <StyledText variant="button">
+            {`${pageSize}`}
+            <FontAwesomeIcon icon={faChevronDown} />
+          </StyledText>
+        }
+        options={PAGE_SIZE_OPTIONS}
+        selected={pageSize}
+        renderOption={(option) => <Text variant="body2">{option}</Text>}
+        onOptionClicked={changePageSize}
+      />
+
+      <StyledText variant="body1">
+        {`${pageStart}-${pageEnd} of ${totalCount}`}
+      </StyledText>
+
+      <ButtonsContainer>
+        <StyledButton
+          disabled={!hasPrevious}
+          variant="primary"
+          onClick={previous}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </StyledButton>
+        <StyledButton disabled={!hasNext} variant="primary" onClick={next}>
+          <FontAwesomeIcon icon={faArrowRight} />
+        </StyledButton>
+      </ButtonsContainer>
     </Container>
   );
 }

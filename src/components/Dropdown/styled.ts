@@ -1,6 +1,5 @@
-import { animations } from "@styles/animations";
 import { theme } from "@styles/theme";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const PopoverRoot = styled.div`
   display: flex;
@@ -9,26 +8,19 @@ export const PopoverRoot = styled.div`
 
 export const PopoverContent = styled.div<{
   isOpen: boolean;
-  position: "left" | "right";
 }>`
-  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+  visibility: ${({ isOpen }) => (isOpen ? "visibile" : "hidden")};
+  pointer-events: visible;
+  display: flex;
   position: absolute;
-  top: calc(100% + 2px);
-  ${({ position }) =>
-    position === "left"
-      ? css`
-          left: 0;
-        `
-      : css`
-          right: 0;
-        `}
+  transition: opacity ${theme.transition.fast};
+  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   z-index: 1;
   flex-direction: column;
   width: 5rem;
   box-shadow: ${theme.shadow[2]};
   overflow: hidden;
   border-radius: 0.3rem;
-  animation: ${animations.slideIn} ${theme.transition.fast};
 `;
 
 export const Option = styled.button<{ isSelected: boolean }>`

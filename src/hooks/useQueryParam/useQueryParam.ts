@@ -1,20 +1,35 @@
 import { useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export const useQueryParam = <T>(
-  type: "string" | "number",
+type QueryParamType = "string" | "number";
+type QueryParamPossibleType = number | string;
+
+export const parseQueryParamValue = <T extends QueryParamPossibleType>(
+  type: QueryParamType,
+  value: string | null,
+  defaultValue: T
+): T => {
+  if (value == null) return defaultValue;
+
+  if (type === "number") {
+    return (Number(value) as T) || defaultValue;
+  }
+
+  return (value as T) || defaultValue;
+};
+
+export const useQueryParam = <T extends QueryParamPossibleType>(
+  type: QueryParamType,
   parameter: string,
   defaultValue: T
 ): [T, (text: T) => void] => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const valueFromURL = searchParams.get(parameter);
-
-  const value = (
-    type === "number"
-      ? Number(valueFromURL) || defaultValue
-      : valueFromURL || defaultValue
-  ) as T;
+  const value = parseQueryParamValue(
+    type,
+    searchParams.get(parameter),
+    defaultValue
+  );
 
   const setValue = useCallback(
     (newValue: T) => {

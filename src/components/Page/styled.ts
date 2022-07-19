@@ -10,12 +10,11 @@ export const Backdrop = styled.div`
   top: 0;
   left: 0;
   height: 14rem;
-  background-color: ${theme.colors.secondary};
+  background-color: ${theme.colors.primary};
 `;
 
 export const Container = styled.div`
   position: relative;
-  /* min-height: calc(100vh - 2 * var(--gutter)); */
   padding: 0 var(--gutter);
   --gutter: 0rem;
   ${onBreakPoint(
@@ -33,8 +32,8 @@ export const Container = styled.div`
 `;
 
 export const Title = styled(Text).attrs({ variant: "h2" })`
+  color: ${theme.colors.onPrimary};
   z-index: 1;
-  color: #fff;
   padding: 1rem 0;
   text-align: center;
   padding: 0.5em 0;
@@ -50,7 +49,9 @@ export const Title = styled(Text).attrs({ variant: "h2" })`
 export const Content = styled.div`
   position: relative;
   z-index: 1;
-  background-color: ${theme.colors.white};
+  background-color: ${theme.colors.surface};
+  color: ${theme.colors.onSuface};
+  margin-bottom: var(--gutter);
   padding: 2rem;
   border-radius: 0;
   box-shadow: ${theme.shadow[8]};

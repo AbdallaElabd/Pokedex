@@ -1,10 +1,10 @@
 /* eslint-disable consistent-return */
-
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { useClickAway, useKey } from "react-use";
 
 import { Button } from "../Button";
 import { Option, PopoverContent, PopoverRoot } from "./styled";
+import { usePositionContent } from "./usePositionContent";
 
 interface DropdownProps<T> {
   toggler: ReactNode;
@@ -21,16 +21,20 @@ export function Dropdown<T extends string>({
   renderOption,
   onOptionClicked,
 }: DropdownProps<T>) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleIsOpen = useCallback(() => {
-    setIsOpen((current) => !current);
-  }, []);
-
   const togglerRef = useRef<HTMLButtonElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
-  useKey("Escape", () => setIsOpen(false));
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openDropdown = useCallback(() => setIsOpen(true), []);
+  const closeDropdown = useCallback(() => {
+    if (isOpen) setIsOpen(false);
+  }, [isOpen]);
+
+  usePositionContent(togglerRef, contentRef);
+  useKey("Escape", closeDropdown);
+  useClickAway(containerRef, closeDropdown);
 
   useEffect(() => {
     const containerElement = containerRef.current;
@@ -41,33 +45,33 @@ export function Dropdown<T extends string>({
         event.relatedTarget as Node
       );
       if (!isFocusedWithin) {
-        setIsOpen(false);
+        closeDropdown();
       }
     };
 
     containerElement.addEventListener<"focusout">("focusout", onFocusOut);
     return () =>
       containerElement.removeEventListener<"focusout">("focusout", onFocusOut);
-  }, [setIsOpen]);
-
-  useClickAway(containerRef, () => {
-    setIsOpen(false);
-  });
+  }, [closeDropdown]);
 
   const handleOptionClicked = useCallback(
     (option: T) => {
       onOptionClicked(option);
-      setIsOpen(false);
+      closeDropdown();
     },
-    [onOptionClicked]
+    [closeDropdown, onOptionClicked]
   );
 
   return (
     <PopoverRoot ref={containerRef}>
-      <Button variant="primary" ref={togglerRef} onClick={toggleIsOpen}>
+      <Button
+        variant="primary"
+        ref={togglerRef}
+        onClick={isOpen ? closeDropdown : openDropdown}
+      >
         {toggler}
       </Button>
-      <PopoverContent isOpen={isOpen} position="right">
+      <PopoverContent ref={contentRef} isOpen={isOpen}>
         {options.map((option) => (
           <Option
             role="button"

@@ -13,7 +13,7 @@ export const parameters = {
       },
       {
         name: "dark",
-        value: theme.colors.secondaryShadow,
+        value: theme.colors.primaryDark,
       },
     ],
   },

@@ -1,32 +1,28 @@
 import { generateCssGetters } from "./generateCSSVariables";
 
-const sandTan = "#e1b382";
-const sandTanShadow = "#c89666";
-const nightBlue = "#2d545e";
-const nightBlueShadow = "#12343b";
+// const sandTan = "#e1b382";
+// const sandTanShadow = "#c89666";
+// const nightBlue = "#2d545e";
+// const nightBlueShadow = "#12343b";
 
-// text: {
-//   primary: '#FFFFFF',
-//   secondary: '#E5E5E5',
-// },
-// background: {
-//   backgroundAccent: '#14213D',
-//   background: '#000000',
-// },
-// accent: '#FCA311',
-
-/**
- * @see https://coolors.co/palette/000000-14213d-fca311-e5e5e5-ffffff
- */
 export const themeValues = {
+  /**
+   * @see https://material.io/resources/color/#!/?primary.color=2d545e&secondary.color=e1a667
+   */
   colors: {
-    primary: sandTan,
-    primaryShadow: sandTanShadow,
-    secondary: nightBlue,
-    secondaryShadow: nightBlueShadow,
-    white: "#fff",
-    whiteDimmed: "#d3d3d3",
-    black: "#000",
+    basePrimaryHue: "",
+    primary: "#2d545e",
+    primaryLight: "#618b96",
+    primaryDark: "#102c34",
+    secondary: "#d7843c",
+    secondaryLight: "#ffb46a",
+    secondaryDark: "#a1570b",
+    background: "#e2e2e2",
+    surface: "#fff",
+    onPrimary: "#fff",
+    onSecondary: "#000",
+    onSuface: "#000",
+    onBackground: "#000",
   },
   shadow: {
     0: "rgba(0, 0, 0, 0.15) 0px 0px 1px 0px, rgba(0, 0, 0, 0.2) 0px 1px 2px 0px, rgba(0, 0, 0, 0.2) 0px 1px 0px 0px",
@@ -39,7 +35,13 @@ export const themeValues = {
   transition: {
     slow: "1s ease-out",
     normal: "0.3s ease-out",
-    fast: "0.15s ease-out",
+    fast: "0.1s ease-out",
+  },
+  spacing: {
+    1: "0.125rem",
+    2: "0.25rem",
+    3: "0.5rem",
+    4: "1rem",
   },
 } as const;
 

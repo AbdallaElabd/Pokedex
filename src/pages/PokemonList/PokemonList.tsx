@@ -1,7 +1,6 @@
-import { useGetPokemonList } from "@api/queries";
+import { usePokedex } from "@providers/Pokedex";
 
 import {
-  PageSizeDropdown,
   PaginationButtons,
   PokemonCard,
   SearchInput,
@@ -17,24 +16,7 @@ import {
 } from "./styled";
 
 export function PokemonList() {
-  const {
-    sortBy,
-    setSortAttribute,
-    sortOrder,
-    toggleSortOrder,
-    pokemonList,
-    isLoading,
-    hasPrevious,
-    previous,
-    hasNext,
-    next,
-    search,
-    searchText,
-    searchBy,
-    setSearchBy,
-    changePageSize,
-    pageSize,
-  } = useGetPokemonList();
+  const { pokemonList, isLoading } = usePokedex();
 
   if (isLoading || !pokemonList) {
     return (
@@ -47,25 +29,9 @@ export function PokemonList() {
   return (
     <Container>
       <TopRow>
-        <SearchInput
-          searchText={searchText}
-          setSearchText={search}
-          searchBy={searchBy}
-          setSearchBy={setSearchBy}
-        />
-        <SortByDropdown
-          sortBy={sortBy}
-          sortOrder={sortOrder}
-          setSortAttribute={setSortAttribute}
-          toggleSortOrder={toggleSortOrder}
-        />
-        <PageSizeDropdown changePageSize={changePageSize} pageSize={pageSize} />
-        <PaginationButtons
-          hasPrevious={hasPrevious}
-          previous={previous}
-          hasNext={hasNext}
-          next={next}
-        />
+        <SearchInput />
+        <SortByDropdown />
+        <PaginationButtons />
       </TopRow>
 
       <Separator />
@@ -75,24 +41,12 @@ export function PokemonList() {
       ) : (
         <CardsContainer>
           {pokemonList.map((pokemon) => (
-            <PokemonCard
-              key={pokemon.name}
-              pokemon={pokemon}
-              searchText={searchText}
-              searchBy={searchBy}
-            />
+            <PokemonCard key={pokemon.name} pokemon={pokemon} />
           ))}
         </CardsContainer>
       )}
 
-      {pokemonList.length !== 0 && (
-        <PaginationButtons
-          hasPrevious={hasPrevious}
-          previous={previous}
-          hasNext={hasNext}
-          next={next}
-        />
-      )}
+      {pokemonList.length !== 0 && <PaginationButtons />}
     </Container>
   );
 }

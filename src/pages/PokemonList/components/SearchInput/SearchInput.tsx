@@ -4,32 +4,23 @@ import {
   faBoltLightning,
   faFont,
   faSearch,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { theme } from "@styles/theme";
+import { usePokedex } from "@providers/Pokedex";
 
 import {
+  ClearButtonContainer,
   SearchIconContainer,
   SearchInputContainer,
   StyledInput,
   StyledText,
 } from "./styled";
 
-interface SearchInputProps {
-  searchText: string;
-  setSearchText: (text: string) => void;
-  searchBy: SearchByAttribute;
-  setSearchBy: (attribute: SearchByAttribute) => void;
-}
-
 const SEARCH_BY_ATTRIBUTES: SearchByAttribute[] = ["name", "ability"];
 
-export function SearchInput({
-  searchText,
-  setSearchText,
-  searchBy,
-  setSearchBy,
-}: SearchInputProps) {
+export function SearchInput() {
+  const { searchText, search, searchBy, setSearchBy } = usePokedex();
   return (
     <>
       <Dropdown
@@ -57,15 +48,16 @@ export function SearchInput({
 
       <SearchInputContainer>
         <StyledInput
+          placeholder={`Search by ${searchBy}...`}
           value={searchText}
-          onChange={(event) => setSearchText(event.target.value)}
+          onChange={(event) => search(event.target.value)}
         />
         <SearchIconContainer>
-          <FontAwesomeIcon
-            icon={faSearch}
-            color={theme.colors.secondaryShadow}
-          />
+          <FontAwesomeIcon icon={faSearch} />
         </SearchIconContainer>
+        <ClearButtonContainer isShown={!!searchText} onClick={() => search("")}>
+          <FontAwesomeIcon icon={faTimes} />
+        </ClearButtonContainer>
       </SearchInputContainer>
     </>
   );

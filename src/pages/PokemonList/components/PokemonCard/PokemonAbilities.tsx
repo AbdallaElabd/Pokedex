@@ -2,7 +2,7 @@ import { Text } from "@components";
 import Highlighter from "react-highlight-words";
 
 import { type PokemonCardProps } from "./PokemonCard";
-import { AbilityIcon, HighlightedText, Pill, Pills } from "./styled";
+import { Abilities, Ability, AbilityIcon, HighlightedText } from "./styled";
 import { capitalize } from "./utils";
 
 export function PokemonAbilities({
@@ -11,9 +11,9 @@ export function PokemonAbilities({
   searchText,
 }: PokemonCardProps) {
   return (
-    <Pills>
+    <Abilities>
       {pokemon.abilities.map(({ ability }) => (
-        <Pill key={ability.name}>
+        <Ability key={ability.name}>
           <Text variant="caption">
             <AbilityIcon />
             {searchBy === "ability" ? (
@@ -26,8 +26,8 @@ export function PokemonAbilities({
               capitalize(ability.name)
             )}
           </Text>
-        </Pill>
+        </Ability>
       ))}
-    </Pills>
+    </Abilities>
   );
 }

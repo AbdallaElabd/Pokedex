@@ -1,6 +1,6 @@
 import { Text } from "@components";
 import { theme } from "@styles/theme";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const StyledText = styled(Text)<{ capitalize?: boolean }>`
   display: flex;
@@ -20,19 +20,48 @@ export const StyledInput = styled.input`
   display: flex;
   border-radius: 0.5rem;
   border: none;
-  box-shadow: ${theme.shadow[0]};
-  padding-left: 2rem;
+  padding: 0 2rem;
   outline: none;
+  background: ${theme.colors.surface};
+  box-shadow: ${theme.shadow[0]};
+  transition: box-shadow ${theme.transition.fast};
+  &:hover,
+  &:focus {
+    box-shadow: ${theme.shadow[1]};
+  }
 `;
 
-export const SearchIconContainer = styled.div`
+const IconContainer = css`
   position: absolute;
   top: 0;
-  left: 0;
   width: 2rem;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
+`;
+
+export const SearchIconContainer = styled.div`
+  ${IconContainer};
+  left: 0;
+`;
+
+export const ClearButtonContainer = styled.button<{ isShown: boolean }>`
+  ${IconContainer};
+  right: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  transform-origin: center;
+  opacity: ${({ isShown }) => (isShown ? 1 : 0)};
+  transform: scale(${({ isShown }) => (isShown ? 0.9 : 0)});
+  transition: opacity ${theme.transition.fast},
+    transform ${theme.transition.fast};
+
+  &:focus,
+  &:hover {
+    outline: none;
+  }
 `;

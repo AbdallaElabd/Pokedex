@@ -20,7 +20,8 @@ export const StyledCard = styled(Card)`
   display: grid;
   grid-template-rows: 9rem auto;
   animation: ${animations.fadeIn} ${theme.transition.slow};
-  color: ${theme.colors.black};
+  background-color: ${theme.colors.surface};
+  color: ${theme.colors.onSuface};
   overflow: hidden;
 
   transition: box-shadow ${theme.transition.fast},
@@ -38,7 +39,7 @@ export function HighlightedText({ children }: PropsWithChildren) {
   return (
     <mark
       style={{
-        backgroundColor: theme.colors.primary,
+        backgroundColor: theme.colors.secondaryLight,
       }}
     >
       {children}
@@ -67,18 +68,18 @@ export const IconContainer = styled.div`
   align-items: center;
 `;
 
-export const Pills = styled.div`
+export const Abilities = styled.div`
   display: flex;
   gap: 0.25rem;
   flex-wrap: wrap;
 `;
 
-export const Pill = styled.div`
+export const Ability = styled.div`
   display: flex;
-  background: ${theme.colors.secondary};
+  background: ${theme.colors.primaryDark};
+  color: ${theme.colors.onPrimary};
   border-radius: 0.8rem;
   padding: 0.3rem 0.6rem;
-  color: ${theme.colors.white};
 `;
 
 export const AbilityIcon = styled(FontAwesomeIcon).attrs({

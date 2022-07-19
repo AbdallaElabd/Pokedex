@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 import { cssReset } from "./cssReset";
 import { generateCssVariables } from "./generateCSSVariables";
-import { themeValues } from "./theme";
+import { theme, themeValues } from "./theme";
 
 export const GlobalStyle = createGlobalStyle`
   ${cssReset};
@@ -15,7 +15,8 @@ export const GlobalStyle = createGlobalStyle`
 
   html, body {
     margin: 0 auto;
-    background-color: #E5E5E5;
+    background-color: ${theme.colors.background};
+    color: ${theme.colors.onBackground};
     /**
       * Fluid Typography
       * @see https://clamp.font-size.app/?config=eyJyb290IjoiMTYiLCJtaW5XaWR0aCI6IjMyMHB4IiwibWF4V2lkdGgiOiIxMjAwcHgiLCJtaW5Gb250U2l6ZSI6IjE2cHgiLCJtYXhGb250U2l6ZSI6IjM2cHgifQ%3D%3D

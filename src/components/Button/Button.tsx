@@ -3,7 +3,11 @@ import { theme } from "@styles/theme";
 import { ButtonHTMLAttributes, forwardRef, PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 
-const StyledButton = styled.button`
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant: "primary" | "secondary";
+}
+
+const StyledButton = styled.button<ButtonProps>`
   height: 2.2rem;
   padding: 0.6rem 0.8rem;
   border: none;
@@ -11,7 +15,7 @@ const StyledButton = styled.button`
   cursor: ${({ disabled }) => (disabled ? "auto" : "pointer")};
   box-shadow: ${theme.shadow[0]};
   transition: box-shadow 0.2s;
-  background-color: ${theme.colors.white};
+  background-color: ${theme.colors.surface};
 
   ${({ disabled }) =>
     !disabled &&
@@ -24,10 +28,6 @@ const StyledButton = styled.button`
       }
     `}
 `;
-
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: "primary" | "secondary";
-}
 
 export const Button = forwardRef<
   HTMLButtonElement,

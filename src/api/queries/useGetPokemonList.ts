@@ -145,6 +145,7 @@ export const useGetPokemonList = () => {
 
   return {
     pokemonList: data?.pokemonList,
+    totalCount: data?.totalCount,
     isLoading,
     isSuccess,
     pageSize,
