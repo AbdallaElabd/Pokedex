@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePokedex } from "@providers/Pokedex";
+import { useCallback, useRef } from "react";
 
 import {
   ClearButtonContainer,
@@ -21,6 +22,13 @@ const SEARCH_BY_ATTRIBUTES: SearchByAttribute[] = ["name", "ability"];
 
 export function SearchInput() {
   const { searchText, search, searchBy, setSearchBy } = usePokedex();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleOnClear = useCallback(() => {
+    search("");
+    inputRef.current?.focus();
+  }, [search]);
+
   return (
     <>
       <Dropdown
@@ -48,6 +56,7 @@ export function SearchInput() {
 
       <SearchInputContainer>
         <StyledInput
+          ref={inputRef}
           placeholder={`Search by ${searchBy}...`}
           value={searchText}
           onChange={(event) => search(event.target.value)}
@@ -55,7 +64,11 @@ export function SearchInput() {
         <SearchIconContainer>
           <FontAwesomeIcon icon={faSearch} />
         </SearchIconContainer>
-        <ClearButtonContainer isShown={!!searchText} onClick={() => search("")}>
+        <ClearButtonContainer
+          isShown={!!searchText}
+          tabIndex={searchText ? 0 : -1}
+          onClick={handleOnClear}
+        >
           <FontAwesomeIcon icon={faTimes} />
         </ClearButtonContainer>
       </SearchInputContainer>

@@ -1,18 +1,42 @@
 import { theme } from "@styles/theme";
 import { PropsWithChildren } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { Text } from "../Text";
 
-const Container = styled(Text).attrs({ variant: "caption" })`
+type ChipVariant = "primary" | "secondary" | "neutral";
+
+const getColorsFromVariant = (variant: ChipVariant) => {
+  const colors = {
+    primary: theme.colors.primaryDark,
+    secondary: theme.colors.secondaryDark,
+    neutral: theme.colors.surface,
+  }[variant];
+  return css`
+    background: ${colors.background};
+    color: ${colors.foreground};
+  `;
+};
+
+const Container = styled.div<{ variant: ChipVariant }>`
   display: flex;
   align-items: center;
-  background: ${theme.colors.primaryDark};
-  color: ${theme.colors.onPrimary};
-  border-radius: 0.8rem;
-  padding: ${theme.spacing[2]} ${theme.spacing[4]};
+  border-radius: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  ${({ variant }) => getColorsFromVariant(variant)};
 `;
 
-export function Chip({ children }: PropsWithChildren) {
-  return <Container>{children}</Container>;
+interface ChipProps {
+  variant?: ChipVariant;
+}
+
+export function Chip({
+  children,
+  variant = "secondary",
+}: PropsWithChildren<ChipProps>) {
+  return (
+    <Container variant={variant}>
+      <Text variant="caption">{children}</Text>
+    </Container>
+  );
 }

@@ -1,13 +1,22 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { theme } from "@styles/theme";
 import { ButtonHTMLAttributes, forwardRef, PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: "primary" | "secondary";
-}
+type ButtonVariant = "primary" | "secondary" | "neutral";
 
-const StyledButton = styled.button<ButtonProps>`
+const getColorsFromVariant = (variant: ButtonVariant) => {
+  const colors = {
+    primary: theme.colors.primaryDark,
+    secondary: theme.colors.secondaryDark,
+    neutral: theme.colors.surface,
+  }[variant];
+  return css`
+    background: ${colors.background};
+    color: ${colors.foreground};
+  `;
+};
+
+const StyledButton = styled.button<{ variant: ButtonVariant }>`
   height: 2.2rem;
   padding: 0.6rem 0.8rem;
   border: none;
@@ -15,27 +24,33 @@ const StyledButton = styled.button<ButtonProps>`
   cursor: ${({ disabled }) => (disabled ? "auto" : "pointer")};
   box-shadow: ${theme.shadow[0]};
   transition: box-shadow 0.2s;
-  background-color: ${theme.colors.surface};
+
+  ${({ variant }) => getColorsFromVariant(variant)};
 
   ${({ disabled }) =>
     !disabled &&
     css`
       :hover,
       :active,
-      :focus {
+      :focus-visible {
         box-shadow: ${theme.shadow[1]};
-        outline: none;
+        outline: 0;
       }
     `}
 `;
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
+}
 
 export const Button = forwardRef<
   HTMLButtonElement,
   PropsWithChildren<ButtonProps>
 >((props, ref) => {
-  const { children, ...rest } = props;
+  const { children, variant = "neutral", ...rest } = props;
   return (
-    <StyledButton ref={ref} {...rest}>
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <StyledButton ref={ref} variant={variant} {...rest}>
       {children}
     </StyledButton>
   );

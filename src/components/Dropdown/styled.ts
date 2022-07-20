@@ -24,18 +24,19 @@ export const PopoverContent = styled.div<{
 `;
 
 export const Option = styled.button<{ isSelected: boolean }>`
-  background: ${({ isSelected }) => (isSelected ? "#eee" : "#fff")};
+  background: ${({ isSelected }) =>
+    isSelected ? theme.colors.background : theme.colors.surface.background};
   padding: 0.5rem;
   cursor: pointer;
   border: none;
 
   :not(:last-child) {
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid ${theme.colors.background};
   }
 
   :hover,
-  :focus {
+  :focus-visible {
     outline: 0;
-    background: #eee;
+    background: ${theme.colors.background};
   }
 `;

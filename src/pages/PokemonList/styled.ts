@@ -1,4 +1,5 @@
 import { onBreakPoint } from "@styles";
+import { theme } from "@styles/theme";
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
@@ -20,7 +21,7 @@ export const TopRow = styled.div`
 `;
 
 export const Separator = styled.div`
-  background-color: #d3e1e5;
+  background-color: ${theme.colors.background};
   height: 1px;
   width: 100%;
   margin: 0.5rem 0;

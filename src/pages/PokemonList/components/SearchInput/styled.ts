@@ -21,12 +21,14 @@ export const StyledInput = styled.input`
   border-radius: 0.5rem;
   border: none;
   padding: 0 2rem;
-  outline: none;
-  background: ${theme.colors.surface};
+  background: ${theme.colors.surface.background};
+  color: ${theme.colors.surface.foreground};
   box-shadow: ${theme.shadow[0]};
   transition: box-shadow ${theme.transition.fast};
   &:hover,
-  &:focus {
+  &:focus,
+  &:focus-visible {
+    outline: 0;
     box-shadow: ${theme.shadow[1]};
   }
 `;
@@ -60,8 +62,9 @@ export const ClearButtonContainer = styled.button<{ isShown: boolean }>`
   transition: opacity ${theme.transition.fast},
     transform ${theme.transition.fast};
 
-  &:focus,
-  &:hover {
+  &:hover,
+  &:focus-visible {
     outline: none;
+    transform: scale(1.1);
   }
 `;

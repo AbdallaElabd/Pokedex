@@ -2,7 +2,6 @@ import { Pokemon } from "@api/cache";
 import { Chip } from "@components/Chip";
 import { faBoltLightning } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { theme } from "@styles/theme";
 import { capitalize } from "@utils";
 import Highlighter from "react-highlight-words";
 import styled from "styled-components";
@@ -18,7 +17,7 @@ const Container = styled.div`
 const AbilityIcon = styled(FontAwesomeIcon).attrs({
   icon: faBoltLightning,
 })`
-  margin-right: ${theme.spacing[2]};
+  margin-right: 0.25rem;
 `;
 
 interface AbilitiesProps {

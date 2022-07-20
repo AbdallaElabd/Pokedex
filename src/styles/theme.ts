@@ -1,28 +1,18 @@
 import { generateCssGetters } from "./generateCSSVariables";
 
-// const sandTan = "#e1b382";
-// const sandTanShadow = "#c89666";
-// const nightBlue = "#2d545e";
-// const nightBlueShadow = "#12343b";
-
 export const themeValues = {
   /**
    * @see https://material.io/resources/color/#!/?primary.color=2d545e&secondary.color=e1a667
    */
   colors: {
-    basePrimaryHue: "",
-    primary: "#2d545e",
-    primaryLight: "#618b96",
-    primaryDark: "#102c34",
-    secondary: "#d7843c",
-    secondaryLight: "#ffb46a",
-    secondaryDark: "#a1570b",
+    primary: { background: "#2d545e", foreground: "#fff" },
+    primaryLight: { background: "#618b96", foreground: "#000" },
+    primaryDark: { background: "#102c34", foreground: "#fff" },
+    secondary: { background: "#d7843c", foreground: "#000" },
+    secondaryLight: { background: "#ffb46a", foreground: "#000" },
+    secondaryDark: { background: "#a1570b", foreground: "#fff" },
+    surface: { background: "#fff", foreground: "#000" },
     background: "#e2e2e2",
-    surface: "#fff",
-    onPrimary: "#fff",
-    onSecondary: "#000",
-    onSuface: "#000",
-    onBackground: "#000",
   },
   shadow: {
     0: "rgba(0, 0, 0, 0.15) 0px 0px 1px 0px, rgba(0, 0, 0, 0.2) 0px 1px 2px 0px, rgba(0, 0, 0, 0.2) 0px 1px 0px 0px",
@@ -41,10 +31,6 @@ export const themeValues = {
     1: "0.125rem",
     2: "0.25rem",
     4: "0.5rem",
-    8: "1rem",
-    12: "1.5rem",
-    16: "2rem",
-    32: "4rem",
   },
 } as const;
 

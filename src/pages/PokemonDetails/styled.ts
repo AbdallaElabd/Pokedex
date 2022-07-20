@@ -1,5 +1,4 @@
 import { onBreakPoint } from "@styles";
-import { theme } from "@styles/theme";
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
@@ -21,8 +20,8 @@ export const ImageSection = styled.div`
   flex-direction: column;
   align-items: center;
   grid-area: image;
-  padding: ${theme.spacing[8]};
-  gap: ${theme.spacing[12]};
+  padding: 1rem;
+  gap: 1.5rem;
 
   ${onBreakPoint(
     "sm",
@@ -36,13 +35,13 @@ export const DetailsSection = styled.div`
   grid-area: content;
   display: flex;
   flex-direction: column;
-  gap: ${theme.spacing[12]};
+  gap: 1.5rem;
 `;
 export const Row = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: ${theme.spacing[4]};
+  gap: 0.5rem;
 `;
 
 export const PokemonImage = styled.img`

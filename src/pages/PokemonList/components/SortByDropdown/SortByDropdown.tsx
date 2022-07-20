@@ -58,7 +58,7 @@ export function SortByDropdown() {
         onOptionClicked={setSortAttribute}
       />
 
-      <Button variant="primary" onClick={toggleSortOrder}>
+      <Button onClick={toggleSortOrder}>
         <FontAwesomeIcon icon={sortIcon} />
       </Button>
     </Container>

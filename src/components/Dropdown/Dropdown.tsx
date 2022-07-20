@@ -64,11 +64,7 @@ export function Dropdown<T extends string>({
 
   return (
     <PopoverRoot ref={containerRef}>
-      <Button
-        variant="primary"
-        ref={togglerRef}
-        onClick={isOpen ? closeDropdown : openDropdown}
-      >
+      <Button ref={togglerRef} onClick={isOpen ? closeDropdown : openDropdown}>
         {toggler}
       </Button>
       <PopoverContent ref={contentRef} isOpen={isOpen}>

@@ -54,14 +54,10 @@ export function PaginationButtons() {
       </StyledText>
 
       <ButtonsContainer>
-        <StyledButton
-          disabled={!hasPrevious}
-          variant="primary"
-          onClick={previous}
-        >
+        <StyledButton disabled={!hasPrevious} onClick={previous}>
           <FontAwesomeIcon icon={faArrowLeft} />
         </StyledButton>
-        <StyledButton disabled={!hasNext} variant="primary" onClick={next}>
+        <StyledButton disabled={!hasNext} onClick={next}>
           <FontAwesomeIcon icon={faArrowRight} />
         </StyledButton>
       </ButtonsContainer>

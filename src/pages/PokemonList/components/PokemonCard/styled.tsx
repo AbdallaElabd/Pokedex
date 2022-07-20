@@ -10,7 +10,7 @@ import styled from "styled-components";
 export const StyledLink = styled(Link)`
   display: flex;
 
-  &:focus {
+  &:focus-visible {
     outline: 0;
   }
 `;
@@ -20,14 +20,14 @@ export const StyledCard = styled(Card)`
   display: grid;
   grid-template-rows: 9rem auto;
   animation: ${animations.fadeIn} ${theme.transition.normal};
-  background-color: ${theme.colors.surface};
-  color: ${theme.colors.onSuface};
+  background-color: ${theme.colors.surface.background};
+  color: ${theme.colors.surface.foreground};
   overflow: hidden;
 
   transition: box-shadow ${theme.transition.fast},
     transform ${theme.transition.fast};
 
-  ${StyledLink}:focus & {
+  ${StyledLink}:focus-visible & {
     outline: 0;
     transform-origin: center;
     transform: scale(1.01);
@@ -37,14 +37,14 @@ export const StyledCard = styled(Card)`
 
 export const StyledLazyImage = styled(LazyImage)`
   height: 100%;
-  padding: ${theme.spacing[4]};
+  padding: 0.5rem;
 `;
 
 export function HighlightedText({ children }: PropsWithChildren) {
   return (
     <mark
       style={{
-        backgroundColor: theme.colors.secondaryLight,
+        backgroundColor: theme.colors.secondaryLight.background,
       }}
     >
       {children}
@@ -56,8 +56,8 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  gap: ${theme.spacing[4]};
-  border-top: 1px solid #ddd;
+  gap: 0.5rem;
+  border-top: 1px solid ${theme.colors.background};
 `;
 
 export const Details = styled.div`
@@ -81,8 +81,8 @@ export const Abilities = styled.div`
 
 export const Ability = styled.div`
   display: flex;
-  background: ${theme.colors.primaryDark};
-  color: ${theme.colors.onPrimary};
+  background: ${theme.colors.primaryDark.background};
+  color: ${theme.colors.primaryDark.foreground};
   border-radius: 0.8rem;
   padding: 0.3rem 0.6rem;
 `;

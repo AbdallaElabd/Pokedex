@@ -16,7 +16,7 @@ export const GlobalStyle = createGlobalStyle`
   html, body {
     margin: 0 auto;
     background-color: ${theme.colors.background};
-    color: ${theme.colors.onBackground};
+    color: ${theme.colors.surface.foreground};
     /**
       * Fluid Typography
       * @see https://clamp.font-size.app/?config=eyJyb290IjoiMTYiLCJtaW5XaWR0aCI6IjMyMHB4IiwibWF4V2lkdGgiOiIxMjAwcHgiLCJtaW5Gb250U2l6ZSI6IjE2cHgiLCJtYXhGb250U2l6ZSI6IjM2cHgifQ%3D%3D

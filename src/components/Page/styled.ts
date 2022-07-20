@@ -10,7 +10,7 @@ export const Backdrop = styled.div`
   top: 0;
   left: 0;
   height: 14rem;
-  background-color: ${theme.colors.primary};
+  background-color: ${theme.colors.primary.background};
 `;
 
 export const Container = styled.div`
@@ -36,14 +36,14 @@ export const Container = styled.div`
 export const Header = styled.div`
   display: flex;
   align-items: center;
-  gap: ${theme.spacing[8]};
-  padding: ${theme.spacing[12]};
+  gap: 1rem;
+  padding: 1.5rem;
   justify-content: center;
   ${onBreakPoint(
     "sm",
     css`
       justify-content: flex-start;
-      padding: ${theme.spacing[8]};
+      padding: 1rem;
     `
   )}
 `;
@@ -60,9 +60,9 @@ export const Logo = styled.img`
 `;
 
 export const Title = styled(Text).attrs({ variant: "h2" })`
-  color: ${theme.colors.onPrimary};
+  color: ${theme.colors.primary.foreground};
   z-index: 1;
-  margin-right: ${theme.spacing[16]};
+  margin-right: 2rem;
   ${onBreakPoint(
     "sm",
     css`
@@ -75,8 +75,8 @@ export const Content = styled.div`
   flex: 1;
   position: relative;
   z-index: 1;
-  background-color: ${theme.colors.surface};
-  color: ${theme.colors.onSuface};
+  background-color: ${theme.colors.surface.background};
+  color: ${theme.colors.surface.foreground};
   margin-bottom: var(--gutter);
   padding: 2rem;
   border-radius: 0;
