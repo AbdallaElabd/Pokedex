@@ -41,7 +41,7 @@ export const useQueryParam = <T extends QueryParamPossibleType>(
         newSearchParams.delete(parameter);
       }
 
-      setSearchParams(newSearchParams.toString());
+      setSearchParams(newSearchParams.toString(), { replace: true });
     },
     [defaultValue, setSearchParams, parameter]
   );

@@ -59,7 +59,7 @@ export function PokemonDetails() {
         <Row>
           <Text variant="body1">Types</Text>
           {pokemon.types.map((type) => (
-            <Chip>{capitalize(type.type.name)}</Chip>
+            <Chip key={type.type.name}>{capitalize(type.type.name)}</Chip>
           ))}
         </Row>
 

@@ -74,9 +74,9 @@ export function Dropdown<T extends string>({
       <PopoverContent ref={contentRef} isOpen={isOpen}>
         {options.map((option) => (
           <Option
+            key={option}
             role="button"
             tabIndex={0}
-            key={option}
             isSelected={selected === option}
             onClick={() => handleOptionClicked(option)}
           >

@@ -19,7 +19,7 @@ export const StyledCard = styled(Card)`
   flex-grow: 1;
   display: grid;
   grid-template-rows: 9rem auto;
-  animation: ${animations.fadeIn} ${theme.transition.slow};
+  animation: ${animations.fadeIn} ${theme.transition.normal};
   background-color: ${theme.colors.surface};
   color: ${theme.colors.onSuface};
   overflow: hidden;

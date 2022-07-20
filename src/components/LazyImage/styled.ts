@@ -1,4 +1,3 @@
-import { animations } from "@styles/animations";
 import { theme } from "@styles/theme";
 import styled, { css, keyframes } from "styled-components";
 
@@ -19,8 +18,7 @@ export const StyledImage = styled.div<{
 }>`
   position: relative;
   overflow: hidden;
-  animation: ${animations.fadeIn} ${theme.transition.normal};
-
+  transition: background ${theme.transition.normal};
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
