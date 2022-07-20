@@ -6,25 +6,18 @@ import { Route, Routes } from "react-router-dom";
 
 export function AppRoutes() {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Page title="Pokémon List">
+    <Page>
+      <Routes>
+        <Route
+          path="/"
+          element={
             <PokedexProvider>
               <PokemonList />
             </PokedexProvider>
-          </Page>
-        }
-      />
-      <Route
-        path="pokemon/:pokemonName"
-        element={
-          <Page title="Pokémon Details">
-            <PokemonDetails />
-          </Page>
-        }
-      />
-    </Routes>
+          }
+        />
+        <Route path="pokemon/:pokemonName" element={<PokemonDetails />} />
+      </Routes>
+    </Page>
   );
 }

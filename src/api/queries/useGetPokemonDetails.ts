@@ -2,10 +2,9 @@ import { useQuery } from "react-query";
 
 import { pokemonCache } from "../cache";
 
-const getPokemonDetailsQuery = async (name: string | undefined) => {
+const getPokemonDetailsQuery = (name: string | undefined) => {
   if (!name) return undefined;
-  const data = await pokemonCache.getAllPokemon();
-  return data?.get(name);
+  return pokemonCache.getPokemonByName(name);
 };
 
 export const useGetPokemonDetails = (name: string | undefined) => {

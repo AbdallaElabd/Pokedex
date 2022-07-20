@@ -1,15 +1,13 @@
 import { Text } from "@components";
+import { usePokedex } from "@providers/Pokedex";
+import { capitalize } from "@utils";
 import Highlighter from "react-highlight-words";
 
 import { type PokemonCardProps } from "./PokemonCard";
 import { Abilities, Ability, AbilityIcon, HighlightedText } from "./styled";
-import { capitalize } from "./utils";
 
-export function PokemonAbilities({
-  pokemon,
-  searchBy,
-  searchText,
-}: PokemonCardProps) {
+export function PokemonAbilities({ pokemon }: PokemonCardProps) {
+  const { searchBy, searchText } = usePokedex();
   return (
     <Abilities>
       {pokemon.abilities.map(({ ability }) => (

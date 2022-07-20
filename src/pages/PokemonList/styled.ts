@@ -1,4 +1,3 @@
-import { Spinner, Text } from "@components";
 import { onBreakPoint } from "@styles";
 import styled, { css } from "styled-components";
 
@@ -6,12 +5,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-height: 30vh;
   gap: 1rem;
-`;
-
-export const StyledSpinner = styled(Spinner)`
-  margin: 4rem 0;
 `;
 
 export const TopRow = styled.div`
@@ -61,11 +57,4 @@ export const CardsContainer = styled.div`
       --columns: 5;
     `
   )};
-`;
-
-export const NotFound = styled(Text).attrs({ variant: "h5" })`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin: 2rem;
 `;

@@ -17,9 +17,6 @@ export const StyledImage = styled.div<{
   image: string | undefined;
   status: AsyncStatus;
 }>`
-  display: flex;
-  height: 100%;
-  width: 100%;
   position: relative;
   overflow: hidden;
   animation: ${animations.fadeIn} ${theme.transition.normal};
@@ -27,13 +24,16 @@ export const StyledImage = styled.div<{
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+  background-origin: content-box;
 
   ${({ image, status }) => {
     if (status === "pending")
       return css`
+        padding: 0;
         background-color: #e5e5e5;
 
         :after {
+          content: "";
           position: absolute;
           top: 0;
           right: 0;
@@ -47,14 +47,17 @@ export const StyledImage = styled.div<{
             rgba(255, 255, 255, 0)
           );
           animation: ${shimmer} 1s infinite;
-          content: "";
         }
       `;
 
+    if (!image || status === "failed")
+      return css`
+        padding: 0;
+        background-image: url(${noPokemonImage});
+      `;
+
     return css`
-      background-image: url(${!image || status === "failed"
-        ? noPokemonImage
-        : image});
+      background-image: url(${image});
     `;
   }}
 `;

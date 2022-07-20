@@ -40,8 +40,11 @@ export const themeValues = {
   spacing: {
     1: "0.125rem",
     2: "0.25rem",
-    3: "0.5rem",
-    4: "1rem",
+    4: "0.5rem",
+    8: "1rem",
+    12: "1.5rem",
+    16: "2rem",
+    32: "4rem",
   },
 } as const;
 

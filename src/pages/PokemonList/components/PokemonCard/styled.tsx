@@ -1,4 +1,4 @@
-import { Card } from "@components";
+import { Card, LazyImage } from "@components";
 import { faBoltLightning } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { animations } from "@styles/animations";
@@ -35,6 +35,11 @@ export const StyledCard = styled(Card)`
   }
 `;
 
+export const StyledLazyImage = styled(LazyImage)`
+  height: 100%;
+  padding: ${theme.spacing[4]};
+`;
+
 export function HighlightedText({ children }: PropsWithChildren) {
   return (
     <mark
@@ -51,7 +56,7 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  gap: 0.8rem;
+  gap: ${theme.spacing[4]};
   border-top: 1px solid #ddd;
 `;
 

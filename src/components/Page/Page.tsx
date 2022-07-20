@@ -1,16 +1,17 @@
 import { PropsWithChildren } from "react";
 
-import { Backdrop, Container, Content, Title } from "./styled";
+import logo from "./header-logo.png";
+import { Backdrop, Container, Content, Header, Logo, Title } from "./styled";
 
-export function Page({
-  title,
-  children,
-}: PropsWithChildren<{ title: string }>) {
+export function Page({ children }: PropsWithChildren) {
   return (
     <>
       <Backdrop />
       <Container>
-        <Title>{title}</Title>
+        <Header>
+          <Logo src={logo} alt="Pokédex" />
+          <Title>Pokédex</Title>
+        </Header>
         <Content>{children}</Content>
       </Container>
     </>

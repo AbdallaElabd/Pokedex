@@ -4,7 +4,7 @@ import {
 } from "./generateCSSVariables";
 import { Theme } from "./theme";
 
-describe("generateCssVariables", () => {
+describe("Theme CSS Variables", () => {
   const nestedObject = {
     foo: "1",
     bar: { foo: "2" },
@@ -19,12 +19,12 @@ describe("generateCssVariables", () => {
       "--qux-baz-bar-foo: 4;",
     ]);
   });
-  it("should work with the other one", () => {
+  it("should generate getters", () => {
     expect(generateCssGetters(nestedObject)).toEqual({
-      foo: "--foo",
-      bar: { foo: "--bar-foo" },
-      baz: { bar: { foo: "--baz-bar-foo" } },
-      qux: { baz: { bar: { foo: "--qux-baz-bar-foo" } } },
+      foo: "var(--foo)",
+      bar: { foo: "var(--bar-foo)" },
+      baz: { bar: { foo: "var(--baz-bar-foo)" } },
+      qux: { baz: { bar: { foo: "var(--qux-baz-bar-foo)" } } },
     });
   });
 });

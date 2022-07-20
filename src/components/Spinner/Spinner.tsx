@@ -1,6 +1,8 @@
 import { animations } from "@styles/animations";
+import { theme } from "@styles/theme";
 import styled from "styled-components";
 
+import { Text } from "../Text";
 import pokeball from "./pokeball.png";
 
 type Size = "sm" | "md" | "lg";
@@ -18,6 +20,15 @@ const StyledImage = styled.img<{ size: Size }>`
   animation: ${animations.bouncing} 1s ease-in-out infinite;
 `;
 
+export const SpinnerContainer = styled.div`
+  animation: ${animations.fadeIn} ${theme.transition.normal};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  padding: 2rem 0;
+`;
+
 interface SpinnerProps {
   className?: string;
   size?: Size;
@@ -25,11 +36,14 @@ interface SpinnerProps {
 
 export function Spinner({ className, size = "lg" }: SpinnerProps) {
   return (
-    <StyledImage
-      className={className}
-      src={pokeball}
-      alt="Loading"
-      size={size}
-    />
+    <SpinnerContainer>
+      <StyledImage
+        className={className}
+        src={pokeball}
+        alt="Loading"
+        size={size}
+      />
+      <Text variant="h6">Loading Pokédex...</Text>
+    </SpinnerContainer>
   );
 }

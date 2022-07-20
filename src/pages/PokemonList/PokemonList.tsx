@@ -1,3 +1,4 @@
+import { Spinner } from "@components";
 import { usePokedex } from "@providers/Pokedex";
 
 import {
@@ -6,24 +7,14 @@ import {
   SearchInput,
   SortByDropdown,
 } from "./components";
-import {
-  CardsContainer,
-  Container,
-  NotFound,
-  Separator,
-  StyledSpinner,
-  TopRow,
-} from "./styled";
+import { NotFound } from "./components/NotFound";
+import { CardsContainer, Container, Separator, TopRow } from "./styled";
 
 export function PokemonList() {
   const { pokemonList, isLoading } = usePokedex();
 
   if (isLoading || !pokemonList) {
-    return (
-      <Container>
-        <StyledSpinner />
-      </Container>
-    );
+    return <Spinner />;
   }
 
   return (
@@ -37,7 +28,7 @@ export function PokemonList() {
       <Separator />
 
       {pokemonList.length === 0 ? (
-        <NotFound>No Pokémon. Try a different search term.</NotFound>
+        <NotFound />
       ) : (
         <CardsContainer>
           {pokemonList.map((pokemon) => (

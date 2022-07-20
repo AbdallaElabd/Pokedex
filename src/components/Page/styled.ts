@@ -14,6 +14,8 @@ export const Backdrop = styled.div`
 `;
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   position: relative;
   padding: 0 var(--gutter);
   --gutter: 0rem;
@@ -31,22 +33,46 @@ export const Container = styled.div`
   )};
 `;
 
-export const Title = styled(Text).attrs({ variant: "h2" })`
-  color: ${theme.colors.onPrimary};
-  z-index: 1;
-  padding: 1rem 0;
-  text-align: center;
-  padding: 0.5em 0;
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${theme.spacing[8]};
+  padding: ${theme.spacing[12]};
+  justify-content: center;
   ${onBreakPoint(
     "sm",
     css`
-      padding: 0.8em 0;
-      text-align: initial;
+      justify-content: flex-start;
+      padding: ${theme.spacing[8]};
+    `
+  )}
+`;
+
+export const Logo = styled.img`
+  height: 100%;
+  width: 6rem;
+  ${onBreakPoint(
+    "sm",
+    css`
+      width: 8rem;
+    `
+  )}
+`;
+
+export const Title = styled(Text).attrs({ variant: "h2" })`
+  color: ${theme.colors.onPrimary};
+  z-index: 1;
+  margin-right: ${theme.spacing[16]};
+  ${onBreakPoint(
+    "sm",
+    css`
+      margin-right: 0;
     `
   )}
 `;
 
 export const Content = styled.div`
+  flex: 1;
   position: relative;
   z-index: 1;
   background-color: ${theme.colors.surface};
@@ -59,6 +85,7 @@ export const Content = styled.div`
     "sm",
     css`
       border-radius: 0.5rem;
+      flex: 1;
     `
   )};
 `;
