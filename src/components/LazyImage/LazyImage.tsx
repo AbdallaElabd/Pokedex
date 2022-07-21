@@ -1,22 +1,27 @@
-import { ImgHTMLAttributes, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { StyledImage } from "./styled";
+import { Container, Shimmer, StyledImage } from "./styled";
 
-export function LazyImage({
-  src,
-  ...rest
-}: ImgHTMLAttributes<HTMLImageElement>) {
-  const [status, setStatus] = useState<AsyncStatus>("idle");
+interface LazyImageProps {
+  image: string | undefined;
+  className?: string;
+}
+
+export function LazyImage({ image, className }: LazyImageProps) {
+  const [status, setStatus] = useState<AsyncStatus>(image ? "pending" : "idle");
 
   useEffect(() => {
-    if (!src) return;
-    const image = new Image();
-    image.src = src;
-    setStatus("pending");
-    image.onload = () => setStatus("succeeded");
-    image.onerror = () => setStatus("failed");
-  }, [src]);
+    if (!image) return;
+    const img = new Image();
+    img.src = image;
+    img.onload = () => setStatus("succeeded");
+    img.onerror = () => setStatus("failed");
+  }, [image]);
 
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <StyledImage status={status} image={src} {...rest} />;
+  return (
+    <Container className={className} isLoading={status === "pending"}>
+      <Shimmer isShown={status === "pending"} />
+      {status !== "pending" && <StyledImage image={image} status={status} />}
+    </Container>
+  );
 }

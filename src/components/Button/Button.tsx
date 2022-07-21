@@ -2,13 +2,14 @@ import { theme } from "@styles/theme";
 import { ButtonHTMLAttributes, forwardRef, PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 
-type ButtonVariant = "primary" | "secondary" | "neutral";
+type ButtonVariant = "primary" | "secondary" | "neutral" | "surface";
 
 const getColorsFromVariant = (variant: ButtonVariant) => {
   const colors = {
-    primary: theme.colors.primaryDark,
-    secondary: theme.colors.secondaryDark,
-    neutral: theme.colors.surface,
+    primary: theme.colors.primary,
+    secondary: theme.colors.secondary,
+    neutral: theme.colors.neutralLight,
+    surface: theme.colors.surface,
   }[variant];
   return css`
     background: ${colors.background};
@@ -47,7 +48,7 @@ export const Button = forwardRef<
   HTMLButtonElement,
   PropsWithChildren<ButtonProps>
 >((props, ref) => {
-  const { children, variant = "neutral", ...rest } = props;
+  const { children, variant = "surface", ...rest } = props;
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <StyledButton ref={ref} variant={variant} {...rest}>

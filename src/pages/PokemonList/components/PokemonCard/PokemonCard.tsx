@@ -30,8 +30,7 @@ export const PokemonCard = memo(({ pokemon }: PokemonCardProps) => {
     <StyledLink key={pokemonName} to={`/pokemon/${pokemon.name}`}>
       <StyledCard elevation={0}>
         <StyledLazyImage
-          src={pokemon.sprites.other?.["official-artwork"]?.front_default}
-          alt={pokemonName}
+          image={pokemon.sprites.other?.["official-artwork"]?.front_default}
         />
         <Content>
           <Text variant="h5">

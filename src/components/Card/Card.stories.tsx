@@ -8,7 +8,9 @@ export default {
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  padding: 3rem;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 5rem;
 `;
 
@@ -16,11 +18,12 @@ const StyledCard = styled(Card)`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 10rem;
-  height: 10rem;
+  width: 13rem;
+  height: 13rem;
+  padding: 1rem;
 `;
 
-export function Cards() {
+export function Default() {
   return (
     <Container>
       <StyledCard elevation={0}>Elevation: 0</StyledCard>

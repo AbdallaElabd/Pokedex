@@ -10,7 +10,7 @@ const getColorsFromVariant = (variant: ChipVariant) => {
   const colors = {
     primary: theme.colors.primaryDark,
     secondary: theme.colors.secondaryDark,
-    neutral: theme.colors.surface,
+    neutral: theme.colors.neutral,
   }[variant];
   return css`
     background: ${colors.background};

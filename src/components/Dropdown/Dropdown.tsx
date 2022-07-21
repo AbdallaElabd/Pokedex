@@ -7,9 +7,9 @@ import { Option, PopoverContent, PopoverRoot } from "./styled";
 import { usePositionContent } from "./usePositionContent";
 
 interface DropdownProps<T> {
-  toggler: ReactNode;
   options: T[];
   selected: T;
+  toggler: ReactNode;
   renderOption: (option: T, isSelected: boolean) => ReactNode;
   onOptionClicked: (option: T) => void;
 }
