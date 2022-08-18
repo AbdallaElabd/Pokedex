@@ -1,5 +1,5 @@
-import { reposition } from "nanopop";
-import { MutableRefObject, useEffect } from "react";
+import { reposition } from 'nanopop';
+import { MutableRefObject, useEffect } from 'react';
 
 export const usePositionContent = (
   togglerRef: MutableRefObject<HTMLButtonElement | null>,
@@ -9,7 +9,7 @@ export const usePositionContent = (
     if (!togglerRef.current || !contentRef.current) return;
     reposition(togglerRef.current, contentRef.current, {
       margin: 2,
-      position: "bottom-end",
+      position: 'bottom-end',
     });
   }, [contentRef, togglerRef]);
 };

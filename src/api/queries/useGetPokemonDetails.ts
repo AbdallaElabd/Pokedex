@@ -1,6 +1,6 @@
-import { useQuery } from "react-query";
+import { useQuery } from 'react-query';
 
-import { pokemonCache } from "../cache";
+import { pokemonCache } from '../cache';
 
 const getPokemonDetailsQuery = (name: string | undefined) => {
   if (!name) return undefined;
@@ -12,7 +12,7 @@ export const useGetPokemonDetails = (name: string | undefined) => {
     data: pokemonDetails,
     isLoading,
     isSuccess,
-  } = useQuery(["pokemonDetails", name], () => getPokemonDetailsQuery(name));
+  } = useQuery(['pokemonDetails', name], () => getPokemonDetailsQuery(name));
 
   return {
     pokemonDetails,

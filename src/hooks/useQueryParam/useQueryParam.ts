@@ -1,7 +1,7 @@
-import { useCallback } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-type QueryParamType = "string" | "number";
+type QueryParamType = 'string' | 'number';
 type QueryParamPossibleType = number | string;
 
 export const parseQueryParamValue = <T extends QueryParamPossibleType>(
@@ -11,7 +11,7 @@ export const parseQueryParamValue = <T extends QueryParamPossibleType>(
 ): T => {
   if (value == null) return defaultValue;
 
-  if (type === "number") {
+  if (type === 'number') {
     return (Number(value) as T) || defaultValue;
   }
 

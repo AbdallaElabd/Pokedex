@@ -1,13 +1,13 @@
-import { queryClient } from "@api/api";
-import { GlobalStyle } from "@styles/GlobalStyle";
+import { queryClient } from '@api/api';
+import { GlobalStyle } from '@styles/GlobalStyle';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { createBrowserHistory } from "history";
-import { wrapHistory } from "oaf-react-router";
-import React from "react";
-import { QueryClientProvider } from "react-query";
-import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
+import { createBrowserHistory } from 'history';
+import { wrapHistory } from 'oaf-react-router';
+import React from 'react';
+import { QueryClientProvider } from 'react-query';
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 
-import { AppRoutes } from "./Routes";
+import { AppRoutes } from './Routes';
 
 const history = createBrowserHistory();
 wrapHistory(history, {

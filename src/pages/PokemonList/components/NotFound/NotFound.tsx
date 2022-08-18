@@ -1,7 +1,7 @@
-import { Text } from "@components";
-import styled from "styled-components";
+import { Text } from '@components';
+import styled from 'styled-components';
 
-export const StyledText = styled(Text).attrs({ variant: "h5" })`
+export const StyledText = styled(Text).attrs({ variant: 'h5' })`
   display: flex;
   flex-direction: column;
   flex: 1;

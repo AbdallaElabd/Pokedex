@@ -1,8 +1,8 @@
-import { Page } from "@components";
-import { PokemonDetails } from "@pages/PokemonDetails";
-import { PokemonList } from "@pages/PokemonList";
-import { PokedexProvider } from "@providers/Pokedex";
-import { Route, Routes } from "react-router-dom";
+import { Page } from '@components';
+import { PokemonDetails } from '@pages/PokemonDetails';
+import { PokemonList } from '@pages/PokemonList';
+import { PokedexProvider } from '@providers/Pokedex';
+import { Route, Routes } from 'react-router-dom';
 
 export function AppRoutes() {
   return (

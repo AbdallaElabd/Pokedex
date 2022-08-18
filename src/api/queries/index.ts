@@ -1,2 +1,2 @@
-export * from "./useGetPokemonDetails";
-export * from "./useGetPokemonList";
+export * from './useGetPokemonDetails';
+export * from './useGetPokemonList';

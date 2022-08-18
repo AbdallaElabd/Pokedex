@@ -1,11 +1,11 @@
-import { Pokemon } from "@api/cache";
-import { Abilities, Text } from "@components";
-import { faStairs, faWeightScale } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { usePokedex } from "@providers/Pokedex";
-import { capitalize, formatHeight, formatWeight } from "@utils";
-import { memo } from "react";
-import Highlighter from "react-highlight-words";
+import { Pokemon } from '@api/cache';
+import { Abilities, Text } from '@components';
+import { faStairs, faWeightScale } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { usePokedex } from '@providers/Pokedex';
+import { capitalize, formatHeight, formatWeight } from '@utils';
+import { memo } from 'react';
+import Highlighter from 'react-highlight-words';
 
 import {
   Content,
@@ -15,7 +15,7 @@ import {
   StyledCard,
   StyledLazyImage,
   StyledLink,
-} from "./styled";
+} from './styled';
 
 export interface PokemonCardProps {
   pokemon: Pokemon;
@@ -30,11 +30,11 @@ export const PokemonCard = memo(({ pokemon }: PokemonCardProps) => {
     <StyledLink key={pokemonName} to={`/pokemon/${pokemon.name}`}>
       <StyledCard elevation={0}>
         <StyledLazyImage
-          image={pokemon.sprites.other?.["official-artwork"]?.front_default}
+          image={pokemon.sprites.other?.['official-artwork']?.front_default}
         />
         <Content>
           <Text variant="h5">
-            {searchBy === "name" ? (
+            {searchBy === 'name' ? (
               <Highlighter
                 highlightTag={HighlightedText}
                 searchWords={[searchText]}
@@ -60,7 +60,7 @@ export const PokemonCard = memo(({ pokemon }: PokemonCardProps) => {
           </Details>
           <Abilities
             abilities={pokemon.abilities}
-            highlightText={searchBy === "ability" ? searchText : undefined}
+            highlightText={searchBy === 'ability' ? searchText : undefined}
           />
         </Content>
       </StyledCard>

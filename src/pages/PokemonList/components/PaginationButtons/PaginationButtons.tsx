@@ -1,21 +1,21 @@
-import { PageSize } from "@api/queries";
-import { Dropdown, Text } from "@components";
+import { PageSize } from '@api/queries';
+import { Dropdown, Text } from '@components';
 import {
   faArrowLeft,
   faArrowRight,
   faChevronDown,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { usePokedex } from "@providers/Pokedex";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { usePokedex } from '@providers/Pokedex';
 
 import {
   ButtonsContainer,
   Container,
   StyledButton,
   StyledText,
-} from "./styled";
+} from './styled';
 
-const PAGE_SIZE_OPTIONS: PageSize[] = ["10", "20", "50"];
+const PAGE_SIZE_OPTIONS: PageSize[] = ['10', '20', '50'];
 
 export function PaginationButtons() {
   const {

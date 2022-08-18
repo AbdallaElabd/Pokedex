@@ -1,8 +1,8 @@
-import { onBreakPoint } from "@styles";
-import { theme } from "@styles/theme";
-import styled, { css } from "styled-components";
+import { onBreakPoint } from '@styles';
+import { theme } from '@styles/theme';
+import styled, { css } from 'styled-components';
 
-import { Text } from "../Text";
+import { Text } from '../Text';
 
 export const Backdrop = styled.div`
   position: absolute;
@@ -20,13 +20,13 @@ export const Container = styled.div`
   padding: 0 var(--gutter);
   --gutter: 0rem;
   ${onBreakPoint(
-    "sm",
+    'sm',
     css`
       --gutter: 2rem;
     `
   )};
   ${onBreakPoint(
-    "md",
+    'md',
     css`
       --gutter: 3rem;
     `
@@ -40,7 +40,7 @@ export const Header = styled.div`
   padding: 1.5rem;
   justify-content: center;
   ${onBreakPoint(
-    "sm",
+    'sm',
     css`
       justify-content: flex-start;
       padding: 1rem;
@@ -52,19 +52,19 @@ export const Logo = styled.img`
   height: 100%;
   width: 6rem;
   ${onBreakPoint(
-    "sm",
+    'sm',
     css`
       width: 8rem;
     `
   )}
 `;
 
-export const Title = styled(Text).attrs({ variant: "h2" })`
+export const Title = styled(Text).attrs({ variant: 'h2' })`
   color: ${theme.colors.primary.foreground};
   z-index: 1;
   margin-right: 2rem;
   ${onBreakPoint(
-    "sm",
+    'sm',
     css`
       margin-right: 0;
     `
@@ -82,7 +82,7 @@ export const Content = styled.div`
   border-radius: 0;
   box-shadow: ${theme.shadow[8]};
   ${onBreakPoint(
-    "sm",
+    'sm',
     css`
       border-radius: 0.5rem;
       flex: 1;

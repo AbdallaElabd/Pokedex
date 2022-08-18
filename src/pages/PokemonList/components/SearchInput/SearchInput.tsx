@@ -1,14 +1,14 @@
-import { SearchByAttribute } from "@api/queries";
-import { Dropdown } from "@components";
+import { SearchByAttribute } from '@api/queries';
+import { Dropdown } from '@components';
 import {
   faBoltLightning,
   faFont,
   faSearch,
   faTimes,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { usePokedex } from "@providers/Pokedex";
-import { useCallback, useRef } from "react";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { usePokedex } from '@providers/Pokedex';
+import { useCallback, useRef } from 'react';
 
 import {
   ClearButtonContainer,
@@ -16,16 +16,16 @@ import {
   SearchInputContainer,
   StyledInput,
   StyledText,
-} from "./styled";
+} from './styled';
 
-const SEARCH_BY_ATTRIBUTES: SearchByAttribute[] = ["name", "ability"];
+const SEARCH_BY_ATTRIBUTES: SearchByAttribute[] = ['name', 'ability'];
 
 export function SearchInput() {
   const { searchText, search, searchBy, setSearchBy } = usePokedex();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleOnClear = useCallback(() => {
-    search("");
+    search('');
     inputRef.current?.focus();
   }, [search]);
 
@@ -36,7 +36,7 @@ export function SearchInput() {
           <StyledText variant="button">
             {`Search by ${searchBy}`}
             <FontAwesomeIcon
-              icon={searchBy === "ability" ? faBoltLightning : faFont}
+              icon={searchBy === 'ability' ? faBoltLightning : faFont}
             />
           </StyledText>
         }
@@ -45,7 +45,7 @@ export function SearchInput() {
         renderOption={(option) => (
           <StyledText variant="body2" capitalize>
             <FontAwesomeIcon
-              icon={option === "ability" ? faBoltLightning : faFont}
+              icon={option === 'ability' ? faBoltLightning : faFont}
               size="sm"
             />
             {option}

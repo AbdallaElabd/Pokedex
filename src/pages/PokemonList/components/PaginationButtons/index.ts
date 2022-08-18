@@ -1,1 +1,1 @@
-export * from "./PaginationButtons";
+export * from './PaginationButtons';

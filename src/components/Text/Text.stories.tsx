@@ -1,4 +1,4 @@
-import { Text } from "./Text";
+import { Text } from './Text';
 
 export default {
   component: Text,
@@ -6,7 +6,7 @@ export default {
 
 export function Default() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <Text variant="h1">Heading 1</Text>
       <Text variant="h2">Heading 2</Text>
       <Text variant="h3">Heading 3</Text>

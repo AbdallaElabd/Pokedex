@@ -1,6 +1,6 @@
-import { onBreakPoint } from "@styles";
-import { theme } from "@styles/theme";
-import styled, { css } from "styled-components";
+import { onBreakPoint } from '@styles';
+import { theme } from '@styles/theme';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -35,25 +35,25 @@ export const CardsContainer = styled.div`
 
   --columns: 1;
   ${onBreakPoint(
-    "sm",
+    'sm',
     css`
       --columns: 2;
     `
   )};
   ${onBreakPoint(
-    "md",
+    'md',
     css`
       --columns: 3;
     `
   )};
   ${onBreakPoint(
-    "lg",
+    'lg',
     css`
       --columns: 4;
     `
   )};
   ${onBreakPoint(
-    "xl",
+    'xl',
     css`
       --columns: 5;
     `

@@ -1,4 +1,4 @@
-import { Chip } from "./Chip";
+import { Chip } from './Chip';
 
 export default {
   component: Chip,
@@ -6,7 +6,7 @@ export default {
 
 export function Default() {
   return (
-    <div style={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
+    <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
       <Chip variant="primary">Primary</Chip>
       <Chip variant="secondary">Secondary</Chip>
       <Chip variant="neutral">Neutral</Chip>

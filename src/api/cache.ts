@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { type PokeAPI } from "pokeapi-types";
+import { type PokeAPI } from 'pokeapi-types';
 
 interface PokemonSprites extends PokeAPI.PokemonSprites {
   other: {
-    ["official-artwork"]?: {
+    ['official-artwork']?: {
       front_default?: string;
     };
   };
@@ -33,7 +33,7 @@ class PokemonCache {
     if (this.allPokemon !== null) return this.allPokemon;
     try {
       const { results: pokemonList } = (await PokemonCache.endpoint(
-        "https://pokeapi.co/api/v2/pokemon?offset=0&limit=1500"
+        'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1500'
       )) as PokemonListReponse;
 
       const pokemonData = new Map<string, Pokemon>();

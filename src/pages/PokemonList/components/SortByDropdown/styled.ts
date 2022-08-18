@@ -1,5 +1,5 @@
-import { Text } from "@components";
-import styled from "styled-components";
+import { Text } from '@components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -11,6 +11,6 @@ export const StyledText = styled(Text)<{ capitalize?: boolean }>`
   gap: 0.5rem;
   align-items: center;
   text-transform: ${({ capitalize }) =>
-    capitalize ? "capitalize" : "initial"};
+    capitalize ? 'capitalize' : 'initial'};
   text-align: center;
 `;

@@ -1,5 +1,5 @@
-import { theme } from "@styles/theme";
-import { PropsWithChildren } from "react";
+import { theme } from '@styles/theme';
+import { PropsWithChildren } from 'react';
 
 export function HighlightedText({ children }: PropsWithChildren) {
   return (

@@ -1,8 +1,8 @@
-import { useGetPokemonDetails } from "@api/queries";
-import { Abilities, Spinner, Text } from "@components";
-import { Chip } from "@components/Chip";
-import { capitalize, formatHeight, formatWeight } from "@utils";
-import { useParams } from "react-router-dom";
+import { useGetPokemonDetails } from '@api/queries';
+import { Abilities, Spinner, Text } from '@components';
+import { Chip } from '@components/Chip';
+import { capitalize, formatHeight, formatWeight } from '@utils';
+import { useParams } from 'react-router-dom';
 
 import {
   Container,
@@ -10,7 +10,7 @@ import {
   ImageSection,
   PokemonImage,
   Row,
-} from "./styled";
+} from './styled';
 
 export function PokemonDetails() {
   const { pokemonName } = useParams();
@@ -26,7 +26,7 @@ export function PokemonDetails() {
         <Text variant="h4">{capitalize(pokemon.name)}</Text>
 
         <PokemonImage
-          src={pokemon.sprites.other["official-artwork"]?.front_default}
+          src={pokemon.sprites.other['official-artwork']?.front_default}
         />
       </ImageSection>
 

@@ -1,7 +1,7 @@
-import "styled-components";
+import 'styled-components';
 
-import { Theme } from "@styles/theme";
+import { Theme } from '@styles/theme';
 
-declare module "styled-components" {
+declare module 'styled-components' {
   export type DefaultTheme = Theme;
 }

@@ -1,10 +1,10 @@
-import { theme } from "@styles/theme";
-import { PropsWithChildren } from "react";
-import styled, { css } from "styled-components";
+import { theme } from '@styles/theme';
+import { PropsWithChildren } from 'react';
+import styled, { css } from 'styled-components';
 
-import { Text } from "../Text";
+import { Text } from '../Text';
 
-type ChipVariant = "primary" | "secondary" | "neutral";
+type ChipVariant = 'primary' | 'secondary' | 'neutral';
 
 const getColorsFromVariant = (variant: ChipVariant) => {
   const colors = {
@@ -32,7 +32,7 @@ interface ChipProps {
 
 export function Chip({
   children,
-  variant = "secondary",
+  variant = 'secondary',
 }: PropsWithChildren<ChipProps>) {
   return (
     <Container variant={variant}>

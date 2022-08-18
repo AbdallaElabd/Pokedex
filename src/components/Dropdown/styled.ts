@@ -1,5 +1,5 @@
-import { theme } from "@styles/theme";
-import styled from "styled-components";
+import { theme } from '@styles/theme';
+import styled from 'styled-components';
 
 export const PopoverRoot = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ export const PopoverRoot = styled.div`
 export const PopoverContent = styled.div<{
   isOpen: boolean;
 }>`
-  visibility: ${({ isOpen }) => (isOpen ? "visibile" : "hidden")};
+  visibility: ${({ isOpen }) => (isOpen ? 'visibile' : 'hidden')};
   pointer-events: visible;
   display: flex;
   position: absolute;

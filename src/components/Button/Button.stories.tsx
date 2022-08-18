@@ -1,4 +1,4 @@
-import { Button } from "./Button";
+import { Button } from './Button';
 
 export default {
   component: Button,
@@ -6,7 +6,7 @@ export default {
 
 export function Default() {
   return (
-    <div style={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
+    <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="neutral">Neutral</Button>

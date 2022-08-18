@@ -1,1 +1,1 @@
-type AsyncStatus = "idle" | "pending" | "succeeded" | "failed";
+type AsyncStatus = 'idle' | 'pending' | 'succeeded' | 'failed';

@@ -1,4 +1,4 @@
-import { Spinner } from "./Spinner";
+import { Spinner } from './Spinner';
 
 export default {
   component: Spinner,
@@ -6,7 +6,7 @@ export default {
 
 export function Default() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <Spinner />
     </div>
   );

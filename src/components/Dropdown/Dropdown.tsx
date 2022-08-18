@@ -1,10 +1,10 @@
 /* eslint-disable consistent-return */
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
-import { useClickAway, useKey } from "react-use";
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { useClickAway, useKey } from 'react-use';
 
-import { Button } from "../Button";
-import { Option, PopoverContent, PopoverRoot } from "./styled";
-import { usePositionContent } from "./usePositionContent";
+import { Button } from '../Button';
+import { Option, PopoverContent, PopoverRoot } from './styled';
+import { usePositionContent } from './usePositionContent';
 
 interface DropdownProps<T> {
   options: T[];
@@ -33,7 +33,7 @@ export function Dropdown<T extends string>({
   }, [isOpen]);
 
   usePositionContent(togglerRef, contentRef);
-  useKey("Escape", closeDropdown);
+  useKey('Escape', closeDropdown);
   useClickAway(containerRef, closeDropdown);
 
   useEffect(() => {
@@ -49,9 +49,9 @@ export function Dropdown<T extends string>({
       }
     };
 
-    containerElement.addEventListener<"focusout">("focusout", onFocusOut);
+    containerElement.addEventListener<'focusout'>('focusout', onFocusOut);
     return () =>
-      containerElement.removeEventListener<"focusout">("focusout", onFocusOut);
+      containerElement.removeEventListener<'focusout'>('focusout', onFocusOut);
   }, [closeDropdown]);
 
   const handleOptionClicked = useCallback(

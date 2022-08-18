@@ -1,14 +1,14 @@
-import { Spinner } from "@components";
-import { usePokedex } from "@providers/Pokedex";
+import { Spinner } from '@components';
+import { usePokedex } from '@providers/Pokedex';
 
 import {
   PaginationButtons,
   PokemonCard,
   SearchInput,
   SortByDropdown,
-} from "./components";
-import { NotFound } from "./components/NotFound";
-import { CardsContainer, Container, Separator, TopRow } from "./styled";
+} from './components';
+import { NotFound } from './components/NotFound';
+import { CardsContainer, Container, Separator, TopRow } from './styled';
 
 export function PokemonList() {
   const { pokemonList, isLoading } = usePokedex();

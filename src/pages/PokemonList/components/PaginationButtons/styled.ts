@@ -1,5 +1,5 @@
-import { Button, Text } from "@components";
-import styled from "styled-components";
+import { Button, Text } from '@components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   align-self: flex-end;

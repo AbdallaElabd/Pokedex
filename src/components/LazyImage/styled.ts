@@ -1,7 +1,7 @@
-import { animations } from "@styles/animations";
-import styled, { css, keyframes } from "styled-components";
+import { animations } from '@styles/animations';
+import styled, { css, keyframes } from 'styled-components';
 
-import noPokemonImage from "./no-pokemon.png";
+import noPokemonImage from './no-pokemon.png';
 
 const shimmer = keyframes`
 0% {
@@ -12,18 +12,18 @@ const shimmer = keyframes`
 }
 `;
 
-const fadeInAnimationDuration = "0.2s";
+const fadeInAnimationDuration = '0.2s';
 
 export const Container = styled.div<{ isLoading: boolean }>`
   display: flex;
   position: relative;
   overflow: hidden;
   transition: background-color ${fadeInAnimationDuration} ease-in-out;
-  background-color: ${({ isLoading }) => (isLoading ? "#e5e5e5" : "initial")};
+  background-color: ${({ isLoading }) => (isLoading ? '#e5e5e5' : 'initial')};
 `;
 
 export const Shimmer = styled.div<{ isShown: boolean }>`
-  display: ${({ isShown }) => (isShown ? "flex" : "none")};
+  display: ${({ isShown }) => (isShown ? 'flex' : 'none')};
   z-index: 1;
   position: absolute;
   top: 0;
@@ -58,7 +58,7 @@ export const StyledImage = styled.div<{
   animation-fill-mode: forwards;
 
   ${({ image, status }) => {
-    if (!image || status === "failed")
+    if (!image || status === 'failed')
       return css`
         padding: 0;
         background-image: url(${noPokemonImage});

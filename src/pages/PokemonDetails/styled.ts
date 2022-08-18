@@ -1,16 +1,16 @@
-import { onBreakPoint } from "@styles";
-import styled, { css } from "styled-components";
+import { onBreakPoint } from '@styles';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
   ${onBreakPoint(
-    "sm",
+    'sm',
     css`
       display: grid;
       grid-template-columns: auto auto;
-      grid-template-areas: "content image";
+      grid-template-areas: 'content image';
     `
   )};
 `;
@@ -24,7 +24,7 @@ export const ImageSection = styled.div`
   gap: 1.5rem;
 
   ${onBreakPoint(
-    "sm",
+    'sm',
     css`
       box-shadow: none;
     `

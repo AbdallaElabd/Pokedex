@@ -1,15 +1,15 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
-import { cssReset } from "./cssReset";
-import { generateCssVariables } from "./generateCSSVariables";
-import { theme, themeValues } from "./theme";
+import { cssReset } from './cssReset';
+import { generateCssVariables } from './generateCSSVariables';
+import { theme, themeValues } from './theme';
 
 export const GlobalStyle = createGlobalStyle`
   ${cssReset};
 
   :root {
     font-family: 'Roboto', Inter, Avenir, Helvetica, Arial, sans-serif;
-    ${generateCssVariables(themeValues).join("")};
+    ${generateCssVariables(themeValues).join('')};
     font-size: 16px;
   }
 

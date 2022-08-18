@@ -1,12 +1,12 @@
-import { Pokemon } from "@api/cache";
-import { Chip } from "@components/Chip";
-import { faBoltLightning } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { capitalize } from "@utils";
-import Highlighter from "react-highlight-words";
-import styled from "styled-components";
+import { Pokemon } from '@api/cache';
+import { Chip } from '@components/Chip';
+import { faBoltLightning } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { capitalize } from '@utils';
+import Highlighter from 'react-highlight-words';
+import styled from 'styled-components';
 
-import { HighlightedText } from "../HighlightedText";
+import { HighlightedText } from '../HighlightedText';
 
 const Container = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ const AbilityIcon = styled(FontAwesomeIcon).attrs({
 `;
 
 interface AbilitiesProps {
-  abilities: Pokemon["abilities"];
+  abilities: Pokemon['abilities'];
   highlightText?: string;
 }
 

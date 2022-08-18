@@ -1,11 +1,11 @@
-import { Card, LazyImage } from "@components";
-import { faBoltLightning } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { animations } from "@styles/animations";
-import { theme } from "@styles/theme";
-import { PropsWithChildren } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Card, LazyImage } from '@components';
+import { faBoltLightning } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { animations } from '@styles/animations';
+import { theme } from '@styles/theme';
+import { PropsWithChildren } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const StyledLink = styled(Link)`
   display: flex;

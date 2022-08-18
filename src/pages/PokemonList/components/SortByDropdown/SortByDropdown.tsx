@@ -1,6 +1,6 @@
-import { SortByAttribute } from "@api/queries";
-import { Button, Dropdown } from "@components";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { SortByAttribute } from '@api/queries';
+import { Button, Dropdown } from '@components';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
   faChevronDown,
   faFont,
@@ -10,21 +10,21 @@ import {
   faSortAmountDesc,
   faStairs,
   faWeightScale,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { usePokedex } from "@providers/Pokedex";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { usePokedex } from '@providers/Pokedex';
 
-import { Container, StyledText } from "./styled";
+import { Container, StyledText } from './styled';
 
-const SORT_BY_ATTRIBUTES: SortByAttribute[] = ["name", "height", "weight"];
+const SORT_BY_ATTRIBUTES: SortByAttribute[] = ['name', 'height', 'weight'];
 
 function getSortAttributeIcon(sortBy: SortByAttribute): IconProp {
   switch (sortBy) {
-    case "name":
+    case 'name':
       return faFont;
-    case "height":
+    case 'height':
       return faStairs;
-    case "weight":
+    case 'weight':
     default:
       return faWeightScale;
   }
@@ -33,9 +33,9 @@ function getSortAttributeIcon(sortBy: SortByAttribute): IconProp {
 export function SortByDropdown() {
   const { sortBy, setSortAttribute, sortOrder, toggleSortOrder } = usePokedex();
 
-  let sortIcon = sortOrder === "ascending" ? faSortAlphaAsc : faSortAlphaDesc;
-  if (sortBy !== "name") {
-    sortIcon = sortOrder === "ascending" ? faSortAmountAsc : faSortAmountDesc;
+  let sortIcon = sortOrder === 'ascending' ? faSortAlphaAsc : faSortAlphaDesc;
+  if (sortBy !== 'name') {
+    sortIcon = sortOrder === 'ascending' ? faSortAmountAsc : faSortAmountDesc;
   }
 
   return (
