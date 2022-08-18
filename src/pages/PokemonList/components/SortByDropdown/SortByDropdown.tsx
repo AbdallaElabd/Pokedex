@@ -44,7 +44,9 @@ export function SortByDropdown() {
         toggler={
           <StyledText variant="button">
             {`Sort by ${sortBy}`}
-            <FontAwesomeIcon icon={faChevronDown} />
+            <div>
+              <FontAwesomeIcon icon={faChevronDown} />
+            </div>
           </StyledText>
         }
         options={SORT_BY_ATTRIBUTES}

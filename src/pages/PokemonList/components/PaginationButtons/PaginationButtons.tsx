@@ -35,7 +35,9 @@ export function PaginationButtons() {
         toggler={
           <StyledText variant="button">
             {`${pageSize}`}
-            <FontAwesomeIcon icon={faChevronDown} />
+            <div>
+              <FontAwesomeIcon icon={faChevronDown} />
+            </div>
           </StyledText>
         }
         options={PAGE_SIZE_OPTIONS}

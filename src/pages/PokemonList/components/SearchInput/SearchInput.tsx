@@ -35,9 +35,11 @@ export function SearchInput() {
         toggler={
           <StyledText variant="button">
             {`Search by ${searchBy}`}
-            <FontAwesomeIcon
-              icon={searchBy === 'ability' ? faBoltLightning : faFont}
-            />
+            <div>
+              <FontAwesomeIcon
+                icon={searchBy === 'ability' ? faBoltLightning : faFont}
+              />
+            </div>
           </StyledText>
         }
         options={SEARCH_BY_ATTRIBUTES}
@@ -56,6 +58,7 @@ export function SearchInput() {
 
       <SearchInputContainer>
         <StyledInput
+          type="text"
           ref={inputRef}
           placeholder={`Search by ${searchBy}...`}
           value={searchText}

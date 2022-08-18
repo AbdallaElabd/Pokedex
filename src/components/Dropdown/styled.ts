@@ -24,6 +24,7 @@ export const PopoverContent = styled.div<{
 `;
 
 export const Option = styled.button<{ isSelected: boolean }>`
+  color: initial;
   background: ${({ isSelected }) =>
     isSelected ? theme.colors.background : theme.colors.surface.background};
   padding: 0.5rem;

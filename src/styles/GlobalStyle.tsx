@@ -38,4 +38,8 @@ export const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+
+  input[type="text"] {
+    -webkit-appearance: none;
+  }
 `;
