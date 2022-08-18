@@ -1,13 +1,6 @@
 import { Button, Text } from '@components';
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  align-self: flex-end;
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-`;
-
 export const StyledButton = styled(Button).attrs({ circular: true })`
   display: flex;
   align-items: center;

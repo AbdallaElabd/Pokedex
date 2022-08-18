@@ -8,12 +8,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/Pokedex';
 
-import {
-  ButtonsContainer,
-  Container,
-  StyledButton,
-  StyledText,
-} from './styled';
+import { ButtonsContainer, StyledButton, StyledText } from './styled';
 
 const PAGE_SIZE_OPTIONS: PageSize[] = ['10', '20', '50'];
 
@@ -33,7 +28,7 @@ export function PaginationButtons() {
   const pageEnd = Math.min(Number(offset) + Number(pageSize), totalCount ?? 0);
 
   return (
-    <Container>
+    <>
       <StyledText variant="body1">Pokemon per page:</StyledText>
 
       <Dropdown
@@ -61,6 +56,6 @@ export function PaginationButtons() {
           <FontAwesomeIcon icon={faArrowRight} />
         </StyledButton>
       </ButtonsContainer>
-    </Container>
+    </>
   );
 }

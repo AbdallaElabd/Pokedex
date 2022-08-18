@@ -37,7 +37,19 @@ export function PokemonList() {
         </CardsContainer>
       )}
 
-      {pokemonList.length !== 0 && <PaginationButtons />}
+      {pokemonList.length !== 0 && (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '1rem',
+            alignSelf: 'flex-end',
+            flexWrap: 'wrap',
+          }}
+        >
+          <PaginationButtons />
+        </div>
+      )}
     </Container>
   );
 }

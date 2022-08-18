@@ -14,7 +14,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/Pokedex';
 
-import { Container, StyledText } from './styled';
+import { StyledText } from './styled';
 
 const SORT_BY_ATTRIBUTES: SortByAttribute[] = ['name', 'height', 'weight'];
 
@@ -39,7 +39,7 @@ export function SortByDropdown() {
   }
 
   return (
-    <Container>
+    <>
       <Dropdown
         toggler={
           <StyledText variant="button">
@@ -61,6 +61,6 @@ export function SortByDropdown() {
       <Button onClick={toggleSortOrder}>
         <FontAwesomeIcon icon={sortIcon} />
       </Button>
-    </Container>
+    </>
   );
 }
