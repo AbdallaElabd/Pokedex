@@ -6,7 +6,7 @@ A web client for browsing the pokemon data provided by [PokéAPI](https://pokeap
 
 ### Preview
 
-https://pokedex-abdalla-elabd.vercel.app/
+https://pokedex.abdallaelabd.vercel.app/
 
 ### Running the project
 
