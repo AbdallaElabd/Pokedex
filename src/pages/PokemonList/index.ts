@@ -1,1 +1,1 @@
-export * from './PokemonList';
+export { PokemonListPage } from './page';
