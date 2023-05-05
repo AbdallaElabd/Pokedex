@@ -10,7 +10,7 @@ const meta: Meta<typeof Chip> = {
 
 export default meta;
 
-export function Variants() {
+export function Elevations() {
   return (
     <div className="flex flex-col gap-2">
       <Chip variant="primary">Primary</Chip>
