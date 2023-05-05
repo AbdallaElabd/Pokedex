@@ -7,8 +7,7 @@ import {
   SearchInput,
   SortByDropdown,
 } from './components';
-import { NotFound } from './components/NotFound';
-import { CardsContainer, Container, Separator, TopRow } from './styled';
+import { Container, Separator, TopRow } from './styled';
 
 export function PokemonList() {
   const { pokemonList, isLoading } = usePokedex();
@@ -28,25 +27,19 @@ export function PokemonList() {
       <Separator />
 
       {pokemonList.length === 0 ? (
-        <NotFound />
+        <span className="my-16 font-sans text-lg">
+          No Pokémon. Try a different search term.
+        </span>
       ) : (
-        <CardsContainer>
+        <div className="columns-1 gap-4 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5">
           {pokemonList.map((pokemon) => (
             <PokemonCard key={pokemon.name} pokemon={pokemon} />
           ))}
-        </CardsContainer>
+        </div>
       )}
 
       {pokemonList.length !== 0 && (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: '1rem',
-            alignSelf: 'flex-end',
-            flexWrap: 'wrap',
-          }}
-        >
+        <div className="place-self-end">
           <PaginationButtons />
         </div>
       )}

@@ -28,17 +28,15 @@ export function PaginationButtons() {
   const pageEnd = Math.min(Number(offset) + Number(pageSize), totalCount ?? 0);
 
   return (
-    <>
-      <StyledText variant="body1">Pokemon per page:</StyledText>
+    <div className="flex w-full flex-wrap items-center justify-end gap-4">
+      <span className="text-base">Pokemon per page</span>
 
       <Dropdown
         toggler={
-          <StyledText variant="button">
+          <span className="flex items-center gap-2 text-base">
             {`${pageSize}`}
-            <div>
-              <FontAwesomeIcon icon={faChevronDown} />
-            </div>
-          </StyledText>
+            <FontAwesomeIcon icon={faChevronDown} />
+          </span>
         }
         options={PAGE_SIZE_OPTIONS}
         selected={pageSize}
@@ -46,9 +44,9 @@ export function PaginationButtons() {
         onOptionClicked={changePageSize}
       />
 
-      <StyledText variant="body1">
+      <span className="text-base">
         {`${pageStart}-${pageEnd} of ${totalCount}`}
-      </StyledText>
+      </span>
 
       <ButtonsContainer>
         <StyledButton disabled={!hasPrevious} onClick={previous}>
@@ -58,6 +56,6 @@ export function PaginationButtons() {
           <FontAwesomeIcon icon={faArrowRight} />
         </StyledButton>
       </ButtonsContainer>
-    </>
+    </div>
   );
 }

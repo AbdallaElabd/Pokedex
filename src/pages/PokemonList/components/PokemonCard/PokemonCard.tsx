@@ -1,5 +1,5 @@
 import { Pokemon } from '@api/cache';
-import { Abilities, Text } from '@components';
+import { Abilities, LazyImage, Text } from '@components';
 import { faStairs, faWeightScale } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/Pokedex';
@@ -28,11 +28,12 @@ export const PokemonCard = memo(({ pokemon }: PokemonCardProps) => {
 
   return (
     <StyledLink key={pokemonName} to={`/pokemon/${pokemon.name}`}>
-      <StyledCard elevation={0}>
-        <StyledLazyImage
+      <div className="w-full overflow-hidden rounded-md shadow-md transition-all hover:scale-105 hover:shadow-lg">
+        <LazyImage
+          className="h-48 w-full object-cover"
           image={pokemon.sprites.other?.['official-artwork']?.front_default}
         />
-        <Content>
+        <div className="p-4">
           <Text variant="h5">
             {searchBy === 'name' ? (
               <Highlighter
@@ -62,8 +63,8 @@ export const PokemonCard = memo(({ pokemon }: PokemonCardProps) => {
             abilities={pokemon.abilities}
             highlightText={searchBy === 'ability' ? searchText : undefined}
           />
-        </Content>
-      </StyledCard>
+        </div>
+      </div>
     </StyledLink>
   );
 });

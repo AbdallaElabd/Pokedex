@@ -58,6 +58,7 @@ export function SearchInput() {
 
       <SearchInputContainer>
         <StyledInput
+          className="placeholder:text-base"
           type="text"
           ref={inputRef}
           placeholder={`Search by ${searchBy}...`}
