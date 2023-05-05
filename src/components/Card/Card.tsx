@@ -1,19 +1,33 @@
-import { Theme, theme } from '@styles/theme';
-import styled from 'styled-components';
+// import classnames library
+import classNames from 'classnames';
+import { tv, VariantProps } from 'tailwind-variants';
 
-// export const Card = styled.div<{ elevation: keyof Theme['shadow'] }>`
-//   border-radius: 1rem;
-//   box-shadow: ${({ elevation }) => theme.shadow[elevation]};
-// `;
+const card = tv({
+  base: 'flex rounded-md px-2 py-1',
+  variants: {
+    elevation: {
+      sm: 'shadow-sm',
+      md: 'shadow-md',
+      lg: 'shadow-lg',
+      xl: 'shadow-xl',
+      '2xl': 'shadow-xl',
+    },
+  },
+  defaultVariants: {
+    elevation: 'sm',
+  },
+});
 
 export function Card({
   children,
+  className,
   elevation,
 }: {
   children: React.ReactNode;
-  elevation: keyof Theme['shadow'];
+  className?: string;
+  elevation: VariantProps<typeof card>['elevation'];
 }) {
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg">{children}</div>
+    <div className={classNames(className, card({ elevation }))}>{children}</div>
   );
 }

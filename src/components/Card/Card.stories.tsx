@@ -1,37 +1,48 @@
-import styled from 'styled-components';
+import type { Meta } from '@storybook/react';
 
 import { Card } from './Card';
 
-export default {
+const meta: Meta<typeof Card> = {
+  title: 'Card',
+  tags: ['autodocs'],
   component: Card,
 };
 
-const Container = styled.div`
-  display: flex;
-  padding: 3rem;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 5rem;
-`;
-
-const StyledCard = styled(Card)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 13rem;
-  height: 13rem;
-  padding: 1rem;
-`;
+export default meta;
 
 export function Default() {
   return (
-    <Container>
-      <StyledCard elevation={0}>Elevation: 0</StyledCard>
-      <StyledCard elevation={1}>Elevation: 1</StyledCard>
-      <StyledCard elevation={2}>Elevation: 2</StyledCard>
-      <StyledCard elevation={4}>Elevation: 4</StyledCard>
-      <StyledCard elevation={8}>Elevation: 8</StyledCard>
-      <StyledCard elevation={16}>Elevation: 16</StyledCard>
-    </Container>
+    <div className="flex flex-wrap gap-8">
+      <Card
+        elevation="sm"
+        className="flex h-32 w-32 items-center justify-center"
+      >
+        <span>Elevation: sm</span>
+      </Card>
+      <Card
+        elevation="md"
+        className="flex h-32 w-32 items-center justify-center"
+      >
+        <span>Elevation: md</span>
+      </Card>
+      <Card
+        elevation="lg"
+        className="flex h-32 w-32 items-center justify-center"
+      >
+        <span>Elevation: lg</span>
+      </Card>
+      <Card
+        elevation="xl"
+        className="flex h-32 w-32 items-center justify-center"
+      >
+        <span>Elevation: xl</span>
+      </Card>
+      <Card
+        elevation="2xl"
+        className="flex h-32 w-32 items-center justify-center"
+      >
+        <span>Elevation: 2xl</span>
+      </Card>
+    </div>
   );
 }
