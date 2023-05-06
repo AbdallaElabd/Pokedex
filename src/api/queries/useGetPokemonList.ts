@@ -1,146 +1,131 @@
-import { useQueryParam } from '@hooks/useQueryParam';
+import { pokemonListRoute, PokemonSearchSchema } from '@router';
+import { useNavigate, useSearch } from '@tanstack/router';
 import { useCallback } from 'react';
 import { useQuery } from 'react-query';
 
 import { pokemonCache } from '../cache';
 
-export type PageSize = '10' | '20' | '50';
-const defaultPageSize: PageSize = '10';
-export type SearchByAttribute = 'name' | 'ability';
-export type SortByAttribute = 'name' | 'height' | 'weight';
-export type SortOrder = 'ascending' | 'descending';
-
-type GetPokemonListParams = {
-  pageSize: PageSize;
-  offset: number;
-  searchText: string;
-  searchBy: SearchByAttribute;
-  sortBy: SortByAttribute;
-  sortOrder: SortOrder;
-};
-
-const getPokemonListQuery = async ({
-  pageSize,
-  offset,
-  searchText,
-  searchBy,
-  sortBy,
-  sortOrder,
-}: GetPokemonListParams) => {
-  const allPokemonList = await pokemonCache.getAllPokemon();
-
-  if (!allPokemonList) return undefined;
-
-  const filteredList = [...allPokemonList]
-    .map(([, pokemon]) => pokemon)
-    .filter((pokemon) => {
-      if (!searchText) return true;
-      if (searchBy === 'name') {
-        return pokemon.name.includes(searchText.toLowerCase());
-      }
-      return pokemon.abilities.some((ability) =>
-        ability.ability.name.includes(searchText.toLowerCase())
-      );
-    })
-    .sort((p1, p2) => {
-      if (sortOrder === 'descending') {
-        return p1[sortBy] < p2[sortBy] ? 1 : -1;
-      }
-      return p2[sortBy] > p1[sortBy] ? -1 : 1;
-    });
-
-  const sliced = filteredList.slice(
-    offset,
-    offset + Number(pageSize) || Number(defaultPageSize)
-  );
-
-  return { totalCount: filteredList.length, pokemonList: sliced };
-};
+const defaultPageSize = 10;
 
 export const useGetPokemonList = () => {
-  const [pageSize, setPageSize] = useQueryParam<PageSize>(
-    'string',
-    'pageSize',
-    defaultPageSize
-  );
-  const [offset, setOffset] = useQueryParam<number>('number', 'offset', 0);
-  const [searchText, setSearchText] = useQueryParam<string>(
-    'string',
-    'searchText',
-    ''
-  );
-  const [searchBy, setSearchBy] = useQueryParam<SearchByAttribute>(
-    'string',
-    'searchBy',
-    'name'
-  );
-  const [sortBy, setSortBy] = useQueryParam<SortByAttribute>(
-    'string',
-    'sortBy',
-    'name'
-  );
-  const [sortOrder, setSortOrder] = useQueryParam<SortOrder>(
-    'string',
-    'sortOrder',
-    'ascending'
-  );
+  const {
+    pageSize = defaultPageSize,
+    offset = 0,
+    searchText = '',
+    searchBy = 'name',
+    sortBy = 'name',
+    sortOrder = 'ascending',
+  } = useSearch({ from: pokemonListRoute.id });
+
+  const navigate = useNavigate({ from: pokemonListRoute.id });
 
   const { data, isLoading, isSuccess } = useQuery(
     ['pokemonList', pageSize, offset, searchText, searchBy, sortBy, sortOrder],
-    () =>
-      getPokemonListQuery({
-        pageSize,
+    async () => {
+      const allPokemonList = await pokemonCache.getAllPokemon();
+
+      if (!allPokemonList) return undefined;
+
+      const filteredList = [...allPokemonList]
+        .map(([, pokemon]) => pokemon)
+        .filter((pokemon) => {
+          if (!searchText) return true;
+          if (searchBy === 'name') {
+            return pokemon.name.includes(searchText.toLowerCase());
+          }
+          return pokemon.abilities.some((ability) =>
+            ability.ability.name.includes(searchText.toLowerCase())
+          );
+        })
+        .sort((p1, p2) => {
+          if (sortOrder === 'descending') {
+            return p1[sortBy] < p2[sortBy] ? 1 : -1;
+          }
+          return p2[sortBy] > p1[sortBy] ? -1 : 1;
+        });
+
+      const sliced = filteredList.slice(
         offset,
-        searchText,
-        searchBy,
-        sortBy,
-        sortOrder,
-      }),
+        offset + Number(pageSize) || Number(defaultPageSize)
+      );
+
+      return { totalCount: filteredList.length, pokemonList: sliced };
+    },
     { keepPreviousData: true }
   );
 
   const hasPrevious = offset > 0;
   const previous = useCallback(() => {
     if (hasPrevious) {
-      setOffset(offset - (Number(pageSize) || Number(defaultPageSize)));
+      const newOffset = offset - (Number(pageSize) || Number(defaultPageSize));
+      navigate({ search: { offset: newOffset } });
     }
-  }, [hasPrevious, setOffset, offset, pageSize]);
+  }, [hasPrevious, navigate, offset, pageSize]);
 
   const hasNext = !!(data && data.totalCount > Number(pageSize) + offset);
   const next = useCallback(() => {
     if (hasNext) {
-      setOffset(offset + (Number(pageSize) || Number(defaultPageSize)));
+      const newOffset = offset + (Number(pageSize) || Number(defaultPageSize));
+      navigate({ search: { offset: newOffset } });
     }
-  }, [hasNext, pageSize, offset, setOffset]);
+  }, [hasNext, offset, pageSize, navigate]);
 
   const toggleSortOrder = useCallback(() => {
-    setSortOrder(sortOrder === 'ascending' ? 'descending' : 'ascending');
-    setOffset(0);
-  }, [setOffset, setSortOrder, sortOrder]);
+    navigate({
+      search: {
+        sortOrder: sortOrder === 'ascending' ? 'descending' : 'ascending',
+        offset: 0,
+      },
+    });
+  }, [navigate, sortOrder]);
+
+  const setSearchBy = useCallback(
+    (searchByAttribute: PokemonSearchSchema['searchBy']) => {
+      navigate({
+        search: {
+          searchBy: searchByAttribute,
+          offset: 0,
+        },
+      });
+    },
+    [navigate]
+  );
 
   const setSortAttribute = useCallback(
-    (sortByAttribute: SortByAttribute) => {
-      setSortBy(sortByAttribute);
-      setSortOrder('ascending');
-      setOffset(0);
+    (sortByAttribute: PokemonSearchSchema['sortBy']) => {
+      navigate({
+        search: {
+          sortBy: sortByAttribute,
+          sortOrder: 'ascending',
+          offset: 0,
+        },
+      });
     },
-    [setOffset, setSortBy, setSortOrder]
+    [navigate]
   );
 
   const search = useCallback(
     (text: string) => {
-      setSearchText(text);
-      setOffset(0);
+      navigate({
+        search: {
+          searchText: text,
+          offset: 0,
+        },
+      });
     },
-    [setOffset, setSearchText]
+    [navigate]
   );
 
   const changePageSize = useCallback(
-    (newPageSize: PageSize) => {
-      setPageSize(newPageSize);
-      setOffset(0);
+    (newPageSize: PokemonSearchSchema['pageSize']) => {
+      navigate({
+        search: {
+          pageSize: newPageSize,
+          offset: 0,
+        },
+      });
     },
-    [setPageSize, setOffset]
+    [navigate]
   );
 
   return {
