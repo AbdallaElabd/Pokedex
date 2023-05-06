@@ -8,7 +8,9 @@ interface LazyImageProps {
 }
 
 export function LazyImage({ image, className }: LazyImageProps) {
-  const [status, setStatus] = useState<AsyncStatus>(image ? 'pending' : 'idle');
+  const [status, setStatus] = useState<
+    'idle' | 'pending' | 'succeeded' | 'failed'
+  >(image ? 'pending' : 'idle');
 
   useEffect(() => {
     if (!image) return;

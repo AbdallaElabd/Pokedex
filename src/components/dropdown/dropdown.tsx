@@ -1,4 +1,6 @@
 import { Button } from '@components/button';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -7,23 +9,28 @@ import { ReactNode, useState } from 'react';
 interface DropdownProps<T> {
   options: T[];
   selected: T;
-  toggler: ReactNode;
-  renderOption: (option: T, isSelected: boolean) => ReactNode;
-  onOptionClicked: (option: T) => void;
+  onChange: (option: T) => void;
+  renderPlaceholder: (option: T) => ReactNode;
+  renderOption?: (option: T, isSelected: boolean) => ReactNode;
 }
 
 export function Dropdown<T extends string | number>({
-  toggler,
   options,
   selected,
+  onChange,
+  renderPlaceholder,
   renderOption,
-  onOptionClicked,
 }: DropdownProps<T>) {
   const [open, setOpen] = useState(false);
   return (
     <DropdownMenu.Root open={open} onOpenChange={setOpen}>
       <DropdownMenu.Trigger asChild>
-        <Button size="sm">{toggler}</Button>
+        <Button size="sm">
+          <div className="flex items-center gap-2">
+            {renderPlaceholder(selected)}
+            <FontAwesomeIcon icon={faChevronDown} size="xs" />
+          </div>
+        </Button>
       </DropdownMenu.Trigger>
       <AnimatePresence>
         {open && (
@@ -49,9 +56,13 @@ export function Dropdown<T extends string | number>({
                       }
                     )}
                     key={option}
-                    onSelect={() => onOptionClicked(option)}
+                    onSelect={() => onChange(option)}
                   >
-                    {renderOption(option, selected === option)}
+                    {renderOption ? (
+                      renderOption(option, selected === option)
+                    ) : (
+                      <span>{option}</span>
+                    )}
                   </DropdownMenu.Item>
                 ))}
               </motion.div>

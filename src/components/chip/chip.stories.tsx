@@ -10,7 +10,7 @@ const meta: Meta<typeof Chip> = {
 
 export default meta;
 
-export function Elevations() {
+export function Variants() {
   return (
     <div className="flex flex-col gap-2">
       <Chip variant="primary">Primary</Chip>
@@ -26,6 +26,7 @@ export function Sizes() {
       <Chip size="lg">Large</Chip>
       <Chip size="md">Medium</Chip>
       <Chip size="sm">Small</Chip>
+      <Chip size="xs">X-Small</Chip>
     </div>
   );
 }

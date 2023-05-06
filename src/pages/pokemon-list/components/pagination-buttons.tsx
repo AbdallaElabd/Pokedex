@@ -1,11 +1,7 @@
 import { PokemonSearchSchema } from '@api/queries/search-pokemon-schema';
 import { Button } from '@components/button';
 import { Dropdown } from '@components/dropdown';
-import {
-  faArrowLeft,
-  faArrowRight,
-  faChevronDown,
-} from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/pokedex';
 
@@ -29,19 +25,12 @@ export function PaginationButtons() {
 
   return (
     <div className="flex flex-wrap items-center justify-end gap-4">
-      <span className="text-base">Pokemon per page</span>
-
       <Dropdown
-        toggler={
-          <div className="flex items-center gap-2">
-            {`${pageSize}`}
-            <FontAwesomeIcon icon={faChevronDown} />
-          </div>
-        }
+        renderPlaceholder={(option) => `Page size: ${option}`}
         options={PAGE_SIZE_OPTIONS}
         selected={pageSize}
         renderOption={(option) => <span className="text-sm">{option}</span>}
-        onOptionClicked={changePageSize}
+        onChange={(option) => changePageSize(option)}
       />
 
       <span className="text-base">

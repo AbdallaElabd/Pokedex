@@ -2,7 +2,6 @@ import { PokemonSearchSchema } from '@api/queries/search-pokemon-schema';
 import { Button } from '@components/button';
 import { Dropdown } from '@components/dropdown';
 import {
-  faChevronDown,
   faFont,
   faSortAlphaAsc,
   faSortAlphaDesc,
@@ -31,14 +30,9 @@ export function SortByDropdown() {
   return (
     <>
       <Dropdown
-        toggler={
-          <div className="flex items-center gap-2">
-            {`Sort by ${sortBy}`}
-            <FontAwesomeIcon icon={faChevronDown} />
-          </div>
-        }
         options={SORT_BY_ATTRIBUTES}
         selected={sortBy}
+        renderPlaceholder={(option) => `Sort by ${option}`}
         renderOption={(option) => {
           const icon = {
             name: faFont,
@@ -52,7 +46,7 @@ export function SortByDropdown() {
             </span>
           );
         }}
-        onOptionClicked={(option) => {
+        onChange={(option) => {
           setSortAttribute(option);
         }}
       />
