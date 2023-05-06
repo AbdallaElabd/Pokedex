@@ -35,7 +35,7 @@ export function PokemonList() {
   } = useGetPokemonList();
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isLoading || !pokemonList ? (
         <motion.div
           className="absolute inset-0 flex items-center justify-center"
@@ -52,9 +52,6 @@ export function PokemonList() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{
-            delay: 0.2,
-          }}
           className="flex flex-col gap-4 p-4"
         >
           <div className="flex flex-wrap items-center justify-end gap-4">
@@ -83,22 +80,40 @@ export function PokemonList() {
               changePageSize={changePageSize}
             />
           </div>
-
-          {pokemonList.length === 0 ? (
-            <span className="my-16 font-sans text-lg">No Pokémon found.</span>
-          ) : (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {pokemonList.map((pokemon) => (
-                <PokemonCard
-                  key={pokemon.name}
-                  pokemon={pokemon}
-                  searchBy={searchBy}
-                  searchText={searchText}
-                />
-              ))}
-            </div>
-          )}
-
+          <div className="flex h-full flex-grow justify-center">
+            <AnimatePresence mode="popLayout">
+              {pokemonList.length === 0 ? (
+                <motion.span
+                  key="empty"
+                  className="my-8 font-sans text-lg"
+                  initial={{ opacity: 0, translateY: 50 }}
+                  animate={{ opacity: 1, translateY: 0 }}
+                  exit={{ opacity: 0, translateY: 50 }}
+                >
+                  No Pokémon found.
+                </motion.span>
+              ) : (
+                <motion.div className="grid h-full w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {pokemonList.map((pokemon) => (
+                    <motion.div
+                      key={pokemon.id}
+                      layout="position"
+                      initial={{ opacity: 0, translateY: 50 }}
+                      animate={{ opacity: 1, translateY: 0 }}
+                      exit={{ opacity: 0, translateY: 50 }}
+                      layoutId={`${pokemon.id}`}
+                    >
+                      <PokemonCard
+                        pokemon={pokemon}
+                        searchBy={searchBy}
+                        searchText={searchText}
+                      />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           {pokemonList.length !== 0 && (
             <div className="place-self-end">
               <PaginationButtons
