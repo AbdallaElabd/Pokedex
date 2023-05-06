@@ -1,5 +1,5 @@
 import { PageSize } from '@api/queries';
-import { Dropdown, Text } from '@components';
+import { Button, Dropdown, Text } from '@components';
 import {
   faArrowLeft,
   faArrowRight,
@@ -7,8 +7,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/Pokedex';
-
-import { ButtonsContainer, StyledButton } from './styled';
 
 const PAGE_SIZE_OPTIONS: PageSize[] = ['10', '20', '50'];
 
@@ -33,14 +31,15 @@ export function PaginationButtons() {
 
       <Dropdown
         toggler={
-          <span className="flex items-center gap-2 text-base">
+          <Button className="flex items-center gap-2 text-base">
             {`${pageSize}`}
             <FontAwesomeIcon icon={faChevronDown} />
-          </span>
+          </Button>
         }
         options={PAGE_SIZE_OPTIONS}
-        selected={pageSize}
-        renderOption={(option) => <Text variant="body2">{option}</Text>}
+        selected="10"
+        // selected={pageSize}
+        renderOption={(option) => <span className="text-sm">{option}</span>}
         onOptionClicked={changePageSize}
       />
 
@@ -48,14 +47,22 @@ export function PaginationButtons() {
         {`${pageStart}-${pageEnd} of ${totalCount}`}
       </span>
 
-      <ButtonsContainer>
-        <StyledButton disabled={!hasPrevious} onClick={previous}>
+      <div className="flex gap-2">
+        <Button
+          className="flex items-center gap-2"
+          disabled={!hasPrevious}
+          onClick={previous}
+        >
           <FontAwesomeIcon icon={faArrowLeft} />
-        </StyledButton>
-        <StyledButton disabled={!hasNext} onClick={next}>
+        </Button>
+        <Button
+          className="flex items-center gap-2"
+          disabled={!hasNext}
+          onClick={next}
+        >
           <FontAwesomeIcon icon={faArrowRight} />
-        </StyledButton>
-      </ButtonsContainer>
+        </Button>
+      </div>
     </div>
   );
 }
