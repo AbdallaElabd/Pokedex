@@ -18,10 +18,10 @@ function Row({ children }: { children: ReactNode }) {
 export function PokemonDetails() {
   const { pokemonName } = useParams({ from: '/pokemon/$pokemonName' });
 
-  const { isLoading, data: pokemon } = useQuery(
-    ['getPokemonByName', pokemonName],
-    () => pokemonCache.getPokemonByName(pokemonName)
-  );
+  const { isLoading, data: pokemon } = useQuery({
+    queryKey: ['getPokemonByName', pokemonName],
+    queryFn: () => pokemonCache.getPokemonByName(pokemonName),
+  });
 
   if (isLoading || !pokemon) return <Spinner />;
 

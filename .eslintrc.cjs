@@ -4,6 +4,14 @@ module.exports = {
     es2021: true,
     jest: true,
   },
+  plugins: [
+    'prettier',
+    'react',
+    'react-hooks',
+    '@typescript-eslint',
+    'simple-import-sort',
+    '@tanstack/query',
+  ],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -13,6 +21,7 @@ module.exports = {
     'prettier',
     'plugin:@typescript-eslint/recommended',
     'plugin:storybook/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -22,13 +31,6 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: [
-    'prettier',
-    'react',
-    'react-hooks',
-    '@typescript-eslint',
-    'simple-import-sort',
-  ],
   rules: {
     'prettier/prettier': [
       'error',

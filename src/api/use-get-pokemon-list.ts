@@ -19,9 +19,17 @@ export const useGetPokemonList = () => {
 
   const navigate = useNavigate({ from: '/' });
 
-  const { data, isLoading, isSuccess } = useQuery(
-    ['getAllPokemon'],
-    async () => {
+  const { data, isLoading, isSuccess } = useQuery({
+    queryKey: [
+      'getAllPokemon',
+      pageSize,
+      offset,
+      searchText,
+      searchBy,
+      sortBy,
+      sortOrder,
+    ],
+    queryFn: async () => {
       const allPokemonList = await pokemonCache.getAllPokemon();
 
       const filteredList = [...allPokemonList]
@@ -46,15 +54,12 @@ export const useGetPokemonList = () => {
           return p2[sortBy] > p1[sortBy] ? -1 : 1;
         });
 
-      const sliced = filteredList.slice(
-        offset,
-        offset + Number(pageSize) || Number(defaultPageSize)
-      );
+      const sliced = filteredList.slice(offset, offset + pageSize);
 
       return { totalCount: filteredList.length, pokemonList: sliced };
     },
-    { keepPreviousData: true }
-  );
+    keepPreviousData: true,
+  });
 
   const hasPrevious = offset > 0;
   const hasNext = !!(data && data.totalCount > Number(pageSize) + offset);
