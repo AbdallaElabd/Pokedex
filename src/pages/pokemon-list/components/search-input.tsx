@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 const SEARCH_BY_ATTRIBUTES = [
   'name',
@@ -29,6 +29,31 @@ export function SearchInput({
   setSearchBy,
 }: SearchInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const [immediateSearchText, setImmediateSearchText] = useState(searchText);
+
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isTypingRef = useRef(false);
+
+  const debouncedSearch = useCallback(
+    (value: string) => {
+      isTypingRef.current = true;
+      setImmediateSearchText(value);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      timeoutRef.current = setTimeout(() => {
+        isTypingRef.current = false;
+        search(value);
+      }, 500);
+    },
+    [search]
+  );
+
+  if (!isTypingRef.current && immediateSearchText !== searchText) {
+    setImmediateSearchText(searchText);
+  }
 
   return (
     <>
@@ -53,8 +78,10 @@ export function SearchInput({
           type="text"
           ref={inputRef}
           placeholder={`Search by ${searchBy}...`}
-          value={searchText}
-          onChange={(event) => search(event.target.value)}
+          value={immediateSearchText}
+          onChange={(event) => {
+            debouncedSearch(event.target.value);
+          }}
         />
         <div className="pointer-events-none absolute top-0 flex h-full w-8 items-center justify-center px-2 text-sm">
           <FontAwesomeIcon icon={faSearch} />
@@ -72,6 +99,7 @@ export function SearchInput({
               type="button"
               className="absolute right-0 top-0 flex h-full w-8 cursor-pointer items-center justify-center rounded-md text-sm outline-none hover:scale-105 focus:ring-2 focus:ring-inset focus:ring-slate-500"
               onClick={() => {
+                setImmediateSearchText('');
                 search('');
                 inputRef.current?.focus();
               }}

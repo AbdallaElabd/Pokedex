@@ -30,7 +30,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-highlight-words": "^0.18.0",
-    "react-use": "^17.4.0",
     "tailwind-variants": "0.1.5",
     "zod": "3.21.4"
   },
