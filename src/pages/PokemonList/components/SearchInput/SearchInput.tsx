@@ -1,5 +1,5 @@
 import { SearchByAttribute } from '@api/queries';
-import { Dropdown } from '@components';
+import { Button, Dropdown } from '@components';
 import {
   faBoltLightning,
   faFont,
@@ -8,15 +8,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/Pokedex';
-import { useCallback, useRef } from 'react';
-
-import {
-  ClearButtonContainer,
-  SearchIconContainer,
-  SearchInputContainer,
-  StyledInput,
-  StyledText,
-} from './styled';
+import { motion } from 'framer-motion';
+import { useRef } from 'react';
 
 const SEARCH_BY_ATTRIBUTES: SearchByAttribute[] = ['name', 'ability'];
 
@@ -24,58 +17,54 @@ export function SearchInput() {
   const { searchText, search, searchBy, setSearchBy } = usePokedex();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleOnClear = useCallback(() => {
-    search('');
-    inputRef.current?.focus();
-  }, [search]);
-
   return (
     <>
       <Dropdown
         toggler={
-          <StyledText variant="button">
-            {`Search by ${searchBy}`}
-            <div>
-              <FontAwesomeIcon
-                icon={searchBy === 'ability' ? faBoltLightning : faFont}
-              />
-            </div>
-          </StyledText>
+          <Button size="sm" className="flex gap-2">
+            <span>{`Search by ${searchBy}`}</span>
+            <FontAwesomeIcon
+              icon={searchBy === 'ability' ? faBoltLightning : faFont}
+            />
+          </Button>
         }
         options={SEARCH_BY_ATTRIBUTES}
         selected={searchBy}
         renderOption={(option) => (
-          <StyledText variant="body2" capitalize>
+          <span className="flex items-center gap-2 text-sm">
             <FontAwesomeIcon
               icon={option === 'ability' ? faBoltLightning : faFont}
-              size="sm"
             />
             {option}
-          </StyledText>
+          </span>
         )}
         onOptionClicked={setSearchBy}
       />
 
-      <SearchInputContainer>
-        <StyledInput
-          className="placeholder:text-base"
+      <div className="relative">
+        <input
+          className="h-9 rounded-md pl-8 pr-8 text-sm outline-none placeholder:text-sm"
           type="text"
           ref={inputRef}
           placeholder={`Search by ${searchBy}...`}
           value={searchText}
           onChange={(event) => search(event.target.value)}
         />
-        <SearchIconContainer>
+        <div className="pointer-events-none absolute top-0 flex h-full w-8 items-center justify-center px-2 text-sm">
           <FontAwesomeIcon icon={faSearch} />
-        </SearchIconContainer>
-        <ClearButtonContainer
-          isShown={!!searchText}
-          tabIndex={searchText ? 0 : -1}
-          onClick={handleOnClear}
+        </div>
+        <motion.button
+          animate={{ scale: searchText ? 1 : 0 }}
+          type="button"
+          className="absolute right-0 top-0 flex h-full w-8 cursor-pointer items-center justify-center text-sm hover:scale-105"
+          onClick={() => {
+            search('');
+            inputRef.current?.focus();
+          }}
         >
           <FontAwesomeIcon icon={faTimes} />
-        </ClearButtonContainer>
-      </SearchInputContainer>
+        </motion.button>
+      </div>
     </>
   );
 }
