@@ -1,58 +1,48 @@
-import { theme } from '@styles/theme';
+import classNames from 'classnames';
 import { ButtonHTMLAttributes, forwardRef, PropsWithChildren } from 'react';
-import styled, { css } from 'styled-components';
+import { tv, VariantProps } from 'tailwind-variants';
 
-type ButtonVariant = 'primary' | 'secondary' | 'neutral' | 'surface';
+const buttonVariants = tv({
+  base: 'flex items-center justify-center rounded-lg font-medium text-white outline-none focus:shadow-md',
+  variants: {
+    variant: {
+      primary: 'bg-blue-600',
+      secondary: 'bg-yellow-600',
+      neutral: 'bg-slate-600',
+    },
+    size: {
+      sm: 'text-sm px-3 py-2',
+      md: 'text-base px-4 py-2',
+      lg: 'text-lg px-6 py-3',
+    },
+  },
+  defaultVariants: {
+    variant: 'neutral',
+    size: 'md',
+  },
+});
 
-const getColorsFromVariant = (variant: ButtonVariant) => {
-  const colors = {
-    primary: theme.colors.primary,
-    secondary: theme.colors.secondary,
-    neutral: theme.colors.neutralLight,
-    surface: theme.colors.surface,
-  }[variant];
-  return css`
-    background: ${colors.background};
-    color: ${colors.foreground};
-  `;
-};
+type ButtonVariantProps = VariantProps<typeof buttonVariants>;
 
-const StyledButton = styled.button<{ variant: ButtonVariant }>`
-  height: 2.2rem;
-  padding: 0.6rem 0.8rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: ${({ disabled }) => (disabled ? 'auto' : 'pointer')};
-  box-shadow: ${theme.shadow[0]};
-  transition: box-shadow 0.2s;
-
-  ${({ variant }) => getColorsFromVariant(variant)};
-
-  ${({ disabled }) =>
-    !disabled &&
-    css`
-      :hover,
-      :active,
-      :focus-visible {
-        box-shadow: ${theme.shadow[1]};
-        outline: 0;
-      }
-    `}
-`;
-
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant;
-}
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+  ButtonVariantProps & {
+    className?: string;
+  };
 
 export const Button = forwardRef<
   HTMLButtonElement,
   PropsWithChildren<ButtonProps>
 >((props, ref) => {
-  const { children, variant = 'surface', ...rest } = props;
+  const { children, variant, size, className, ...rest } = props;
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <StyledButton ref={ref} variant={variant} {...rest}>
+    <button
+      type="button"
+      ref={ref}
+      className={classNames(buttonVariants({ variant, size }), className)}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...rest}
+    >
       {children}
-    </StyledButton>
+    </button>
   );
 });
