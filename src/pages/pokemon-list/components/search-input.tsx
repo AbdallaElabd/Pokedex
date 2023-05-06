@@ -7,7 +7,6 @@ import {
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { usePokedex } from '@providers/pokedex';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRef } from 'react';
 
@@ -16,8 +15,19 @@ const SEARCH_BY_ATTRIBUTES = [
   'ability',
 ] satisfies PokemonSearchSchema['searchBy'][];
 
-export function SearchInput() {
-  const { searchText, search, searchBy, setSearchBy } = usePokedex();
+type SearchInputProps = {
+  searchText: string;
+  search: (searchText: string) => void;
+  searchBy: PokemonSearchSchema['searchBy'];
+  setSearchBy: (searchBy: PokemonSearchSchema['searchBy']) => void;
+};
+
+export function SearchInput({
+  searchText,
+  search,
+  searchBy,
+  setSearchBy,
+}: SearchInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (

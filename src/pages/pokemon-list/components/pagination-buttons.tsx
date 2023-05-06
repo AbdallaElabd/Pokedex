@@ -3,23 +3,30 @@ import { Button } from '@components/button';
 import { Dropdown } from '@components/dropdown';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { usePokedex } from '@providers/pokedex';
 
 const PAGE_SIZE_OPTIONS = [
   10, 20, 50,
 ] satisfies PokemonSearchSchema['pageSize'][];
 
-export function PaginationButtons() {
-  const {
-    totalCount,
-    hasPrevious,
-    hasNext,
-    changePage,
-    offset,
-    pageSize,
-    changePageSize,
-  } = usePokedex();
+type PaginationButtonsProps = {
+  totalCount: number | undefined;
+  hasPrevious: boolean;
+  hasNext: boolean;
+  changePage: (direction: 'previous' | 'next') => void;
+  offset: number;
+  pageSize: PokemonSearchSchema['pageSize'];
+  changePageSize: (pageSize: PokemonSearchSchema['pageSize']) => void;
+};
 
+export function PaginationButtons({
+  totalCount,
+  hasPrevious,
+  hasNext,
+  changePage,
+  offset,
+  pageSize,
+  changePageSize,
+}: PaginationButtonsProps) {
   const pageStart = offset;
   const pageEnd = Math.min(offset + pageSize, totalCount ?? 0);
 

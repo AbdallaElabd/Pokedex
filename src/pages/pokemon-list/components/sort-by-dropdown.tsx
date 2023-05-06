@@ -11,7 +11,6 @@ import {
   faWeightScale,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { usePokedex } from '@providers/pokedex';
 
 const SORT_BY_ATTRIBUTES = [
   'name',
@@ -19,9 +18,19 @@ const SORT_BY_ATTRIBUTES = [
   'weight',
 ] satisfies PokemonSearchSchema['sortBy'][];
 
-export function SortByDropdown() {
-  const { sortBy, setSortAttribute, sortOrder, toggleSortOrder } = usePokedex();
+type SortByDropdownProps = {
+  sortBy: PokemonSearchSchema['sortBy'];
+  setSortAttribute: (attribute: PokemonSearchSchema['sortBy']) => void;
+  sortOrder: PokemonSearchSchema['sortOrder'];
+  toggleSortOrder: () => void;
+};
 
+export function SortByDropdown({
+  sortBy,
+  setSortAttribute,
+  sortOrder,
+  toggleSortOrder,
+}: SortByDropdownProps) {
   let sortIcon = sortOrder === 'ascending' ? faSortAlphaAsc : faSortAlphaDesc;
   if (sortBy !== 'name') {
     sortIcon = sortOrder === 'ascending' ? faSortAmountAsc : faSortAmountDesc;

@@ -1,7 +1,7 @@
 import { pokemonSearchSchema } from '@api/search-pokemon-schema';
 import { Page } from '@components/page';
 import { PokemonDetails } from '@pages/pokemon-details';
-import { PokemonListPage } from '@pages/pokemon-list';
+import { PokemonList } from '@pages/pokemon-list';
 import { Outlet, RootRoute, Route, Router } from '@tanstack/router';
 
 function Root() {
@@ -19,7 +19,7 @@ const rootRoute = new RootRoute({
 export const pokemonListRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '/',
-  component: PokemonListPage,
+  component: PokemonList,
   validateSearch: pokemonSearchSchema,
 });
 

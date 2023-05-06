@@ -1,5 +1,5 @@
+import { useGetPokemonList } from '@api/use-get-pokemon-list';
 import { Spinner } from '@components/spinner';
-import { usePokedex } from '@providers/pokedex';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import {
@@ -10,7 +10,25 @@ import {
 } from './components';
 
 export function PokemonList() {
-  const { pokemonList, isLoading } = usePokedex();
+  const {
+    pokemonList,
+    isLoading,
+    sortBy,
+    setSortAttribute,
+    sortOrder,
+    toggleSortOrder,
+    searchText,
+    search,
+    searchBy,
+    setSearchBy,
+    totalCount,
+    hasPrevious,
+    hasNext,
+    changePage,
+    offset,
+    pageSize,
+    changePageSize,
+  } = useGetPokemonList();
 
   return (
     <AnimatePresence>
@@ -36,9 +54,27 @@ export function PokemonList() {
           className="flex flex-col gap-4 p-8"
         >
           <div className="flex items-center justify-end gap-4">
-            <SearchInput />
-            <SortByDropdown />
-            <PaginationButtons />
+            <SearchInput
+              searchText={searchText}
+              search={search}
+              searchBy={searchBy}
+              setSearchBy={setSearchBy}
+            />
+            <SortByDropdown
+              sortBy={sortBy}
+              setSortAttribute={setSortAttribute}
+              sortOrder={sortOrder}
+              toggleSortOrder={toggleSortOrder}
+            />
+            <PaginationButtons
+              totalCount={totalCount}
+              hasPrevious={hasPrevious}
+              hasNext={hasNext}
+              changePage={changePage}
+              offset={offset}
+              pageSize={pageSize}
+              changePageSize={changePageSize}
+            />
           </div>
 
           {pokemonList.length === 0 ? (
@@ -48,14 +84,27 @@ export function PokemonList() {
           ) : (
             <div className="flex flex-wrap gap-4">
               {pokemonList.map((pokemon) => (
-                <PokemonCard key={pokemon.name} pokemon={pokemon} />
+                <PokemonCard
+                  key={pokemon.name}
+                  pokemon={pokemon}
+                  searchBy={searchBy}
+                  searchText={searchText}
+                />
               ))}
             </div>
           )}
 
           {pokemonList.length !== 0 && (
             <div className="place-self-end">
-              <PaginationButtons />
+              <PaginationButtons
+                totalCount={totalCount}
+                hasPrevious={hasPrevious}
+                hasNext={hasNext}
+                changePage={changePage}
+                offset={offset}
+                pageSize={pageSize}
+                changePageSize={changePageSize}
+              />
             </div>
           )}
         </motion.div>
