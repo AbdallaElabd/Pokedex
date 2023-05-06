@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 
-import { Chip } from './Chip';
+import { Chip } from './Chip2';
 
 const meta: Meta<typeof Chip> = {
   title: 'Chip',

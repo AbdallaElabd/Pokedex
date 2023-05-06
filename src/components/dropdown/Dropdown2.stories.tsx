@@ -3,7 +3,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
-import { Dropdown } from './Dropdown';
+import { Dropdown } from './Dropdown2';
 
 export default {
   component: Dropdown,
