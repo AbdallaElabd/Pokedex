@@ -1,4 +1,3 @@
-import { pokemonListRoute } from '@router';
 import { useNavigate, useSearch } from '@tanstack/router';
 import { useCallback } from 'react';
 import { useQuery } from 'react-query';
@@ -16,9 +15,9 @@ export const useGetPokemonList = () => {
     searchBy = 'name',
     sortBy = 'name',
     sortOrder = 'ascending',
-  } = useSearch({ from: pokemonListRoute.id });
+  } = useSearch({ from: '/' });
 
-  const navigate = useNavigate({ from: pokemonListRoute.id });
+  const navigate = useNavigate({ from: '/' });
 
   const { data, isLoading, isSuccess } = useQuery(
     ['pokemonList', pageSize, offset, searchText, searchBy, sortBy, sortOrder],
