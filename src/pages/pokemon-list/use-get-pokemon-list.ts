@@ -2,20 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useSearch } from '@tanstack/router';
 import { useCallback } from 'react';
 
-import { pokemonCache } from './cache';
-import { PokemonSearchSchema } from './search-pokemon-schema';
-
-const defaultPageSize = 10;
+import { pokemonCache } from '../../api/cache';
+import { PokemonSearchSchema } from '../../api/search-pokemon-schema';
 
 export const useGetPokemonList = () => {
-  const {
-    pageSize = defaultPageSize,
-    offset = 0,
-    searchText = '',
-    searchBy = 'name',
-    sortBy = 'name',
-    sortOrder = 'ascending',
-  } = useSearch({ from: '/' });
+  const { pageSize, offset, searchText, searchBy, sortBy, sortOrder } =
+    useSearch({ from: '/' });
 
   const navigate = useNavigate({ from: '/' });
 

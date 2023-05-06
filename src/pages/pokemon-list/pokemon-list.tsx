@@ -1,5 +1,5 @@
-import { useGetPokemonList } from '@api/use-get-pokemon-list';
 import { Spinner } from '@components/spinner';
+import { useGetPokemonList } from '@pages/pokemon-list/use-get-pokemon-list';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import {
