@@ -1,4 +1,4 @@
-import { PokedexProvider } from '@providers/Pokedex';
+import { PokedexProvider } from '@providers/pokedex';
 
 import { PokemonList } from './pokemon-list';
 

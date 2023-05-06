@@ -12,7 +12,7 @@ import {
   faWeightScale,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { usePokedex } from '@providers/Pokedex';
+import { usePokedex } from '@providers/pokedex';
 
 const SORT_BY_ATTRIBUTES = [
   'name',

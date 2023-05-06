@@ -4,7 +4,7 @@ import { Card } from '@components/Card';
 import { LazyImage } from '@components/lazy-image';
 import { faStairs, faWeightScale } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { usePokedex } from '@providers/Pokedex';
+import { usePokedex } from '@providers/pokedex';
 import { Link } from '@tanstack/router';
 import { capitalize, formatHeight, formatWeight } from '@utils';
 import { memo } from 'react';
