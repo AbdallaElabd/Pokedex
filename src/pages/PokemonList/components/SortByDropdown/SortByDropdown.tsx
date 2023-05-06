@@ -42,20 +42,18 @@ export function SortByDropdown() {
     <>
       <Dropdown
         toggler={
-          <StyledText variant="button">
+          <div className="flex items-center gap-2">
             {`Sort by ${sortBy}`}
-            <div>
-              <FontAwesomeIcon icon={faChevronDown} />
-            </div>
-          </StyledText>
+            <FontAwesomeIcon icon={faChevronDown} />
+          </div>
         }
         options={SORT_BY_ATTRIBUTES}
         selected={sortBy}
         renderOption={(option) => (
-          <StyledText variant="body2" capitalize>
+          <span className="flex items-center gap-3 text-sm capitalize">
             <FontAwesomeIcon icon={getSortAttributeIcon(option)} size="sm" />
             {option}
-          </StyledText>
+          </span>
         )}
         onOptionClicked={setSortAttribute}
       />

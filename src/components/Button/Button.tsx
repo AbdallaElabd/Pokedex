@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, forwardRef, PropsWithChildren } from 'react';
 import { tv, VariantProps } from 'tailwind-variants';
 
 const buttonVariants = tv({
-  base: 'flex items-center justify-center rounded-lg font-medium text-white outline-none focus:shadow-md',
+  base: 'flex items-center justify-center rounded-lg font-medium text-white outline-none shadow-sm focus:shadow-md hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50',
   variants: {
     variant: {
       primary: 'bg-blue-600',

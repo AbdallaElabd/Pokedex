@@ -31,10 +31,10 @@ export function PaginationButtons() {
 
       <Dropdown
         toggler={
-          <Button className="flex items-center gap-2 text-base">
+          <div className="flex items-center gap-2">
             {`${pageSize}`}
             <FontAwesomeIcon icon={faChevronDown} />
-          </Button>
+          </div>
         }
         options={PAGE_SIZE_OPTIONS}
         selected="10"

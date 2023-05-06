@@ -21,12 +21,12 @@ export function SearchInput() {
     <>
       <Dropdown
         toggler={
-          <Button size="sm" className="flex gap-2">
+          <div className="flex items-center gap-2">
             <span>{`Search by ${searchBy}`}</span>
             <FontAwesomeIcon
               icon={searchBy === 'ability' ? faBoltLightning : faFont}
             />
-          </Button>
+          </div>
         }
         options={SEARCH_BY_ATTRIBUTES}
         selected={searchBy}
