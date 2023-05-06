@@ -17,15 +17,14 @@ export function PaginationButtons() {
     totalCount,
     hasPrevious,
     hasNext,
-    previous,
-    next,
+    changePage,
     offset,
     pageSize,
     changePageSize,
   } = usePokedex();
 
-  const pageStart = Number(offset);
-  const pageEnd = Math.min(Number(offset) + Number(pageSize), totalCount ?? 0);
+  const pageStart = offset;
+  const pageEnd = Math.min(offset + pageSize, totalCount ?? 0);
 
   return (
     <div className="flex flex-wrap items-center justify-end gap-4">
@@ -52,14 +51,14 @@ export function PaginationButtons() {
         <Button
           className="flex items-center gap-2"
           disabled={!hasPrevious}
-          onClick={previous}
+          onClick={() => changePage('previous')}
         >
           <FontAwesomeIcon icon={faArrowLeft} />
         </Button>
         <Button
           className="flex items-center gap-2"
           disabled={!hasNext}
-          onClick={next}
+          onClick={() => changePage('next')}
         >
           <FontAwesomeIcon icon={faArrowRight} />
         </Button>

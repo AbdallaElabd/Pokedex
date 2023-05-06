@@ -32,10 +32,14 @@ export const useGetPokemonList = () => {
         .filter((pokemon) => {
           if (!searchText) return true;
           if (searchBy === 'name') {
-            return pokemon.name.includes(searchText.toLowerCase());
+            return pokemon.name
+              .replaceAll('-', ' ')
+              .includes(searchText.toLowerCase());
           }
           return pokemon.abilities.some((ability) =>
-            ability.ability.name.includes(searchText.toLowerCase())
+            ability.ability.name
+              .replaceAll('-', ' ')
+              .includes(searchText.toLowerCase())
           );
         })
         .sort((p1, p2) => {
@@ -56,20 +60,21 @@ export const useGetPokemonList = () => {
   );
 
   const hasPrevious = offset > 0;
-  const previous = useCallback(() => {
-    if (hasPrevious) {
-      const newOffset = offset - (Number(pageSize) || Number(defaultPageSize));
-      navigate({ search: (prev) => ({ ...prev, offset: newOffset }) });
-    }
-  }, [hasPrevious, navigate, offset, pageSize]);
-
   const hasNext = !!(data && data.totalCount > Number(pageSize) + offset);
-  const next = useCallback(() => {
-    if (hasNext) {
-      const newOffset = offset + (Number(pageSize) || Number(defaultPageSize));
+  const changePage = useCallback(
+    (direction: 'next' | 'previous') => {
+      if (
+        (direction === 'previous' && !hasPrevious) ||
+        (direction === 'next' && !hasNext)
+      ) {
+        return;
+      }
+      const newOffset =
+        direction === 'previous' ? offset - pageSize : offset + pageSize;
       navigate({ search: (prev) => ({ ...prev, offset: newOffset }) });
-    }
-  }, [hasNext, offset, pageSize, navigate]);
+    },
+    [hasNext, hasPrevious, navigate, offset, pageSize]
+  );
 
   const toggleSortOrder = useCallback(() => {
     navigate({
@@ -147,8 +152,7 @@ export const useGetPokemonList = () => {
     sortOrder,
     hasNext,
     hasPrevious,
-    next,
-    previous,
+    changePage,
     search,
     changePageSize,
     setSearchBy,
