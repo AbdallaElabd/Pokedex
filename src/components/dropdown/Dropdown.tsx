@@ -1,4 +1,4 @@
-import { Button } from '@components/Button-2';
+import { Button } from '@components/button';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';

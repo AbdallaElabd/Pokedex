@@ -1,4 +1,4 @@
-import { Spinner } from '@components/Spinner-2';
+import { Spinner } from '@components/spinner';
 import { usePokedex } from '@providers/pokedex';
 import { AnimatePresence, motion } from 'framer-motion';
 

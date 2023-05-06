@@ -1,5 +1,5 @@
 import { Pokemon } from '@api/cache';
-import { Chip } from '@components/Chip-2';
+import { Chip } from '@components/chip';
 import { faBoltLightning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from '@tanstack/router';
