@@ -1,4 +1,4 @@
-import { Spinner } from './Spinner2';
+import { Spinner } from './spinner';
 
 export default {
   component: Spinner,

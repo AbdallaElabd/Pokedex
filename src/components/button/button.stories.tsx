@@ -1,4 +1,4 @@
-import { Button } from './Button2';
+import { Button } from './button';
 
 export default {
   component: Button,
