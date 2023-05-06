@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/pokedex';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useRef } from 'react';
 
 const SEARCH_BY_ATTRIBUTES = [
@@ -49,18 +49,27 @@ export function SearchInput() {
         <div className="pointer-events-none absolute top-0 flex h-full w-8 items-center justify-center px-2 text-sm">
           <FontAwesomeIcon icon={faSearch} />
         </div>
-        <motion.button
-          animate={{ scale: searchText ? 1 : 0 }}
-          initial={false}
-          type="button"
-          className="absolute right-0 top-0 flex h-full w-8 cursor-pointer items-center justify-center text-sm hover:scale-105"
-          onClick={() => {
-            search('');
-            inputRef.current?.focus();
-          }}
-        >
-          <FontAwesomeIcon icon={faTimes} />
-        </motion.button>
+        <AnimatePresence>
+          {searchText && (
+            <motion.button
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
+              transition={{
+                duration: 0.25,
+                ease: 'easeInOut',
+              }}
+              type="button"
+              className="absolute right-0 top-0 flex h-full w-8 cursor-pointer items-center justify-center rounded-md text-sm outline-none hover:scale-105 focus:ring-2 focus:ring-inset focus:ring-slate-500"
+              onClick={() => {
+                search('');
+                inputRef.current?.focus();
+              }}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </motion.button>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );
