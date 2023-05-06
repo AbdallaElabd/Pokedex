@@ -32,11 +32,13 @@ export function PokemonDetails() {
         <span>{`Height: ${formatHeight(pokemon.height)}`}</span>
         <span>{`Weight: ${formatWeight(pokemon.weight)}`}</span>
         <span>{`Base experience: ${pokemon.base_experience}`}</span>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-wrap items-baseline gap-2">
           <span>Stats</span>
           <div className="flex flex-wrap items-center gap-2">
             {pokemon.stats.map((stat) => (
               <Chip
+                variant="neutral"
+                size="xs"
                 key={stat.stat.name}
                 className="whitespace-nowrap text-sm font-semibold"
               >
@@ -45,15 +47,20 @@ export function PokemonDetails() {
             ))}
           </div>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-wrap items-baseline gap-2">
           <span>Types</span>
           {pokemon.types.map((type) => (
-            <Chip key={type.type.name} className="text-sm font-semibold">
+            <Chip
+              variant="neutral"
+              size="xs"
+              key={type.type.name}
+              className="text-sm font-semibold"
+            >
               {capitalize(type.type.name)}
             </Chip>
           ))}
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-wrap items-baseline gap-2">
           <span>Abilities</span>
           <Abilities abilities={pokemon.abilities} />
         </div>
