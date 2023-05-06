@@ -51,9 +51,9 @@ export function PokemonList() {
           transition={{
             delay: 0.2,
           }}
-          className="flex flex-col gap-4 p-8"
+          className="flex flex-col gap-4"
         >
-          <div className="flex items-center justify-end gap-4">
+          <div className="flex flex-wrap items-center justify-end gap-4">
             <SearchInput
               searchText={searchText}
               search={search}

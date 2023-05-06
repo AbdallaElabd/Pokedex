@@ -22,28 +22,36 @@ export function Dropdown<T extends string | number>({
   renderOption,
 }: DropdownProps<T>) {
   const [open, setOpen] = useState(false);
+
   return (
     <DropdownMenu.Root open={open} onOpenChange={setOpen}>
       <DropdownMenu.Trigger asChild>
-        <Button size="sm">
-          <div className="flex items-center gap-2">
-            {renderPlaceholder(selected)}
-            <FontAwesomeIcon icon={faChevronDown} size="xs" />
-          </div>
+        <Button size="sm" className="flex items-center gap-2 whitespace-nowrap">
+          {renderPlaceholder(selected)}
+          <FontAwesomeIcon icon={faChevronDown} size="xs" />
         </Button>
       </DropdownMenu.Trigger>
       <AnimatePresence>
         {open && (
           <DropdownMenu.Portal forceMount>
-            <DropdownMenu.Content sideOffset={3} align="end" asChild>
+            <DropdownMenu.Content sideOffset={3} align="end">
               <motion.div
-                initial={{ opacity: 0, scaleY: 0.6 }}
-                animate={{ opacity: 1, scaleY: 1 }}
-                exit={{ opacity: 0, scaleY: 0.6 }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 320,
-                  damping: 20,
+                initial="closed"
+                animate="open"
+                exit="closed"
+                variants={{
+                  open: {
+                    opacity: 1,
+                    scaleY: 1,
+                    originY: 0,
+                    transition: { duration: 0.2, ease: 'easeInOut' },
+                  },
+                  closed: {
+                    opacity: 0,
+                    scaleY: 0.8,
+                    originY: 0,
+                    transition: { duration: 0.3, ease: 'easeInOut' },
+                  },
                 }}
                 className="z-10 flex flex-col overflow-hidden rounded-md bg-slate-50 shadow-md data-[side=bottom]:origin-top data-[side=top]:origin-bottom"
               >
@@ -56,7 +64,9 @@ export function Dropdown<T extends string | number>({
                       }
                     )}
                     key={option}
-                    onSelect={() => onChange(option)}
+                    onSelect={() => {
+                      onChange(option);
+                    }}
                   >
                     {renderOption ? (
                       renderOption(option, selected === option)
