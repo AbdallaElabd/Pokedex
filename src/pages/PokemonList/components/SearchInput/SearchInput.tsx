@@ -55,6 +55,7 @@ export function SearchInput() {
         </div>
         <motion.button
           animate={{ scale: searchText ? 1 : 0 }}
+          initial={false}
           type="button"
           className="absolute right-0 top-0 flex h-full w-8 cursor-pointer items-center justify-center text-sm hover:scale-105"
           onClick={() => {

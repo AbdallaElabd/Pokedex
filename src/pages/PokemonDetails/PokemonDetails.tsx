@@ -15,7 +15,6 @@ import {
 
 export function PokemonDetails() {
   const params = useParams({ from: pokemonDetailsRoute.id });
-  console.log(params);
 
   const { isLoading, pokemonDetails: pokemon } = useGetPokemonDetails(
     params.pokemonName

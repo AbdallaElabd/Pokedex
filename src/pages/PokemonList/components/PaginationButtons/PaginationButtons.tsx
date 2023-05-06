@@ -1,5 +1,5 @@
 import { PageSize } from '@api/queries';
-import { Button, Dropdown, Text } from '@components';
+import { Button, Dropdown } from '@components';
 import {
   faArrowLeft,
   faArrowRight,
@@ -26,7 +26,7 @@ export function PaginationButtons() {
   const pageEnd = Math.min(Number(offset) + Number(pageSize), totalCount ?? 0);
 
   return (
-    <div className="flex w-full flex-wrap items-center justify-end gap-4">
+    <div className="flex flex-wrap items-center justify-end gap-4">
       <span className="text-base">Pokemon per page</span>
 
       <Dropdown

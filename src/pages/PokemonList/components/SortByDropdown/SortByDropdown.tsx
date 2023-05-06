@@ -14,8 +14,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/Pokedex';
 
-import { StyledText } from './styled';
-
 const SORT_BY_ATTRIBUTES: SortByAttribute[] = ['name', 'height', 'weight'];
 
 function getSortAttributeIcon(sortBy: SortByAttribute): IconProp {
