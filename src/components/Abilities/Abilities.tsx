@@ -5,8 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalize } from '@utils';
 import Highlighter from 'react-highlight-words';
 
-import { HighlightedText } from '../HighlightedText';
-
 interface AbilitiesProps {
   abilities: Pokemon['abilities'];
   highlightText?: string;
@@ -22,7 +20,7 @@ export function Abilities({ abilities, highlightText }: AbilitiesProps) {
           <FontAwesomeIcon icon={faBoltLightning} />
           {highlightText ? (
             <Highlighter
-              highlightTag={HighlightedText}
+              highlightClassName="bg-yellow-300"
               searchWords={[highlightText]}
               textToHighlight={capitalize(ability.name)}
             />

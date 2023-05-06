@@ -5,12 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/Pokedex';
 import { Link } from '@tanstack/router';
 import { capitalize, formatHeight, formatWeight } from '@utils';
-import { PropsWithChildren, memo } from 'react';
+import { memo } from 'react';
 import Highlighter from 'react-highlight-words';
-
-function HighlightedText({ children }: PropsWithChildren) {
-  return <mark className="bg-yellow-300">{children}</mark>;
-}
 
 export interface PokemonCardProps {
   pokemon: Pokemon;
@@ -38,7 +34,7 @@ export const PokemonCard = memo(({ pokemon }: PokemonCardProps) => {
           <span className="mb-2 text-xl font-semibold">
             {searchBy === 'name' ? (
               <Highlighter
-                highlightTag={HighlightedText}
+                highlightClassName="bg-yellow-300"
                 searchWords={[searchText]}
                 textToHighlight={pokemonName}
               />
