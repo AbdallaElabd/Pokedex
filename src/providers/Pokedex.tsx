@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { useGetPokemonList } from '@api/queries';
+import { useGetPokemonList } from '@api/queries/useGetPokemonList';
 import { createContext, PropsWithChildren, useContext } from 'react';
 
 const PokedexContext = createContext<ReturnType<typeof useGetPokemonList>>({
@@ -7,7 +7,7 @@ const PokedexContext = createContext<ReturnType<typeof useGetPokemonList>>({
   totalCount: undefined,
   isLoading: false,
   isSuccess: false,
-  pageSize: '10',
+  pageSize: 10,
   offset: 0,
   searchText: '',
   searchBy: 'name',

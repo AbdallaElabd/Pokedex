@@ -1,4 +1,4 @@
-import { PageSize } from '@api/queries';
+import { PokemonSearchSchema } from '@api/queries/search-pokemon-schema';
 import { Button, Dropdown } from '@components';
 import {
   faArrowLeft,
@@ -8,7 +8,9 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/Pokedex';
 
-const PAGE_SIZE_OPTIONS: PageSize[] = ['10', '20', '50'];
+const PAGE_SIZE_OPTIONS = [
+  10, 20, 50,
+] satisfies PokemonSearchSchema['pageSize'][];
 
 export function PaginationButtons() {
   const {
@@ -37,8 +39,7 @@ export function PaginationButtons() {
           </div>
         }
         options={PAGE_SIZE_OPTIONS}
-        selected="10"
-        // selected={pageSize}
+        selected={pageSize}
         renderOption={(option) => <span className="text-sm">{option}</span>}
         onOptionClicked={changePageSize}
       />

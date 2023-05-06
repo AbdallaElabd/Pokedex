@@ -1,5 +1,5 @@
 import { Pokemon } from '@api/cache';
-import { Abilities, Card, LazyImage, Text } from '@components';
+import { Abilities, Card, LazyImage } from '@components';
 import { faStairs, faWeightScale } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/Pokedex';
@@ -45,12 +45,12 @@ export const PokemonCard = memo(({ pokemon }: PokemonCardProps) => {
           <div className="flex flex-grow flex-col gap-1">
             <div className="flex items-center gap-1 text-sm">
               <FontAwesomeIcon icon={faStairs} />
-              <Text variant="body2">{formatHeight(pokemon.height)}</Text>
+              <span className="text-sm">{formatHeight(pokemon.height)}</span>
             </div>
 
             <div className="flex items-center gap-1 text-sm">
               <FontAwesomeIcon icon={faWeightScale} />
-              <Text variant="body2">{formatWeight(pokemon.weight)}</Text>
+              <span className="text-sm">{formatWeight(pokemon.weight)}</span>
             </div>
           </div>
           <Abilities

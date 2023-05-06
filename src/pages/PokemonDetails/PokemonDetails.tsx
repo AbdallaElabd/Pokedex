@@ -1,17 +1,18 @@
-import { useGetPokemonDetails } from '@api/queries';
-import { Abilities, Spinner, Text } from '@components';
+import { useGetPokemonDetails } from '@api/queries/useGetPokemonDetails';
+import { Abilities, Spinner } from '@components';
 import { Chip } from '@components/Chip';
 import { pokemonDetailsRoute } from '@router';
 import { useParams } from '@tanstack/router';
 import { capitalize, formatHeight, formatWeight } from '@utils';
+import { ReactNode } from 'react';
 
-import {
-  Container,
-  DetailsSection,
-  ImageSection,
-  PokemonImage,
-  Row,
-} from './styled';
+function Row({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex flex-col flex-wrap items-baseline gap-2">
+      {children}
+    </div>
+  );
+}
 
 export function PokemonDetails() {
   const params = useParams({ from: pokemonDetailsRoute.id });
@@ -23,53 +24,44 @@ export function PokemonDetails() {
   if (isLoading || !pokemon) return <Spinner />;
 
   return (
-    <Container>
-      <ImageSection>
-        <Text variant="h4">{capitalize(pokemon.name)}</Text>
+    <div className="flex flex-col gap-4 p-8 md:flex-row">
+      <div className="flex flex-col items-center gap-2">
+        <span className="text-4xl font-light">{capitalize(pokemon.name)}</span>
 
-        <PokemonImage
+        <img
+          className="w-2/3"
+          alt={pokemon.name}
           src={pokemon.sprites.other['official-artwork']?.front_default}
         />
-      </ImageSection>
+      </div>
 
-      <DetailsSection>
+      <div className="flex flex-col gap-2">
+        <span>{`Height: ${formatHeight(pokemon.height)}`}</span>
+        <span>{`Weight: ${formatWeight(pokemon.weight)}`}</span>
+        <span>{`Base experience: ${pokemon.base_experience}`}</span>
         <Row>
-          <Text variant="body1">{`Height: ${formatHeight(
-            pokemon.height
-          )}`}</Text>
+          <span>Stats</span>
+          <div className="flex gap-2">
+            {pokemon.stats.map((stat) => (
+              <Chip key={stat.stat.name} className="text-sm font-semibold">
+                {capitalize(stat.stat.name)}
+              </Chip>
+            ))}
+          </div>
         </Row>
-
         <Row>
-          <Text variant="body1">{`Weight: ${formatWeight(
-            pokemon.weight
-          )}`}</Text>
-        </Row>
-
-        <Row>
-          <Text variant="body1">{`Base experience: ${pokemon.base_experience}`}</Text>
-        </Row>
-
-        <Row>
-          <Text variant="body1">Stats</Text>
-          {pokemon.stats.map((stat) => (
-            <Chip key={stat.stat.name}>{`${capitalize(stat.stat.name)}: ${
-              stat.base_stat
-            }`}</Chip>
-          ))}
-        </Row>
-
-        <Row>
-          <Text variant="body1">Types</Text>
+          <span>Types</span>
           {pokemon.types.map((type) => (
-            <Chip key={type.type.name}>{capitalize(type.type.name)}</Chip>
+            <Chip key={type.type.name} className="text-sm font-semibold">
+              {capitalize(type.type.name)}
+            </Chip>
           ))}
         </Row>
-
         <Row>
-          <Text variant="body1">Abilities</Text>
+          <span>Abilities</span>
           <Abilities abilities={pokemon.abilities} />
         </Row>
-      </DetailsSection>
-    </Container>
+      </div>
+    </div>
   );
 }

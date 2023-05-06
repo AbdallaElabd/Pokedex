@@ -1,6 +1,5 @@
-import { SortByAttribute } from '@api/queries';
+import { PokemonSearchSchema } from '@api/queries/search-pokemon-schema';
 import { Button, Dropdown } from '@components';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
   faChevronDown,
   faFont,
@@ -14,19 +13,11 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/Pokedex';
 
-const SORT_BY_ATTRIBUTES: SortByAttribute[] = ['name', 'height', 'weight'];
-
-function getSortAttributeIcon(sortBy: SortByAttribute): IconProp {
-  switch (sortBy) {
-    case 'name':
-      return faFont;
-    case 'height':
-      return faStairs;
-    case 'weight':
-    default:
-      return faWeightScale;
-  }
-}
+const SORT_BY_ATTRIBUTES = [
+  'name',
+  'height',
+  'weight',
+] satisfies PokemonSearchSchema['sortBy'][];
 
 export function SortByDropdown() {
   const { sortBy, setSortAttribute, sortOrder, toggleSortOrder } = usePokedex();
@@ -47,13 +38,22 @@ export function SortByDropdown() {
         }
         options={SORT_BY_ATTRIBUTES}
         selected={sortBy}
-        renderOption={(option) => (
-          <span className="flex items-center gap-3 text-sm capitalize">
-            <FontAwesomeIcon icon={getSortAttributeIcon(option)} size="sm" />
-            {option}
-          </span>
-        )}
-        onOptionClicked={setSortAttribute}
+        renderOption={(option) => {
+          const icon = {
+            name: faFont,
+            height: faStairs,
+            weight: faWeightScale,
+          }[option];
+          return (
+            <span className="flex items-center gap-3 text-sm capitalize">
+              <FontAwesomeIcon icon={icon} size="sm" />
+              {option}
+            </span>
+          );
+        }}
+        onOptionClicked={(option) => {
+          setSortAttribute(option);
+        }}
       />
 
       <Button onClick={toggleSortOrder}>

@@ -16,7 +16,7 @@ export function Abilities({ abilities, highlightText }: AbilitiesProps) {
   return (
     <div className="flex flex-wrap gap-1">
       {abilities.map(({ ability }) => (
-        <Chip key={ability.name} className="flex gap-1">
+        <Chip key={ability.name} className="flex gap-1 text-sm font-semibold">
           <FontAwesomeIcon icon={faBoltLightning} />
           {highlightText ? (
             <Highlighter

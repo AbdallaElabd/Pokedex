@@ -12,7 +12,7 @@ interface DropdownProps<T> {
   onOptionClicked: (option: T) => void;
 }
 
-export function Dropdown<T extends string>({
+export function Dropdown<T extends string | number>({
   toggler,
   options,
   selected,

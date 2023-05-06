@@ -1,5 +1,5 @@
-import { SearchByAttribute } from '@api/queries';
-import { Button, Dropdown } from '@components';
+import { PokemonSearchSchema } from '@api/queries/search-pokemon-schema';
+import { Dropdown } from '@components';
 import {
   faBoltLightning,
   faFont,
@@ -11,7 +11,10 @@ import { usePokedex } from '@providers/Pokedex';
 import { motion } from 'framer-motion';
 import { useRef } from 'react';
 
-const SEARCH_BY_ATTRIBUTES: SearchByAttribute[] = ['name', 'ability'];
+const SEARCH_BY_ATTRIBUTES = [
+  'name',
+  'ability',
+] satisfies PokemonSearchSchema['searchBy'][];
 
 export function SearchInput() {
   const { searchText, search, searchBy, setSearchBy } = usePokedex();

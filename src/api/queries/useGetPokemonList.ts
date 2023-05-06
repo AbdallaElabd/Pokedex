@@ -1,9 +1,10 @@
-import { pokemonListRoute, PokemonSearchSchema } from '@router';
+import { pokemonListRoute } from '@router';
 import { useNavigate, useSearch } from '@tanstack/router';
 import { useCallback } from 'react';
 import { useQuery } from 'react-query';
 
 import { pokemonCache } from '../cache';
+import { PokemonSearchSchema } from './search-pokemon-schema';
 
 const defaultPageSize = 10;
 
@@ -58,7 +59,7 @@ export const useGetPokemonList = () => {
   const previous = useCallback(() => {
     if (hasPrevious) {
       const newOffset = offset - (Number(pageSize) || Number(defaultPageSize));
-      navigate({ search: { offset: newOffset } });
+      navigate({ search: (prev) => ({ ...prev, offset: newOffset }) });
     }
   }, [hasPrevious, navigate, offset, pageSize]);
 
@@ -66,26 +67,28 @@ export const useGetPokemonList = () => {
   const next = useCallback(() => {
     if (hasNext) {
       const newOffset = offset + (Number(pageSize) || Number(defaultPageSize));
-      navigate({ search: { offset: newOffset } });
+      navigate({ search: (prev) => ({ ...prev, offset: newOffset }) });
     }
   }, [hasNext, offset, pageSize, navigate]);
 
   const toggleSortOrder = useCallback(() => {
     navigate({
-      search: {
+      search: (prev) => ({
+        ...prev,
         sortOrder: sortOrder === 'ascending' ? 'descending' : 'ascending',
         offset: 0,
-      },
+      }),
     });
   }, [navigate, sortOrder]);
 
   const setSearchBy = useCallback(
     (searchByAttribute: PokemonSearchSchema['searchBy']) => {
       navigate({
-        search: {
+        search: (prev) => ({
+          ...prev,
           searchBy: searchByAttribute,
           offset: 0,
-        },
+        }),
       });
     },
     [navigate]
@@ -94,11 +97,12 @@ export const useGetPokemonList = () => {
   const setSortAttribute = useCallback(
     (sortByAttribute: PokemonSearchSchema['sortBy']) => {
       navigate({
-        search: {
+        search: (prev) => ({
+          ...prev,
           sortBy: sortByAttribute,
           sortOrder: 'ascending',
           offset: 0,
-        },
+        }),
       });
     },
     [navigate]
@@ -107,10 +111,11 @@ export const useGetPokemonList = () => {
   const search = useCallback(
     (text: string) => {
       navigate({
-        search: {
+        search: (prev) => ({
+          ...prev,
           searchText: text,
           offset: 0,
-        },
+        }),
       });
     },
     [navigate]
@@ -119,10 +124,11 @@ export const useGetPokemonList = () => {
   const changePageSize = useCallback(
     (newPageSize: PokemonSearchSchema['pageSize']) => {
       navigate({
-        search: {
+        search: (prev) => ({
+          ...prev,
           pageSize: newPageSize,
           offset: 0,
-        },
+        }),
       });
     },
     [navigate]
