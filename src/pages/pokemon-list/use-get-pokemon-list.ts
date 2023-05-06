@@ -66,7 +66,10 @@ export const useGetPokemonList = () => {
       }
       const newOffset =
         direction === 'previous' ? offset - pageSize : offset + pageSize;
-      navigate({ search: (prev) => ({ ...prev, offset: newOffset }) });
+      navigate({
+        search: (prev) => ({ ...prev, offset: newOffset }),
+        replace: true,
+      });
     },
     [hasNext, hasPrevious, navigate, offset, pageSize]
   );
@@ -78,6 +81,7 @@ export const useGetPokemonList = () => {
           pageSize: newPageSize,
           offset: 0,
         }),
+        replace: true,
       });
     },
     [navigate]
@@ -91,6 +95,7 @@ export const useGetPokemonList = () => {
         sortOrder: sortOrder === 'ascending' ? 'descending' : 'ascending',
         offset: 0,
       }),
+      replace: true,
     });
   }, [navigate, sortOrder]);
   const setSortAttribute = useCallback(
@@ -102,6 +107,7 @@ export const useGetPokemonList = () => {
           sortOrder: 'ascending',
           offset: 0,
         }),
+        replace: true,
       });
     },
     [navigate]
@@ -116,6 +122,7 @@ export const useGetPokemonList = () => {
           searchBy: searchByAttribute,
           offset: 0,
         }),
+        replace: true,
       });
     },
     [navigate]
@@ -128,6 +135,7 @@ export const useGetPokemonList = () => {
           searchText: text,
           offset: 0,
         }),
+        replace: true,
       });
     },
     [navigate]
@@ -136,6 +144,7 @@ export const useGetPokemonList = () => {
   const clearFilters = useCallback(() => {
     navigate({
       search: undefined,
+      replace: true,
     });
   }, [navigate]);
 

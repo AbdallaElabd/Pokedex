@@ -60,7 +60,7 @@ export function SortByDropdown({
         }}
       />
 
-      <Button onClick={toggleSortOrder}>
+      <Button variant="primary" onClick={toggleSortOrder}>
         <FontAwesomeIcon icon={sortIcon} />
       </Button>
     </>

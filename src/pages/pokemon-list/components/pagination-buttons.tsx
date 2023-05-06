@@ -37,7 +37,7 @@ export function PaginationButtons({
         options={PAGE_SIZE_OPTIONS}
         selected={pageSize}
         renderOption={(option) => <span className="text-sm">{option}</span>}
-        onChange={(option) => changePageSize(option)}
+        onChange={changePageSize}
       />
 
       <span className="text-base">
@@ -46,6 +46,7 @@ export function PaginationButtons({
 
       <div className="flex gap-2">
         <Button
+          variant="primary"
           className="flex items-center gap-2"
           disabled={!hasPrevious}
           onClick={() => changePage('previous')}
@@ -53,6 +54,7 @@ export function PaginationButtons({
           <FontAwesomeIcon icon={faArrowLeft} />
         </Button>
         <Button
+          variant="primary"
           className="flex items-center gap-2"
           disabled={!hasNext}
           onClick={() => changePage('next')}

@@ -26,7 +26,11 @@ export function Dropdown<T extends string | number>({
   return (
     <DropdownMenu.Root open={open} onOpenChange={setOpen}>
       <DropdownMenu.Trigger asChild>
-        <Button size="sm" className="flex items-center gap-2 whitespace-nowrap">
+        <Button
+          variant="primary"
+          size="sm"
+          className="flex items-center gap-2 whitespace-nowrap"
+        >
           {renderPlaceholder(selected)}
           <FontAwesomeIcon icon={faChevronDown} size="xs" />
         </Button>
@@ -58,9 +62,9 @@ export function Dropdown<T extends string | number>({
                 {options.map((option) => (
                   <DropdownMenu.Item
                     className={classNames(
-                      'cursor-pointer px-4 py-2 outline-none data-[highlighted]:bg-slate-300',
+                      'cursor-pointer px-4 py-2 outline-none transition-all data-[highlighted]:bg-blue-600 data-[highlighted]:text-white',
                       {
-                        'bg-slate-300': selected === option,
+                        'bg-blue-500 text-white': selected === option,
                       }
                     )}
                     key={option}

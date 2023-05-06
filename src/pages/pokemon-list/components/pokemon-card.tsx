@@ -25,48 +25,46 @@ export const PokemonCard = memo(
     const pokemonName = capitalize(pokemon.name);
 
     return (
-      <Card className="flex w-full items-center gap-4 px-2 py-4">
-        <LazyImage
-          className="h-32 w-32 flex-shrink-0"
-          image={pokemon.sprites.other?.['official-artwork']?.front_default}
-        />
-        <div className="flex h-full flex-grow flex-col justify-between gap-2">
-          <span className="text-xl font-medium">
-            {searchBy === 'name' ? (
-              <Highlighter
-                highlightClassName="bg-yellow-300"
-                searchWords={[searchText]}
-                textToHighlight={pokemonName}
-              />
-            ) : (
-              pokemonName
-            )}
-          </span>
+      <Card className="relative flex w-full flex-grow flex-col items-start gap-2 px-2 py-4">
+        <div className="flex flex-grow gap-3">
+          <LazyImage
+            className="h-32 w-32 shrink-0"
+            image={pokemon.sprites.other?.['official-artwork']?.front_default}
+          />
+          <div className="flex flex-col gap-3">
+            <span className="text-xl font-medium">
+              {searchBy === 'name' ? (
+                <Highlighter
+                  highlightClassName="bg-yellow-300"
+                  searchWords={[searchText]}
+                  textToHighlight={pokemonName}
+                />
+              ) : (
+                pokemonName
+              )}
+            </span>
+            <div className="flex flex-grow flex-col gap-2">
+              <div className="flex items-center gap-1 text-sm">
+                <FontAwesomeIcon icon={faStairs} />
+                {formatHeight(pokemon.height)}
+              </div>
 
-          <div className="flex flex-grow flex-col gap-1">
-            <div className="flex items-center gap-1 text-sm">
-              <FontAwesomeIcon icon={faStairs} />
-              <span className="text-sm">{formatHeight(pokemon.height)}</span>
-            </div>
-
-            <div className="flex items-center gap-1 text-sm">
-              <FontAwesomeIcon icon={faWeightScale} />
-              <span className="text-sm">{formatWeight(pokemon.weight)}</span>
+              <div className="flex items-center gap-1 text-sm">
+                <FontAwesomeIcon icon={faWeightScale} />
+                {formatWeight(pokemon.weight)}
+              </div>
             </div>
           </div>
-          <Abilities
-            abilities={pokemon.abilities}
-            highlightText={searchBy === 'ability' ? searchText : undefined}
-          />
         </div>
-
+        <Abilities
+          abilities={pokemon.abilities}
+          highlightText={searchBy === 'ability' ? searchText : undefined}
+        />
         <Link
           key={pokemonName}
           to="/pokemon/$pokemonName"
-          params={{
-            pokemonName: pokemon.name,
-          }}
-          className="rounded-md px-4 text-slate-400 outline-none transition-all hover:scale-105 hover:text-slate-500 focus:ring-2"
+          params={{ pokemonName: pokemon.name }}
+          className="absolute right-1 top-1/2 flex h-12 w-12 origin-center -translate-y-1/2 items-center justify-center rounded-full px-4 text-slate-800 outline-none transition-all hover:scale-105 hover:text-slate-600 focus:ring-2"
         >
           <FontAwesomeIcon icon={faChevronRight} size="lg" />
         </Link>

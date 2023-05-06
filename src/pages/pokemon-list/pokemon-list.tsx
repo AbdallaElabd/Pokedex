@@ -70,7 +70,7 @@ export function PokemonList() {
               sortOrder={sortOrder}
               toggleSortOrder={toggleSortOrder}
             />
-            <Button onClick={clearFilters}>
+            <Button variant="primary" onClick={clearFilters}>
               <FontAwesomeIcon icon={faTrashCan} />
             </Button>
             <PaginationButtons
@@ -85,9 +85,7 @@ export function PokemonList() {
           </div>
 
           {pokemonList.length === 0 ? (
-            <span className="my-16 font-sans text-lg">
-              No Pokémon. Try a different search term.
-            </span>
+            <span className="my-16 font-sans text-lg">No Pokémon found.</span>
           ) : (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {pokemonList.map((pokemon) => (
