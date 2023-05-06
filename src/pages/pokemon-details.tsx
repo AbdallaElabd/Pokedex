@@ -1,7 +1,8 @@
-import { useGetPokemonDetails } from '@api/queries/use-get-pokemon-details';
+import { pokemonCache } from '@api/cache';
 import { Abilities } from '@components/abilities';
 import { Chip } from '@components/chip';
 import { Spinner } from '@components/spinner';
+import { useQuery } from '@tanstack/react-query';
 import { useParams } from '@tanstack/router';
 import { capitalize, formatHeight, formatWeight } from '@utils';
 import { ReactNode } from 'react';
@@ -17,8 +18,10 @@ function Row({ children }: { children: ReactNode }) {
 export function PokemonDetails() {
   const { pokemonName } = useParams({ from: '/pokemon/$pokemonName' });
 
-  const { isLoading, pokemonDetails: pokemon } =
-    useGetPokemonDetails(pokemonName);
+  const { isLoading, data: pokemon } = useQuery(
+    ['getPokemonByName', pokemonName],
+    () => pokemonCache.getPokemonByName(pokemonName)
+  );
 
   if (isLoading || !pokemon) return <Spinner />;
 

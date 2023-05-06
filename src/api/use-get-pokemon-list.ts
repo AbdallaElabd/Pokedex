@@ -1,8 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useSearch } from '@tanstack/router';
 import { useCallback } from 'react';
-import { useQuery } from 'react-query';
 
-import { pokemonCache } from '../cache';
+import { pokemonCache } from './cache';
 import { PokemonSearchSchema } from './search-pokemon-schema';
 
 const defaultPageSize = 10;
@@ -20,11 +20,9 @@ export const useGetPokemonList = () => {
   const navigate = useNavigate({ from: '/' });
 
   const { data, isLoading, isSuccess } = useQuery(
-    ['pokemonList', pageSize, offset, searchText, searchBy, sortBy, sortOrder],
+    ['getAllPokemon'],
     async () => {
       const allPokemonList = await pokemonCache.getAllPokemon();
-
-      if (!allPokemonList) return undefined;
 
       const filteredList = [...allPokemonList]
         .map(([, pokemon]) => pokemon)

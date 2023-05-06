@@ -1,4 +1,4 @@
-import { pokemonSearchSchema } from '@api/queries/search-pokemon-schema';
+import { pokemonSearchSchema } from '@api/search-pokemon-schema';
 import { Page } from '@components/page';
 import { PokemonDetails } from '@pages/pokemon-details';
 import { PokemonListPage } from '@pages/pokemon-list';
