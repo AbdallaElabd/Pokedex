@@ -1,5 +1,5 @@
 import { PokemonSearchSchema } from '@api/queries/search-pokemon-schema';
-import { Dropdown } from '@components/Dropdown';
+import { Dropdown } from '@components/Dropdown-2';
 import {
   faBoltLightning,
   faFont,

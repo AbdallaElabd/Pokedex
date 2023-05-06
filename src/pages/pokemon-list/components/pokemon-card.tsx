@@ -1,6 +1,6 @@
 import { Pokemon } from '@api/cache';
-import { Abilities } from '@components/Abilities';
-import { Card } from '@components/Card';
+import { Abilities } from '@components/Abilities-2';
+import { Card } from '@components/Card-2';
 import { LazyImage } from '@components/lazy-image';
 import { faStairs, faWeightScale } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

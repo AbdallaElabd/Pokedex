@@ -1,5 +1,5 @@
 import { pokemonSearchSchema } from '@api/queries/search-pokemon-schema';
-import { Page } from '@components/Page';
+import { Page } from '@components/Page-2';
 import { PokemonDetails } from '@pages/pokemon-details';
 import { PokemonListPage } from '@pages/pokemon-list';
 import { Outlet, RootRoute, Route, Router } from '@tanstack/router';
