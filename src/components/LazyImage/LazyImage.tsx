@@ -1,6 +1,6 @@
+import classNames from 'classnames';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-
-import { Container, Shimmer, StyledImage } from './styled';
 
 interface LazyImageProps {
   image: string | undefined;
@@ -19,9 +19,34 @@ export function LazyImage({ image, className }: LazyImageProps) {
   }, [image]);
 
   return (
-    <Container className={className} isLoading={status === 'pending'}>
-      <Shimmer isShown={status === 'pending'} />
-      {status !== 'pending' && <StyledImage image={image} status={status} />}
-    </Container>
+    <div
+      className={classNames(
+        'relative flex overflow-hidden transition-all duration-300 ease-in-out',
+        className
+      )}
+    >
+      <AnimatePresence>
+        {status === 'pending' ? (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 h-full w-full animate-pulse rounded-md bg-slate-300"
+          />
+        ) : (
+          <motion.div
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 h-full w-full bg-contain bg-center bg-no-repeat bg-origin-content"
+            style={{
+              backgroundImage: `url(${image})`,
+            }}
+          />
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
