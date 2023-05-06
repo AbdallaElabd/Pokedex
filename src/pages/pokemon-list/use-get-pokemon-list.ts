@@ -53,6 +53,7 @@ export const useGetPokemonList = () => {
     keepPreviousData: true,
   });
 
+  // Pagination
   const hasPrevious = offset > 0;
   const hasNext = !!(data && data.totalCount > Number(pageSize) + offset);
   const changePage = useCallback(
@@ -69,7 +70,20 @@ export const useGetPokemonList = () => {
     },
     [hasNext, hasPrevious, navigate, offset, pageSize]
   );
+  const changePageSize = useCallback(
+    (newPageSize: PokemonSearchSchema['pageSize']) => {
+      navigate({
+        search: (prev) => ({
+          ...prev,
+          pageSize: newPageSize,
+          offset: 0,
+        }),
+      });
+    },
+    [navigate]
+  );
 
+  // Sorting
   const toggleSortOrder = useCallback(() => {
     navigate({
       search: (prev) => ({
@@ -79,20 +93,6 @@ export const useGetPokemonList = () => {
       }),
     });
   }, [navigate, sortOrder]);
-
-  const setSearchBy = useCallback(
-    (searchByAttribute: PokemonSearchSchema['searchBy']) => {
-      navigate({
-        search: (prev) => ({
-          ...prev,
-          searchBy: searchByAttribute,
-          offset: 0,
-        }),
-      });
-    },
-    [navigate]
-  );
-
   const setSortAttribute = useCallback(
     (sortByAttribute: PokemonSearchSchema['sortBy']) => {
       navigate({
@@ -107,25 +107,25 @@ export const useGetPokemonList = () => {
     [navigate]
   );
 
-  const search = useCallback(
-    (text: string) => {
+  // Searching
+  const setSearchBy = useCallback(
+    (searchByAttribute: PokemonSearchSchema['searchBy']) => {
       navigate({
         search: (prev) => ({
           ...prev,
-          searchText: text,
+          searchBy: searchByAttribute,
           offset: 0,
         }),
       });
     },
     [navigate]
   );
-
-  const changePageSize = useCallback(
-    (newPageSize: PokemonSearchSchema['pageSize']) => {
+  const search = useCallback(
+    (text: string) => {
       navigate({
         search: (prev) => ({
           ...prev,
-          pageSize: newPageSize,
+          searchText: text,
           offset: 0,
         }),
       });
