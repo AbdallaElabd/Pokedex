@@ -82,7 +82,7 @@ export function PokemonList() {
               No Pokémon. Try a different search term.
             </span>
           ) : (
-            <div className="flex flex-wrap gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {pokemonList.map((pokemon) => (
                 <PokemonCard
                   key={pokemon.name}

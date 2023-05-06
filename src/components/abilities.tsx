@@ -17,7 +17,7 @@ export function Abilities({ abilities, highlightText }: AbilitiesProps) {
   if (!abilities.length) return null;
 
   return (
-    <div className="flex flex-wrap gap-1">
+    <div className="flex flex-wrap gap-1 whitespace-nowrap">
       {abilities.map(({ ability }) => (
         <Link
           key={ability.name}

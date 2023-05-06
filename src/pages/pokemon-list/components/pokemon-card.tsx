@@ -25,13 +25,13 @@ export const PokemonCard = memo(
     const pokemonName = capitalize(pokemon.name);
 
     return (
-      <Card className="flex items-center gap-4 p-2">
+      <Card className="flex w-full items-center gap-4 px-2 py-4">
         <LazyImage
-          className="h-36 w-36"
+          className="h-32 w-32 flex-shrink-0"
           image={pokemon.sprites.other?.['official-artwork']?.front_default}
         />
-        <div className="flex flex-col justify-between gap-2">
-          <span className="mb-2 text-xl font-medium">
+        <div className="flex h-full flex-grow flex-col justify-between gap-2">
+          <span className="text-xl font-medium">
             {searchBy === 'name' ? (
               <Highlighter
                 highlightClassName="bg-yellow-300"
@@ -59,13 +59,14 @@ export const PokemonCard = memo(
             highlightText={searchBy === 'ability' ? searchText : undefined}
           />
         </div>
+
         <Link
           key={pokemonName}
           to="/pokemon/$pokemonName"
           params={{
             pokemonName: pokemon.name,
           }}
-          className="rounded-md p-4 text-slate-400 outline-none transition-all hover:scale-105 hover:text-slate-500 focus:ring-2"
+          className="rounded-md px-4 text-slate-400 outline-none transition-all hover:scale-105 hover:text-slate-500 focus:ring-2"
         >
           <FontAwesomeIcon icon={faChevronRight} size="lg" />
         </Link>

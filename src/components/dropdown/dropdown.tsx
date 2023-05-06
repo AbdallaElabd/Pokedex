@@ -45,7 +45,7 @@ export function Dropdown<T extends string | number>({
                   stiffness: 320,
                   damping: 20,
                 }}
-                className="z-10 flex origin-top flex-col overflow-hidden rounded-md bg-slate-50 shadow-md"
+                className="z-10 flex flex-col overflow-hidden rounded-md bg-slate-50 shadow-md data-[side=bottom]:origin-top data-[side=top]:origin-bottom"
               >
                 {options.map((option) => (
                   <DropdownMenu.Item
