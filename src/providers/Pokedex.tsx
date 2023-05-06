@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { useGetPokemonList } from '@api/queries/useGetPokemonList';
+import { useGetPokemonList } from '@api/queries/use-get-pokemon-list';
 import { createContext, PropsWithChildren, useContext } from 'react';
 
 const PokedexContext = createContext<ReturnType<typeof useGetPokemonList>>({

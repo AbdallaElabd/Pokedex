@@ -1,6 +1,7 @@
-import { useGetPokemonDetails } from '@api/queries/useGetPokemonDetails';
-import { Abilities, Spinner } from '@components';
+import { useGetPokemonDetails } from '@api/queries/use-get-pokemon-details';
+import { Abilities } from '@components/Abilities';
 import { Chip } from '@components/Chip';
+import { Spinner } from '@components/Spinner';
 import { useParams } from '@tanstack/router';
 import { capitalize, formatHeight, formatWeight } from '@utils';
 import { ReactNode } from 'react';

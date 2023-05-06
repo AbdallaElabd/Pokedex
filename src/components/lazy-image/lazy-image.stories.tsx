@@ -1,4 +1,4 @@
-import { LazyImage } from './LazyImage';
+import { LazyImage } from './lazy-image';
 
 export default {
   component: LazyImage,

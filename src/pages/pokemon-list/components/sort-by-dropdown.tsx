@@ -1,5 +1,6 @@
 import { PokemonSearchSchema } from '@api/queries/search-pokemon-schema';
-import { Button, Dropdown } from '@components';
+import { Button } from '@components/Button';
+import { Dropdown } from '@components/Dropdown';
 import {
   faChevronDown,
   faFont,
