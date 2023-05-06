@@ -1,6 +1,6 @@
 import { PokedexProvider } from '@providers/Pokedex';
 
-import { PokemonList } from './PokemonList';
+import { PokemonList } from './pokemon-list';
 
 export function PokemonListPage() {
   return (

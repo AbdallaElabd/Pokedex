@@ -11,7 +11,7 @@
     "eslint": "eslint --cache \"src/**/*.{js,jsx,ts,tsx}\"",
     "eslint:fix": "npm run eslint -- --fix",
     "lint": "npm run eslint && npm run check-types",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky install"

@@ -1,7 +1,7 @@
 import { pokemonSearchSchema } from '@api/queries/search-pokemon-schema';
 import { Page } from '@components';
 import { PokemonDetails } from '@pages/PokemonDetails';
-import { PokemonListPage } from '@pages/PokemonList';
+import { PokemonListPage } from '@pages/pokemon-list';
 import { Outlet, RootRoute, Route, Router } from '@tanstack/router';
 
 function Root() {
