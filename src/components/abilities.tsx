@@ -1,10 +1,12 @@
 import { Pokemon } from '@api/cache';
-import { Chip } from '@components/chip';
 import { faBoltLightning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from '@tanstack/router';
 import { capitalize } from '@utils';
+import classNames from 'classnames';
 import Highlighter from 'react-highlight-words';
+
+import { buttonVariants } from './button';
 
 interface AbilitiesProps {
   abilities: Pokemon['abilities'];
@@ -18,24 +20,27 @@ export function Abilities({ abilities, highlightText }: AbilitiesProps) {
     <div className="flex flex-wrap gap-1">
       {abilities.map(({ ability }) => (
         <Link
+          key={ability.name}
           to="/"
           search={{
             searchBy: 'ability',
             searchText: capitalize(ability.name),
           }}
+          className={classNames(
+            buttonVariants({ variant: 'primary', size: 'xs' }),
+            'gap-1 font-semibold'
+          )}
         >
-          <Chip key={ability.name} className="flex gap-1 text-sm font-semibold">
-            <FontAwesomeIcon icon={faBoltLightning} />
-            {highlightText ? (
-              <Highlighter
-                highlightClassName="bg-yellow-300"
-                searchWords={[highlightText]}
-                textToHighlight={capitalize(ability.name)}
-              />
-            ) : (
-              capitalize(ability.name)
-            )}
-          </Chip>
+          <FontAwesomeIcon icon={faBoltLightning} />
+          {highlightText ? (
+            <Highlighter
+              highlightClassName="bg-yellow-300"
+              searchWords={[highlightText]}
+              textToHighlight={capitalize(ability.name)}
+            />
+          ) : (
+            capitalize(ability.name)
+          )}
         </Link>
       ))}
     </div>
