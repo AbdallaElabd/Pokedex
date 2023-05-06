@@ -64,7 +64,7 @@ export const PokemonCard = memo(({ pokemon }: PokemonCardProps) => {
         params={{
           pokemonName: pokemon.name,
         }}
-        className="hover p-4 text-slate-400 transition-all hover:scale-105 hover:text-slate-500"
+        className="rounded-md p-4 text-slate-400 outline-none transition-all hover:scale-105 hover:text-slate-500 focus:ring-2"
       >
         <FontAwesomeIcon icon={faChevronRight} size="lg" />
       </Link>
