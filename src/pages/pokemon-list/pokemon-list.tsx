@@ -1,4 +1,7 @@
+import { Button } from '@components/button';
 import { Spinner } from '@components/spinner';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useGetPokemonList } from '@pages/pokemon-list/use-get-pokemon-list';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -28,6 +31,7 @@ export function PokemonList() {
     offset,
     pageSize,
     changePageSize,
+    clearFilters,
   } = useGetPokemonList();
 
   return (
@@ -51,7 +55,7 @@ export function PokemonList() {
           transition={{
             delay: 0.2,
           }}
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-4 p-4"
         >
           <div className="flex flex-wrap items-center justify-end gap-4">
             <SearchInput
@@ -66,6 +70,9 @@ export function PokemonList() {
               sortOrder={sortOrder}
               toggleSortOrder={toggleSortOrder}
             />
+            <Button onClick={clearFilters}>
+              <FontAwesomeIcon icon={faTrashCan} />
+            </Button>
             <PaginationButtons
               totalCount={totalCount}
               hasPrevious={hasPrevious}

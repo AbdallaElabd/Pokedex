@@ -133,6 +133,12 @@ export const useGetPokemonList = () => {
     [navigate]
   );
 
+  const clearFilters = useCallback(() => {
+    navigate({
+      search: undefined,
+    });
+  }, [navigate]);
+
   return {
     pokemonList: data?.pokemonList,
     totalCount: data?.totalCount,
@@ -152,5 +158,6 @@ export const useGetPokemonList = () => {
     setSearchBy,
     setSortAttribute,
     toggleSortOrder,
+    clearFilters,
   };
 };
