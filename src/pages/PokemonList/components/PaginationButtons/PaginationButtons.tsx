@@ -8,7 +8,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/Pokedex';
 
-import { ButtonsContainer, StyledButton, StyledText } from './styled';
+import { ButtonsContainer, StyledButton } from './styled';
 
 const PAGE_SIZE_OPTIONS: PageSize[] = ['10', '20', '50'];
 

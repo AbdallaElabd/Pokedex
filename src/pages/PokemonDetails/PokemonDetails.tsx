@@ -1,8 +1,9 @@
 import { useGetPokemonDetails } from '@api/queries';
 import { Abilities, Spinner, Text } from '@components';
 import { Chip } from '@components/Chip';
+import { pokemonDetailsRoute } from '@router';
+import { useParams } from '@tanstack/router';
 import { capitalize, formatHeight, formatWeight } from '@utils';
-import { useParams } from 'react-router-dom';
 
 import {
   Container,
@@ -13,10 +14,12 @@ import {
 } from './styled';
 
 export function PokemonDetails() {
-  const { pokemonName } = useParams();
+  const params = useParams({ from: pokemonDetailsRoute.id });
+  console.log(params);
 
-  const { isLoading, pokemonDetails: pokemon } =
-    useGetPokemonDetails(pokemonName);
+  const { isLoading, pokemonDetails: pokemon } = useGetPokemonDetails(
+    params.pokemonName
+  );
 
   if (isLoading || !pokemon) return <Spinner />;
 

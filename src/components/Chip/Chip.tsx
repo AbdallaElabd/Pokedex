@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { PropsWithChildren } from 'react';
 import { tv, VariantProps } from 'tailwind-variants';
 
@@ -21,8 +22,16 @@ const chip = tv({
   },
 });
 
-type ChipProps = PropsWithChildren<VariantProps<typeof chip>>;
+type ChipProps = PropsWithChildren<
+  VariantProps<typeof chip> & {
+    className?: string;
+  }
+>;
 
-export function Chip({ children, ...variantProps }: ChipProps) {
-  return <div className={chip(variantProps)}>{children}</div>;
+export function Chip({ children, className, ...variantProps }: ChipProps) {
+  return (
+    <div className={classNames([className, chip(variantProps)])}>
+      {children}
+    </div>
+  );
 }

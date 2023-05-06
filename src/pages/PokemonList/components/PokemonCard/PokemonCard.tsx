@@ -1,21 +1,16 @@
 import { Pokemon } from '@api/cache';
-import { Abilities, LazyImage, Text } from '@components';
+import { Abilities, Card, LazyImage, Text } from '@components';
 import { faStairs, faWeightScale } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePokedex } from '@providers/Pokedex';
+import { Link } from '@tanstack/router';
 import { capitalize, formatHeight, formatWeight } from '@utils';
-import { memo } from 'react';
+import { PropsWithChildren, memo } from 'react';
 import Highlighter from 'react-highlight-words';
 
-import {
-  Content,
-  Details,
-  HighlightedText,
-  IconContainer,
-  StyledCard,
-  StyledLazyImage,
-  StyledLink,
-} from './styled';
+function HighlightedText({ children }: PropsWithChildren) {
+  return <mark className="bg-yellow-300">{children}</mark>;
+}
 
 export interface PokemonCardProps {
   pokemon: Pokemon;
@@ -27,14 +22,20 @@ export const PokemonCard = memo(({ pokemon }: PokemonCardProps) => {
   const pokemonName = capitalize(pokemon.name);
 
   return (
-    <StyledLink key={pokemonName} to={`/pokemon/${pokemon.name}`}>
-      <div className="w-full overflow-hidden rounded-md shadow-md transition-all hover:scale-105 hover:shadow-lg">
+    <Link
+      key={pokemonName}
+      to="/pokemon/$pokemonName"
+      params={{
+        pokemonName: pokemon.name,
+      }}
+    >
+      <Card className="flex gap-4">
         <LazyImage
-          className="h-48 w-full object-cover"
+          className="h-48 w-48"
           image={pokemon.sprites.other?.['official-artwork']?.front_default}
         />
-        <div className="p-4">
-          <Text variant="h5">
+        <div className="flex flex-col justify-between gap-2">
+          <span className="mb-2 text-xl font-semibold">
             {searchBy === 'name' ? (
               <Highlighter
                 highlightTag={HighlightedText}
@@ -44,27 +45,24 @@ export const PokemonCard = memo(({ pokemon }: PokemonCardProps) => {
             ) : (
               pokemonName
             )}
-          </Text>
-          <Details>
-            <>
-              <IconContainer>
-                <FontAwesomeIcon icon={faStairs} />
-              </IconContainer>
+          </span>
+          <div className="flex flex-grow flex-col gap-1">
+            <div className="flex items-center gap-1 text-sm">
+              <FontAwesomeIcon icon={faStairs} />
               <Text variant="body2">{formatHeight(pokemon.height)}</Text>
-            </>
-            <>
-              <IconContainer>
-                <FontAwesomeIcon icon={faWeightScale} />
-              </IconContainer>
+            </div>
+
+            <div className="flex items-center gap-1 text-sm">
+              <FontAwesomeIcon icon={faWeightScale} />
               <Text variant="body2">{formatWeight(pokemon.weight)}</Text>
-            </>
-          </Details>
+            </div>
+          </div>
           <Abilities
             abilities={pokemon.abilities}
             highlightText={searchBy === 'ability' ? searchText : undefined}
           />
         </div>
-      </div>
-    </StyledLink>
+      </Card>
+    </Link>
   );
 });

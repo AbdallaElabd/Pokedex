@@ -1,5 +1,5 @@
+import { useSearch } from '@tanstack/router';
 import { useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 type QueryParamType = 'string' | 'number';
 type QueryParamPossibleType = number | string;
@@ -23,7 +23,9 @@ export const useQueryParam = <T extends QueryParamPossibleType>(
   parameter: string,
   defaultValue: T
 ): [T, (text: T) => void] => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  // const [searchParams, setSearchParams] = useSearchParams();
+
+  return [null, () => {}];
 
   const value = parseQueryParamValue(
     type,

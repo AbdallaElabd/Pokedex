@@ -4,21 +4,8 @@ import { faBoltLightning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalize } from '@utils';
 import Highlighter from 'react-highlight-words';
-import styled from 'styled-components';
 
 import { HighlightedText } from '../HighlightedText';
-
-const Container = styled.div`
-  display: flex;
-  gap: 0.25rem;
-  flex-wrap: wrap;
-`;
-
-const AbilityIcon = styled(FontAwesomeIcon).attrs({
-  icon: faBoltLightning,
-})`
-  margin-right: 0.25rem;
-`;
 
 interface AbilitiesProps {
   abilities: Pokemon['abilities'];
@@ -29,10 +16,10 @@ export function Abilities({ abilities, highlightText }: AbilitiesProps) {
   if (!abilities.length) return null;
 
   return (
-    <Container>
+    <div className="flex flex-wrap gap-1">
       {abilities.map(({ ability }) => (
-        <Chip key={ability.name}>
-          <AbilityIcon />
+        <Chip key={ability.name} className="flex gap-1">
+          <FontAwesomeIcon icon={faBoltLightning} />
           {highlightText ? (
             <Highlighter
               highlightTag={HighlightedText}
@@ -44,6 +31,6 @@ export function Abilities({ abilities, highlightText }: AbilitiesProps) {
           )}
         </Chip>
       ))}
-    </Container>
+    </div>
   );
 }

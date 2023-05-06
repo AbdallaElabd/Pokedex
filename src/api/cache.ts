@@ -13,7 +13,7 @@ export interface Pokemon extends PokeAPI.Pokemon {
   sprites: PokemonSprites;
 }
 
-type PokemonListReponse = {
+type PokemonListResponse = {
   count: number;
   next: string | null;
   previous: string | null;
@@ -33,8 +33,9 @@ class PokemonCache {
     if (this.allPokemon !== null) return this.allPokemon;
     try {
       const { results: pokemonList } = (await PokemonCache.endpoint(
-        'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1500'
-      )) as PokemonListReponse;
+        // TODO: get all pokemon
+        'https://pokeapi.co/api/v2/pokemon?offset=0&limit=100'
+      )) as PokemonListResponse;
 
       const pokemonData = new Map<string, Pokemon>();
 
