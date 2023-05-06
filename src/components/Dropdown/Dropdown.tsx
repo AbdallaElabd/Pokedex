@@ -1,10 +1,6 @@
-/* eslint-disable consistent-return */
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import { useClickAway, useKey } from 'react-use';
-
-import { Button } from '../Button';
-import { Option, PopoverContent, PopoverRoot } from './styled';
-import { usePositionContent } from './usePositionContent';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import classNames from 'classnames';
+import { ReactNode } from 'react';
 
 interface DropdownProps<T> {
   options: T[];
@@ -21,65 +17,30 @@ export function Dropdown<T extends string>({
   renderOption,
   onOptionClicked,
 }: DropdownProps<T>) {
-  const togglerRef = useRef<HTMLButtonElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const contentRef = useRef<HTMLDivElement | null>(null);
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openDropdown = useCallback(() => setIsOpen(true), []);
-  const closeDropdown = useCallback(() => {
-    if (isOpen) setIsOpen(false);
-  }, [isOpen]);
-
-  usePositionContent(togglerRef, contentRef);
-  useKey('Escape', closeDropdown);
-  useClickAway(containerRef, closeDropdown);
-
-  useEffect(() => {
-    const containerElement = containerRef.current;
-    if (!containerElement) return;
-
-    const onFocusOut = (event: FocusEvent) => {
-      const isFocusedWithin = (event.currentTarget as HTMLDivElement).contains(
-        event.relatedTarget as Node
-      );
-      if (!isFocusedWithin) {
-        closeDropdown();
-      }
-    };
-
-    containerElement.addEventListener<'focusout'>('focusout', onFocusOut);
-    return () =>
-      containerElement.removeEventListener<'focusout'>('focusout', onFocusOut);
-  }, [closeDropdown]);
-
-  const handleOptionClicked = useCallback(
-    (option: T) => {
-      onOptionClicked(option);
-      closeDropdown();
-    },
-    [closeDropdown, onOptionClicked]
-  );
-
   return (
-    <PopoverRoot ref={containerRef}>
-      <Button ref={togglerRef} onClick={isOpen ? closeDropdown : openDropdown}>
-        {toggler}
-      </Button>
-      <PopoverContent ref={contentRef} isOpen={isOpen}>
-        {options.map((option) => (
-          <Option
-            key={option}
-            role="button"
-            tabIndex={0}
-            isSelected={selected === option}
-            onClick={() => handleOptionClicked(option)}
-          >
-            {renderOption(option, selected === option)}
-          </Option>
-        ))}
-      </PopoverContent>
-    </PopoverRoot>
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>{toggler}</DropdownMenu.Trigger>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          className="flex flex-col overflow-hidden rounded-md bg-slate-50 shadow-md"
+          sideOffset={5}
+        >
+          {options.map((option) => (
+            <DropdownMenu.Item
+              className={classNames(
+                'cursor-pointer px-4 py-2 outline-none data-[highlighted]:bg-slate-300',
+                {
+                  'bg-slate-300': selected === option,
+                }
+              )}
+              key={option}
+              onSelect={() => onOptionClicked(option)}
+            >
+              {renderOption(option, selected === option)}
+            </DropdownMenu.Item>
+          ))}
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
   );
 }
