@@ -2,8 +2,13 @@ import { pokemonCache } from '@api/cache';
 import { Abilities } from '@components/abilities';
 import { Chip } from '@components/chip';
 import { Spinner } from '@components/spinner';
+import {
+  faArrowLeft,
+  faExclamationTriangle,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from '@tanstack/router';
+import { Link, useParams } from '@tanstack/router';
 import { capitalize, formatHeight, formatWeight } from '@utils';
 
 export function PokemonDetails() {
@@ -14,20 +19,32 @@ export function PokemonDetails() {
     queryFn: () => pokemonCache.getPokemonByName(pokemonName),
   });
 
-  if (isLoading || !pokemon) return <Spinner />;
+  if (isLoading) return <Spinner />;
+
+  if (!pokemon)
+    return (
+      <div className="flex flex-col gap-2 py-8 text-center text-slate-800">
+        <FontAwesomeIcon icon={faExclamationTriangle} size="2x" />
+        <span className="text-2xl font-light">Pokemon not found</span>
+      </div>
+    );
 
   return (
-    <div className="flex flex-col gap-4 p-8 md:flex-row">
+    <div className="relative flex flex-col gap-4 p-8 md:flex-row">
+      <Link to="/">
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          className="absolute left-4 top-4 cursor-pointer text-2xl"
+        />
+      </Link>
       <div className="flex flex-col items-center gap-2">
         <span className="text-4xl font-light">{capitalize(pokemon.name)}</span>
-
         <img
           className="w-2/3 min-w-[200px]"
           alt={pokemon.name}
           src={pokemon.sprites.other['official-artwork']?.front_default}
         />
       </div>
-
       <div className="flex flex-col gap-2">
         <span>{`Height: ${formatHeight(pokemon.height)}`}</span>
         <span>{`Weight: ${formatWeight(pokemon.weight)}`}</span>
