@@ -19,6 +19,11 @@ type PokemonListResponse = {
   results: { name: string; url: string }[];
 };
 
+type ProgressEvent = {
+  loaded: number;
+  total: number;
+};
+
 class PokemonCache {
   private allPokemon: Map<string, Pokemon> | null = null;
 
@@ -28,26 +33,20 @@ class PokemonCache {
     return response.json() as T;
   }
 
-  static async loadDataInChunks(
-    urls: string[],
-    chunkSize: number
-  ): Promise<Pokemon[]> {
-    const chunkedUrls: string[][] = [];
-    for (let i = 0; i < urls.length; i += chunkSize) {
-      chunkedUrls.push(urls.slice(i, i + chunkSize));
-    }
+  private eventListeners: ((progress: ProgressEvent) => void)[] = [];
 
-    const pokemonListDetails: Pokemon[] = [];
-    for (let i = 0; i < chunkedUrls.length; i += 1) {
-      const chunk = chunkedUrls[i];
-      // eslint-disable-next-line no-await-in-loop
-      const pokemonDetails = await Promise.all(
-        chunk.map((url) => PokemonCache.endpoint<Pokemon>(url))
+  addEventListener(callback: (progress: ProgressEvent) => void) {
+    this.eventListeners.push(callback);
+    const unsubscribe = () => {
+      this.eventListeners = this.eventListeners.filter(
+        (listener) => listener !== callback
       );
-      pokemonListDetails.push(...pokemonDetails);
-    }
+    };
+    return unsubscribe;
+  }
 
-    return pokemonListDetails;
+  private broadcastProgress(progress: ProgressEvent) {
+    this.eventListeners.forEach((listener) => listener(progress));
   }
 
   async getAllPokemon() {
@@ -58,6 +57,8 @@ class PokemonCache {
         'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1'
       );
 
+      this.broadcastProgress({ loaded: 0, total: count });
+
       // Get the list of pokemon
       const { results: pokemonList } = (await PokemonCache.endpoint(
         `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${count}`
@@ -65,13 +66,28 @@ class PokemonCache {
 
       // Get the details of all pokemon
       const pokemonData = new Map<string, Pokemon>();
-      const pokemonListDetails = await PokemonCache.loadDataInChunks(
-        pokemonList.map((pokemon) => pokemon.url),
-        100
+      const urls = pokemonList.map((pokemon) => pokemon.url);
+
+      const chunkSize = 100;
+
+      // Split the urls into chunks of 100
+      const chunkedUrls: string[][] = Array.from(
+        { length: Math.ceil(urls.length / chunkSize) },
+        (_, i) => urls.slice(i * chunkSize, i * chunkSize + chunkSize)
       );
-      pokemonListDetails.forEach((pokemon) =>
-        pokemonData.set(pokemon.name, pokemon)
-      );
+
+      for (let i = 0; i < chunkedUrls.length; i += 1) {
+        const chunk = chunkedUrls[i];
+        // eslint-disable-next-line no-await-in-loop
+        await Promise.all(
+          chunk.map(async (url) => {
+            const pokemon = await PokemonCache.endpoint<Pokemon>(url);
+            pokemonData.set(pokemon.name, pokemon);
+            this.broadcastProgress({ loaded: pokemonData.size, total: count });
+            return pokemon;
+          })
+        );
+      }
 
       // Save the data in the cache
       this.allPokemon = pokemonData;
