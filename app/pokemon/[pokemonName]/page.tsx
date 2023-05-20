@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function PokemonDetails({
@@ -27,6 +28,8 @@ export default async function PokemonDetails({
       </div>
     );
 
+  const image = pokemon.sprites.other["official-artwork"]?.front_default;
+
   return (
     <div className="relative flex flex-col gap-4 p-8 text-slate-800 md:flex-row">
       <Link href="/">
@@ -37,11 +40,13 @@ export default async function PokemonDetails({
       </Link>
       <div className="flex flex-col items-center gap-2">
         <span className="text-4xl font-light">{capitalize(pokemon.name)}</span>
-        <img
-          className="w-2/3 min-w-[200px]"
-          alt={pokemon.name}
-          src={pokemon.sprites.other["official-artwork"]?.front_default}
-        />
+        {image && (
+          <Image
+            className="w-2/3 min-w-[200px]"
+            alt={pokemon.name}
+            src={image}
+          />
+        )}
       </div>
       <div className="flex flex-col gap-2">
         <span>{`Height: ${formatHeight(pokemon.height)}`}</span>
