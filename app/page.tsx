@@ -4,13 +4,14 @@ import { Button } from "@/components/button";
 
 import { SearchInput } from "@/components/search-input";
 import { SortByDropdown } from "@/components/sort-by-dropdown";
-import { PaginationButtons } from "@/app/pagination-buttons";
+import { PaginationButtons } from "@/components/pagination-buttons";
 import { PokemonCard } from "@/components/pokemon-card";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import { pokemonSearchSchema } from "@/api/search-pokemon-schema";
 import Link from "next/link";
 import { Pokemon, getAllPokemon } from "@/api/requests";
+import { notFound } from "next/navigation";
 
 export default async function Home({
   searchParams,
@@ -20,12 +21,13 @@ export default async function Home({
   const { sortBy, sortOrder, searchText, searchBy, offset, pageSize } =
     pokemonSearchSchema.parse(searchParams);
 
-  let allPokemon: Map<string, Pokemon> | null = null;
-  try {
-    allPokemon = await getAllPokemon();
-  } catch (error) {
-    throw new Error("Failed to fetch all pokemon.");
+  const allPokemonResponse = await getAllPokemon();
+
+  if (!allPokemonResponse.success) {
+    return notFound();
   }
+
+  const allPokemon = allPokemonResponse.data;
 
   const filteredList = Array.from(allPokemon)
     .map(([, pokemon]) => pokemon)

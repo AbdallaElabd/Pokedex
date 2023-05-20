@@ -2,8 +2,8 @@
 
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dropdown } from "../components/dropdown";
-import { Button } from "../components/button";
+import { Dropdown } from "./dropdown";
+import { Button } from "./button";
 import {
   PokemonSearchSchema,
   updatePokemonSearchParams,

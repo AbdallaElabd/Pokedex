@@ -12,8 +12,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const pokemonList = await getPokemonList();
-  return pokemonList.map(({ name }) => ({
+  const pokemonListResponse = await getPokemonList();
+
+  if (!pokemonListResponse.success) {
+    throw new Error(
+      "Error while fetching pokemon list: " + pokemonListResponse.error
+    );
+  }
+
+  const { data: pokemonList } = pokemonListResponse;
+
+  return pokemonList.results.map(({ name }) => ({
     params: { pokemonName: name },
   }));
 }

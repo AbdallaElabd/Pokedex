@@ -43,9 +43,7 @@ export async function getPokemonList() {
   );
 
   if (!pokemonListCountResponse.success) {
-    throw new Error(
-      `Couldn't load pokemon list. Error: ${pokemonListCountResponse.error?.statusText}`
-    );
+    return pokemonListCountResponse;
   }
 
   const { count } = pokemonListCountResponse.data;
@@ -55,54 +53,46 @@ export async function getPokemonList() {
     `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${count}`
   );
 
-  if (!pokemonListResponse.success) {
-    throw new Error(
-      `Couldn't load pokemon list. Error: ${pokemonListResponse.error?.statusText}`
-    );
-  }
-
-  return pokemonListResponse.data.results;
+  return pokemonListResponse;
 }
 
 export async function getAllPokemon() {
-  try {
-    const pokemonList = await getPokemonList();
+  const pokemonListResponse = await getPokemonList();
 
-    // Get the details of all pokemon
-    const pokemonData = new Map<string, Pokemon>();
-    const urls = pokemonList.map((pokemon) => pokemon.url);
-
-    const chunkSize = 100;
-
-    // throw new Error("here fails");
-
-    // Split the urls into chunks of 100
-    const chunkedUrls: string[][] = Array.from(
-      { length: Math.ceil(urls.length / chunkSize) },
-      (_, i) => urls.slice(i * chunkSize, i * chunkSize + chunkSize)
-    );
-
-    for (let i = 0; i < chunkedUrls.length; i += 1) {
-      const chunk = chunkedUrls[i];
-      // eslint-disable-next-line no-await-in-loop
-      await Promise.all(
-        chunk.map(async (url) => {
-          const pokemonResponse = await endpoint<Pokemon>(url);
-          if (!pokemonResponse.success) {
-            throw new Error(
-              `Couldn't load pokemon list. Error: ${pokemonResponse.error.statusText}`
-            );
-          }
-          const pokemon = pokemonResponse.data;
-          pokemonData.set(pokemon.name, pokemon);
-          return pokemon;
-        })
-      );
-    }
-    return pokemonData;
-  } catch (error) {
-    throw new Error(`Couldn't load pokemon list. Error: ${error}`);
+  if (!pokemonListResponse.success) {
+    return pokemonListResponse;
   }
+
+  // Get the details of all pokemon
+  const pokemonData = new Map<string, Pokemon>();
+  const urls = pokemonListResponse.data.results.map((pokemon) => pokemon.url);
+
+  const chunkSize = 100;
+
+  // Split the urls into chunks of 100
+  const chunkedUrls: string[][] = Array.from(
+    { length: Math.ceil(urls.length / chunkSize) },
+    (_, i) => urls.slice(i * chunkSize, i * chunkSize + chunkSize)
+  );
+
+  for (let i = 0; i < chunkedUrls.length; i += 1) {
+    const chunk = chunkedUrls[i];
+    // eslint-disable-next-line no-await-in-loop
+    await Promise.all(
+      chunk.map(async (url) => {
+        const pokemonResponse = await endpoint<Pokemon>(url);
+        if (!pokemonResponse.success) {
+          throw new Error(
+            `Couldn't load pokemon list. Error: ${pokemonResponse.error.statusText}`
+          );
+        }
+        const pokemon = pokemonResponse.data;
+        pokemonData.set(pokemon.name, pokemon);
+        return pokemon;
+      })
+    );
+  }
+  return { success: true, data: pokemonData } as const;
 }
 
 export async function getPokemonDetails(pokemonName: string) {
