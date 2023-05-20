@@ -10,10 +10,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { memo } from "react";
 import Highlighter from "react-highlight-words";
 import Link from "next/link";
-import { Pokemon } from "@/api/requests";
 import { PokemonSearchSchema } from "@/api/search-pokemon-schema";
 import { capitalize } from "@/utils/capitalize";
 import { formatHeight, formatWeight } from "@/utils/format";
+import { Pokemon } from "pokenode-ts";
 
 export interface PokemonCardProps {
   pokemon: Pokemon;
@@ -26,13 +26,11 @@ export const PokemonCard = memo(function PokemonCard({
   searchText,
   searchBy,
 }: PokemonCardProps) {
+  const image = pokemon.sprites.other?.["official-artwork"].front_default;
   return (
     <Card className="relative flex w-full flex-grow flex-col items-start gap-2 px-2 py-4 text-slate-800">
       <div className="flex flex-grow gap-3">
-        <LazyImage
-          className="h-32 w-32 shrink-0"
-          image={pokemon.sprites.other?.["official-artwork"]?.front_default}
-        />
+        {image && <LazyImage className="h-32 w-32 shrink-0" image={image} />}
         <div className="flex flex-col gap-3">
           <span className="text-xl font-medium">
             {searchBy === "name" ? (

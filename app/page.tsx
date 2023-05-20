@@ -11,7 +11,6 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { pokemonSearchSchema } from "@/api/search-pokemon-schema";
 import Link from "next/link";
 import { getAllPokemon } from "@/api/requests";
-import { notFound } from "next/navigation";
 
 export default async function Home({
   searchParams,

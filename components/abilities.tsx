@@ -5,11 +5,11 @@ import Highlighter from "react-highlight-words";
 
 import { buttonVariants } from "./button";
 import { capitalize } from "@/utils/capitalize";
-import { Pokemon } from "@/api/requests";
 import Link from "next/link";
+import { PokemonAbility } from "pokenode-ts";
 
 interface AbilitiesProps {
-  abilities: Pokemon["abilities"];
+  abilities: PokemonAbility[];
   highlightText?: string;
 }
 
