@@ -1,26 +1,24 @@
-import { getPokemonList, getPokemonDetails, Pokemon } from "@/api/requests";
+import { getPokemonByName, getPokemonList } from "@/api/requests";
 import { Abilities } from "@/components/abilities";
 import { Chip } from "@/components/chip";
 import { capitalize } from "@/utils/capitalize";
 import { formatHeight, formatWeight } from "@/utils/format";
-import {
-  faArrowLeft,
-  faExclamationTriangle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AxiosError } from "axios";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const pokemonListResponse = await getPokemonList();
+  const pokemonList = await getPokemonList().catch((error: AxiosError) => {
+    if (error.response?.status === 404) {
+      notFound();
+    }
+  });
 
-  if (!pokemonListResponse.success) {
-    throw new Error(
-      "Error while fetching pokemon list: " + pokemonListResponse.error
-    );
+  if (!pokemonList) {
+    return notFound();
   }
-
-  const { data: pokemonList } = pokemonListResponse;
 
   return pokemonList.results.map(({ name }) => ({
     params: { pokemonName: name },
@@ -34,15 +32,17 @@ export default async function PokemonDetails({
 }) {
   const { pokemonName } = params;
 
-  const pokemonDetails = await getPokemonDetails(pokemonName);
+  let pokemon = await getPokemonByName(pokemonName).catch((error) => {
+    if (error.response?.status === 404) {
+      notFound();
+    }
+  });
 
-  if (!pokemonDetails.success) {
+  if (!pokemon) {
     return notFound();
   }
 
-  const { data: pokemon } = pokemonDetails;
-
-  const image = pokemon.sprites.other["official-artwork"]?.front_default;
+  const image = pokemon.sprites.other?.["official-artwork"]?.front_default;
 
   return (
     <div className="relative flex flex-col gap-4 p-8 text-slate-800 md:flex-row">
