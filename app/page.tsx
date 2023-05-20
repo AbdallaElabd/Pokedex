@@ -23,8 +23,7 @@ export default async function Home({
 
   const allPokemon = await getAllPokemon();
 
-  const filteredList = Array.from(allPokemon)
-    .map(([, pokemon]) => pokemon)
+  const filteredList = allPokemon
     .filter((pokemon) => {
       if (!searchText) return true;
       if (searchBy === "name") {
