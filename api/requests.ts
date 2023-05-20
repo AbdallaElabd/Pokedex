@@ -21,22 +21,47 @@ export type PokemonListResponse = {
 
 export async function endpoint<T>(url: string) {
   const response = await fetch(url);
-  if (!response.ok) throw new Error(response.statusText);
-  return response.json() as T;
+  if (!response.ok) {
+    return {
+      success: false,
+      error: {
+        status: response.status,
+        statusText: response.statusText,
+      },
+    } as const;
+  }
+  return {
+    success: true,
+    data: (await response.json()) as T,
+  } as const;
 }
 
 export async function getPokemonList() {
   // One time request to get the count of all pokemon
-  const { count } = await endpoint<PokemonListResponse>(
+  const pokemonListCountResponse = await endpoint<PokemonListResponse>(
     "https://pokeapi.co/api/v2/pokemon?offset=0&limit=1"
   );
 
-  // Get the list of pokemon
-  const { results: pokemonList } = (await endpoint(
-    `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${count}`
-  )) as PokemonListResponse;
+  if (!pokemonListCountResponse.success) {
+    throw new Error(
+      `Couldn't load pokemon list. Error: ${pokemonListCountResponse.error?.statusText}`
+    );
+  }
 
-  return pokemonList;
+  const { count } = pokemonListCountResponse.data;
+
+  // Get the list of pokemon
+  const pokemonListResponse = await endpoint<PokemonListResponse>(
+    `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${count}`
+  );
+
+  if (!pokemonListResponse.success) {
+    throw new Error(
+      `Couldn't load pokemon list. Error: ${pokemonListResponse.error?.statusText}`
+    );
+  }
+
+  return pokemonListResponse.data.results;
 }
 
 export async function getAllPokemon() {
@@ -47,7 +72,9 @@ export async function getAllPokemon() {
     const pokemonData = new Map<string, Pokemon>();
     const urls = pokemonList.map((pokemon) => pokemon.url);
 
-    const chunkSize = 100000;
+    const chunkSize = 100;
+
+    // throw new Error("here fails");
 
     // Split the urls into chunks of 100
     const chunkedUrls: string[][] = Array.from(
@@ -60,7 +87,13 @@ export async function getAllPokemon() {
       // eslint-disable-next-line no-await-in-loop
       await Promise.all(
         chunk.map(async (url) => {
-          const pokemon = await endpoint<Pokemon>(url);
+          const pokemonResponse = await endpoint<Pokemon>(url);
+          if (!pokemonResponse.success) {
+            throw new Error(
+              `Couldn't load pokemon list. Error: ${pokemonResponse.error.statusText}`
+            );
+          }
+          const pokemon = pokemonResponse.data;
           pokemonData.set(pokemon.name, pokemon);
           return pokemon;
         })

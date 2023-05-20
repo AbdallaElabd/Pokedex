@@ -10,7 +10,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import { pokemonSearchSchema } from "@/api/search-pokemon-schema";
 import Link from "next/link";
-import { getAllPokemon } from "@/api/requests";
+import { Pokemon, getAllPokemon } from "@/api/requests";
 
 export default async function Home({
   searchParams,
@@ -20,7 +20,14 @@ export default async function Home({
   const { sortBy, sortOrder, searchText, searchBy, offset, pageSize } =
     pokemonSearchSchema.parse(searchParams);
 
-  const filteredList = Array.from(await getAllPokemon())
+  let allPokemon: Map<string, Pokemon> | null = null;
+  try {
+    allPokemon = await getAllPokemon();
+  } catch (error) {
+    throw new Error("Failed to fetch all pokemon.");
+  }
+
+  const filteredList = Array.from(allPokemon)
     .map(([, pokemon]) => pokemon)
     .filter((pokemon) => {
       if (!searchText) return true;

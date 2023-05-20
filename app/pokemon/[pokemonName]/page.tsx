@@ -1,4 +1,4 @@
-import { getPokemonList, getPokemonDetails } from "@/api/requests";
+import { getPokemonList, getPokemonDetails, Pokemon } from "@/api/requests";
 import { Abilities } from "@/components/abilities";
 import { Chip } from "@/components/chip";
 import { capitalize } from "@/utils/capitalize";
@@ -24,11 +24,14 @@ export default async function PokemonDetails({
   params: { pokemonName: string };
 }) {
   const { pokemonName } = params;
-  const pokemon = await getPokemonDetails(pokemonName);
 
-  if (!pokemon) {
+  const pokemonDetails = await getPokemonDetails(pokemonName);
+
+  if (!pokemonDetails.success) {
     return notFound();
   }
+
+  const { data: pokemon } = pokemonDetails;
 
   const image = pokemon.sprites.other["official-artwork"]?.front_default;
 
