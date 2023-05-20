@@ -17,25 +17,32 @@ const PAGE_SIZE_OPTIONS = [
 
 type PaginationButtonsProps = {
   totalCount: number | undefined;
-  hasPrevious: boolean;
-  hasNext: boolean;
+  filteredListCount: number;
   offset: number;
   pageSize: PokemonSearchSchema["pageSize"];
-  nextPageUrl: string | undefined;
-  previousPageUrl: string | undefined;
   searchParams: URLSearchParams;
 };
 
 export function PaginationButtons({
   totalCount,
-  hasPrevious,
-  hasNext,
+  filteredListCount,
   offset,
   pageSize,
-  nextPageUrl,
-  previousPageUrl,
   searchParams,
 }: PaginationButtonsProps) {
+  const hasNext = offset + pageSize < filteredListCount;
+  const hasPrevious = offset > 0;
+  const nextPageUrl = hasNext
+    ? updatePokemonSearchParams(searchParams, [
+        ["offset", `${offset + pageSize}`],
+      ])
+    : undefined;
+  const previousPageUrl = hasPrevious
+    ? updatePokemonSearchParams(searchParams, [
+        ["offset", `${offset - pageSize}`],
+      ])
+    : undefined;
+
   const pageStart = offset;
   const pageEnd = Math.min(offset + pageSize, totalCount ?? 0);
 

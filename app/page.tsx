@@ -8,10 +8,7 @@ import { PaginationButtons } from "@/app/pagination-buttons";
 import { PokemonCard } from "@/components/pokemon-card";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-import {
-  pokemonSearchSchema,
-  updatePokemonSearchParams,
-} from "@/api/search-pokemon-schema";
+import { pokemonSearchSchema } from "@/api/search-pokemon-schema";
 import Link from "next/link";
 import { getAllPokemon } from "@/api/requests";
 
@@ -48,19 +45,6 @@ export default async function Home({
   const pokemonList = filteredList.slice(offset, offset + pageSize);
   const totalCount = filteredList.length;
 
-  const hasNext = offset + pageSize < filteredList.length;
-  const hasPrevious = offset > 0;
-  const nextPageUrl = hasNext
-    ? updatePokemonSearchParams(searchParams, [
-        ["offset", `${offset + pageSize}`],
-      ])
-    : undefined;
-  const previousPageUrl = hasPrevious
-    ? updatePokemonSearchParams(searchParams, [
-        ["offset", `${offset - pageSize}`],
-      ])
-    : undefined;
-
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-wrap items-center justify-end gap-4">
@@ -82,10 +66,7 @@ export default async function Home({
         <PaginationButtons
           searchParams={searchParams}
           totalCount={totalCount}
-          hasPrevious={hasPrevious}
-          hasNext={hasNext}
-          nextPageUrl={nextPageUrl}
-          previousPageUrl={previousPageUrl}
+          filteredListCount={filteredList.length}
           offset={offset}
           pageSize={pageSize}
         />
@@ -111,10 +92,7 @@ export default async function Home({
         <PaginationButtons
           searchParams={searchParams}
           totalCount={totalCount}
-          hasPrevious={hasPrevious}
-          hasNext={hasNext}
-          nextPageUrl={nextPageUrl}
-          previousPageUrl={previousPageUrl}
+          filteredListCount={filteredList.length}
           offset={offset}
           pageSize={pageSize}
         />
