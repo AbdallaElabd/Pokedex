@@ -1,23 +1,19 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/components/button";
 
-import { Spinner } from "@/components/spinner";
 import { SearchInput } from "@/components/search-input";
 import { SortByDropdown } from "@/components/sort-by-dropdown";
 import { PaginationButtons } from "@/app/pagination-buttons";
 import { PokemonCard } from "@/components/pokemon-card";
-// import { useGetPokemonList } from "./pokemon-list/use-get-pokemon-list";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import {
-  PokemonSearchSchema,
   pokemonSearchSchema,
   updatePokemonSearchParams,
 } from "@/api/search-pokemon-schema";
 import Link from "next/link";
-import { pokemonCache } from "@/api/cache";
+import { getAllPokemon } from "@/api/requests";
 
 export default async function Home({
   searchParams,
@@ -27,7 +23,7 @@ export default async function Home({
   const { sortBy, sortOrder, searchText, searchBy, offset, pageSize } =
     pokemonSearchSchema.parse(searchParams);
 
-  const filteredList = Array.from(await pokemonCache.getAllPokemon())
+  const filteredList = Array.from(await getAllPokemon())
     .map(([, pokemon]) => pokemon)
     .filter((pokemon) => {
       if (!searchText) return true;

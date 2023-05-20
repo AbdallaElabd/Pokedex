@@ -1,7 +1,6 @@
-import { pokemonCache } from "@/api/cache";
+import { getPokemonList, getPokemonDetails } from "@/api/requests";
 import { Abilities } from "@/components/abilities";
 import { Chip } from "@/components/chip";
-import { Spinner } from "@/components/spinner";
 import { capitalize } from "@/utils/capitalize";
 import { formatHeight, formatWeight } from "@/utils/format";
 import {
@@ -9,15 +8,22 @@ import {
   faExclamationTriangle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
 import Link from "next/link";
 
+export async function generateStaticParams() {
+  const pokemonList = await getPokemonList();
+  return pokemonList.map(({ name }) => ({
+    params: { pokemonName: name },
+  }));
+}
+
 export default async function PokemonDetails({
-  params: { pokemonName },
+  params,
 }: {
   params: { pokemonName: string };
 }) {
-  const pokemon = await pokemonCache.getPokemonByName(pokemonName);
+  const { pokemonName } = params;
+  const pokemon = await getPokemonDetails(pokemonName);
 
   if (!pokemon)
     return (
@@ -40,11 +46,8 @@ export default async function PokemonDetails({
       <div className="flex flex-col items-center gap-2">
         <span className="text-4xl font-light">{capitalize(pokemon.name)}</span>
         {image && (
-          <Image
-            className="w-2/3 min-w-[200px]"
-            alt={pokemon.name}
-            src={image}
-          />
+          // eslint-disable-next-line @next/next/no-img-element
+          <img className="w-2/3 min-w-[200px]" alt={pokemon.name} src={image} />
         )}
       </div>
       <div className="flex flex-col gap-2">

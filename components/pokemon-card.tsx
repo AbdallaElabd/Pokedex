@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { memo } from "react";
 import Highlighter from "react-highlight-words";
 import Link from "next/link";
-import { Pokemon } from "@/api/cache";
+import { Pokemon } from "@/api/requests";
 import { PokemonSearchSchema } from "@/api/search-pokemon-schema";
 import { capitalize } from "@/utils/capitalize";
 import { formatHeight, formatWeight } from "@/utils/format";

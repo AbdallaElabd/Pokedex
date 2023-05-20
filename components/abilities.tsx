@@ -5,7 +5,7 @@ import Highlighter from "react-highlight-words";
 
 import { buttonVariants } from "./button";
 import { capitalize } from "@/utils/capitalize";
-import { Pokemon } from "@/api/cache";
+import { Pokemon } from "@/api/requests";
 import Link from "next/link";
 
 interface AbilitiesProps {
