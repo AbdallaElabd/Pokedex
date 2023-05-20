@@ -45,7 +45,7 @@ export default function RootLayout({
               </h1>
             </Link>
           </div>
-          <div className="flex-grow p-2 sm:p-4 md:p-8">{children}</div>
+          <div className="relative flex-grow p-2 sm:p-4 md:p-8">{children}</div>
         </div>
       </body>
     </html>

@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   const pokemonList = await getPokemonList();
@@ -25,13 +26,9 @@ export default async function PokemonDetails({
   const { pokemonName } = params;
   const pokemon = await getPokemonDetails(pokemonName);
 
-  if (!pokemon)
-    return (
-      <div className="flex flex-col gap-2 py-8 text-center text-slate-800">
-        <FontAwesomeIcon icon={faExclamationTriangle} size="2x" />
-        <span className="text-2xl font-light">Pokemon not found</span>
-      </div>
-    );
+  if (!pokemon) {
+    return notFound();
+  }
 
   const image = pokemon.sprites.other["official-artwork"]?.front_default;
 

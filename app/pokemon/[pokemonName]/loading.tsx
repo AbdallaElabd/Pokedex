@@ -1,17 +1,11 @@
-import { motion } from "framer-motion";
+"use client";
+
 import { Spinner } from "@/components/spinner";
 
 export default function Loading() {
   return (
-    // <motion.div
-    //   className="absolute inset-0 flex items-center justify-center"
-    //   key="loading"
-    //   initial={{ opacity: 0 }}
-    //   animate={{ opacity: 1 }}
-    //   exit={{ opacity: 0 }}
-    // >
-    <span>Loading</span>
-    // <Spinner />
-    // </motion.div>
+    <div className="flex items-center justify-center">
+      <Spinner text="Loading Pokémon..." />
+    </div>
   );
 }

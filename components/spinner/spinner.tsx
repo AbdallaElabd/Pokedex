@@ -1,30 +1,19 @@
-import pokeball from "./pokeball.png";
-// import { useEffect, useState } from "react";
+"use client";
 
-// import { pokemonCache } from "@/api/cache";
+import pokeball from "./pokeball.png";
 
 import classNames from "classnames";
 
 interface SpinnerProps {
   className?: string;
+  text: string;
 }
 
 import Image from "next/image";
 
-export function Spinner({ className }: SpinnerProps) {
-  // const [loaded, setLoaded] = useState<number | null>(null);
-  // const [total, setTotal] = useState<number | null>(null);
-
-  // useEffect(() => {
-  //   const unsubscribe = pokemonCache.addEventListener((state) => {
-  //     setLoaded(state.loaded);
-  //     setTotal(state.total);
-  //   });
-  //   return () => unsubscribe();
-  // }, []);
-
+export function Spinner({ className, text }: SpinnerProps) {
   return (
-    <div className="column flex flex-col items-center gap-8 p-24">
+    <div className="column flex flex-col items-center gap-8 p-24 text-slate-800">
       <Image
         width={300}
         height={300}
@@ -34,8 +23,7 @@ export function Spinner({ className }: SpinnerProps) {
       />
 
       <div className="flex flex-col gap-1 font-mono text-2xl">
-        <span>Loading Pokédex...</span>
-        {/* {total !== null && <span>{`Loaded ${loaded}/${total} pokémon`}</span>} */}
+        <span>{text}</span>
       </div>
     </div>
   );
