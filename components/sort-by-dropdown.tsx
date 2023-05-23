@@ -1,12 +1,6 @@
 "use client";
 
 import {
-  PokemonSearchSchema,
-  updatePokemonSearchParams,
-} from "@/api/search-pokemon-schema";
-import { Button } from "@/components/button";
-import { Dropdown } from "@/components/dropdown";
-import {
   faFont,
   faSortAlphaAsc,
   faSortAlphaDesc,
@@ -17,6 +11,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
+
+import {
+  PokemonSearchSchema,
+  updatePokemonSearchParams,
+} from "@/api/search-pokemon-schema";
+import { Button } from "@/components/button";
+import { Dropdown } from "@/components/dropdown";
 
 const SORT_BY_ATTRIBUTES = [
   "name",

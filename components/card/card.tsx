@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { tv, type VariantProps } from "tailwind-variants";
+import { tv,type VariantProps } from "tailwind-variants";
 
 const card = tv({
   base: "overflow-hidden rounded-md bg-slate-50 shadow-md transition-all hover:shadow-lg",

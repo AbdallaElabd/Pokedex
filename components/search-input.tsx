@@ -1,11 +1,6 @@
 "use client";
 
 import {
-  PokemonSearchSchema,
-  updatePokemonSearchParams,
-} from "@/api/search-pokemon-schema";
-import { Dropdown } from "@/components/dropdown";
-import {
   faBoltLightning,
   faFont,
   faSearch,
@@ -15,6 +10,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
+
+import {
+  PokemonSearchSchema,
+  updatePokemonSearchParams,
+} from "@/api/search-pokemon-schema";
+import { Dropdown } from "@/components/dropdown";
 
 const SEARCH_BY_ATTRIBUTES = [
   "name",
@@ -78,7 +79,7 @@ export function SearchInput({
         renderPlaceholder={(option) => `Search by ${option}`}
         options={SEARCH_BY_ATTRIBUTES}
         selected={searchBy}
-        renderOption={(option) => (
+        renderOption={(option, selected) => (
           <span className="flex items-center gap-2 text-sm">
             <FontAwesomeIcon
               icon={option === "ability" ? faBoltLightning : faFont}

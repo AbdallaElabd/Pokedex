@@ -1,12 +1,13 @@
 import { faBoltLightning } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
-import Highlighter from "react-highlight-words";
-
-import { buttonVariants } from "./button";
-import { capitalize } from "@/utils/capitalize";
 import Link from "next/link";
 import { type AbilityElement } from "pokedex-promise-v2";
+import Highlighter from "react-highlight-words";
+
+import { capitalize } from "@/utils/capitalize";
+
+import { buttonVariants } from "./button";
 
 interface AbilitiesProps {
   abilities: AbilityElement[];

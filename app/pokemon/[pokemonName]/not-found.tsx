@@ -1,8 +1,8 @@
 "use client";
 
-import sadPikachu from "./sad-pikachu.png";
-
 import Image from "next/image";
+
+import sadPikachu from "./sad-pikachu.png";
 
 export default function Error() {
   return (

@@ -1,12 +1,13 @@
 "use client";
 
-import { Button } from "@/components/button";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode, useState } from "react";
+
+import { Button } from "@/components/button";
 
 interface DropdownProps<T> {
   options: T[];
@@ -59,14 +60,14 @@ export function Dropdown<T extends string | number>({
                     transition: { duration: 0.3, ease: "easeInOut" },
                   },
                 }}
-                className="z-10 flex flex-col overflow-hidden rounded-md bg-slate-50 shadow-md data-[side=bottom]:origin-top data-[side=top]:origin-bottom"
+                className="z-10 flex flex-col overflow-hidden rounded-md shadow-md data-[side=bottom]:origin-top data-[side=top]:origin-bottom"
               >
                 {options.map((option) => (
                   <DropdownMenu.Item
                     className={classNames(
-                      "cursor-pointer bg-blue-800 px-4 py-2 outline-none transition-all data-[highlighted]:bg-blue-600 data-[highlighted]:text-white",
+                      "cursor-pointer bg-blue-800 px-4 py-2 text-blue-100 outline-none transition-all data-[highlighted]:bg-blue-600",
                       {
-                        "bg-blue-500 text-white": selected === option,
+                        "bg-blue-600": selected === option,
                       }
                     )}
                     key={option}
@@ -74,11 +75,13 @@ export function Dropdown<T extends string | number>({
                       onChange(option);
                     }}
                   >
-                    {renderOption ? (
-                      renderOption(option, selected === option)
-                    ) : (
-                      <span>{option}</span>
-                    )}
+                    <>
+                      {renderOption ? (
+                        renderOption(option, selected === option)
+                      ) : (
+                        <span>{option}</span>
+                      )}
+                    </>
                   </DropdownMenu.Item>
                 ))}
               </motion.div>

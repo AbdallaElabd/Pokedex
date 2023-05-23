@@ -1,15 +1,15 @@
-import { type Pokemon } from "pokedex-promise-v2";
-import Link from "next/link";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import { type Pokemon } from "pokedex-promise-v2";
 
+import { pokedex } from "@/api/client";
+import { pokemonSearchSchema } from "@/api/search-pokemon-schema";
 import { Button } from "@/components/button";
-import { SearchInput } from "@/components/search-input";
-import { SortByDropdown } from "@/components/sort-by-dropdown";
 import { PaginationButtons } from "@/components/pagination-buttons";
 import { PokemonCard } from "@/components/pokemon-card";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { pokemonSearchSchema } from "@/api/search-pokemon-schema";
-import { pokedex } from "@/api/client";
+import { SearchInput } from "@/components/search-input";
+import { SortByDropdown } from "@/components/sort-by-dropdown";
 
 let cachedPokemonList: Pokemon[] | null = null;
 

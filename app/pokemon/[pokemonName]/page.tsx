@@ -1,13 +1,14 @@
-import { pokedex } from "@/api/client";
-import { Abilities } from "@/components/abilities";
-import { Chip } from "@/components/chip";
-import { capitalize } from "@/utils/capitalize";
-import { formatHeight, formatWeight } from "@/utils/format";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AxiosError } from "axios";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
+import { pokedex } from "@/api/client";
+import { Abilities } from "@/components/abilities";
+import { Chip } from "@/components/chip";
+import { capitalize } from "@/utils/capitalize";
+import { formatHeight, formatWeight } from "@/utils/format";
 
 export async function generateStaticParams() {
   const { count } = await pokedex.getPokemonsList();

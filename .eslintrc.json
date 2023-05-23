@@ -4,5 +4,10 @@
     "prettier",
     "plugin:import/recommended",
     "plugin:storybook/recommended"
-  ]
+  ],
+  "plugins": ["simple-import-sort"],
+  "rules": {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
+  }
 }

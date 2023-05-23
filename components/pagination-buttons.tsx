@@ -2,14 +2,16 @@
 
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dropdown } from "./dropdown";
-import { Button } from "./button";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import {
   PokemonSearchSchema,
   updatePokemonSearchParams,
 } from "@/api/search-pokemon-schema";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+
+import { Button } from "./button";
+import { Dropdown } from "./dropdown";
 
 const PAGE_SIZE_OPTIONS = [
   10, 20, 50,

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { PropsWithChildren } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import { tv,type VariantProps } from "tailwind-variants";
 
 const chip = tv({
   base: "flex w-fit items-center rounded-full font-light text-slate-50",

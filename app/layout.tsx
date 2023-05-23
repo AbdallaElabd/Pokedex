@@ -1,10 +1,11 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-import pokedex from "./pokedex.png";
 import classNames from "classnames";
+import { Inter } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
+
+import pokedex from "./pokedex.png";
 
 const inter = Inter({ subsets: ["latin"] });
 

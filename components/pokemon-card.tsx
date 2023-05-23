@@ -1,19 +1,20 @@
-import { Abilities } from "@/components/abilities";
-import { Card } from "@/components/card";
-import { LazyImage } from "@/components/lazy-image";
 import {
   faChevronRight,
   faStairs,
   faWeightScale,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import { type Pokemon } from "pokedex-promise-v2";
 import { memo } from "react";
 import Highlighter from "react-highlight-words";
-import Link from "next/link";
+
 import { PokemonSearchSchema } from "@/api/search-pokemon-schema";
+import { Abilities } from "@/components/abilities";
+import { Card } from "@/components/card";
+import { LazyImage } from "@/components/lazy-image";
 import { capitalize } from "@/utils/capitalize";
 import { formatHeight, formatWeight } from "@/utils/format";
-import { type Pokemon } from "pokedex-promise-v2";
 
 export interface PokemonCardProps {
   pokemon: Pokemon;

@@ -1,8 +1,8 @@
 "use client";
 
-import pokeball from "./pokeball.png";
-
 import classNames from "classnames";
+
+import pokeball from "./pokeball.png";
 
 interface SpinnerProps {
   className?: string;
