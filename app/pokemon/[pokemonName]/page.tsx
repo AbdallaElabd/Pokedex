@@ -1,6 +1,7 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AxiosError } from "axios";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -9,6 +10,7 @@ import { Abilities } from "@/components/abilities";
 import { Chip } from "@/components/chip";
 import { capitalize } from "@/utils/capitalize";
 import { formatHeight, formatWeight } from "@/utils/format";
+import { getImageInfo } from "@/utils/getImageInfo";
 
 export async function generateStaticParams() {
   const { count } = await pokedex.getPokemonsList();
@@ -49,7 +51,13 @@ export default async function PokemonDetails({
     return notFound();
   }
 
-  const image = pokemon.sprites.other?.["official-artwork"]?.front_default;
+  const imageUrl = pokemon.sprites.other?.["official-artwork"]?.front_default;
+  let imageInfo: { width: number; height: number; blurDataURL: string } | null =
+    null;
+
+  if (imageUrl) {
+    imageInfo = await getImageInfo(imageUrl);
+  }
 
   return (
     <div className="relative flex flex-col gap-4 p-8 text-slate-800 md:flex-row">
@@ -59,11 +67,19 @@ export default async function PokemonDetails({
           className="absolute left-4 top-4 h-10 w-10 cursor-pointer text-2xl"
         />
       </Link>
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center">
         <span className="text-4xl font-light">{capitalize(pokemon.name)}</span>
-        {image && (
+        {imageUrl && imageInfo && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img className="w-2/3 min-w-[200px]" alt={pokemon.name} src={image} />
+          <Image
+            width={imageInfo.width}
+            height={imageInfo.height}
+            className="w-100"
+            alt={pokemon.name}
+            src={imageUrl}
+            placeholder="blur"
+            blurDataURL={imageInfo.blurDataURL}
+          />
         )}
       </div>
       <div className="flex flex-col gap-2">

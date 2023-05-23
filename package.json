@@ -18,6 +18,8 @@
     "autoprefixer": "10.4.14",
     "axios": "1.4.0",
     "axios-cache-interceptor": "1.0.1",
+    "blurhash": "2.0.5",
+    "canvas": "2.11.2",
     "classnames": "2.3.2",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",

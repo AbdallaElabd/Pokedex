@@ -39,6 +39,7 @@ export default function RootLayout({
                 height={505}
                 src={pokedex}
                 alt="Pokédex"
+                placeholder="blur"
                 className="h-full w-36"
               />
               <h1 className="letter text-4xl font-light text-white sm:text-5xl">
