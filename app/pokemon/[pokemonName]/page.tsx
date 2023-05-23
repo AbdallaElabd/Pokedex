@@ -1,4 +1,4 @@
-import { getPokemonByName, getPokemonList } from "@/api/requests";
+import { pokedex } from "@/api/client";
 import { Abilities } from "@/components/abilities";
 import { Chip } from "@/components/chip";
 import { capitalize } from "@/utils/capitalize";
@@ -10,11 +10,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const pokemonList = await getPokemonList().catch((error: AxiosError) => {
-    if (error.response?.status === 404) {
-      notFound();
-    }
-  });
+  const { count } = await pokedex.getPokemonsList();
+  const pokemonList = await pokedex
+    .getPokemonsList({
+      offset: 0,
+      limit: count,
+    })
+    .catch((error: AxiosError) => {
+      if (error.response?.status === 404) {
+        notFound();
+      }
+    });
 
   if (!pokemonList) {
     return notFound();
@@ -32,7 +38,7 @@ export default async function PokemonDetails({
 }) {
   const { pokemonName } = params;
 
-  let pokemon = await getPokemonByName(pokemonName).catch((error) => {
+  let pokemon = await pokedex.getPokemonByName(pokemonName).catch((error) => {
     if (error.response?.status === 404) {
       notFound();
     }

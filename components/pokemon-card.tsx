@@ -13,7 +13,7 @@ import Link from "next/link";
 import { PokemonSearchSchema } from "@/api/search-pokemon-schema";
 import { capitalize } from "@/utils/capitalize";
 import { formatHeight, formatWeight } from "@/utils/format";
-import { Pokemon } from "pokenode-ts";
+import { type Pokemon } from "pokedex-promise-v2";
 
 export interface PokemonCardProps {
   pokemon: Pokemon;

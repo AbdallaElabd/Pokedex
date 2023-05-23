@@ -24,7 +24,7 @@
     "fortawesome": "0.0.1-security",
     "framer-motion": "10.12.12",
     "next": "13.4.2",
-    "pokenode-ts": "1.18.3",
+    "pokedex-promise-v2": "4.1.1",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",

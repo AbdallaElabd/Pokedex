@@ -1,16 +1,51 @@
+import { type Pokemon } from "pokedex-promise-v2";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/components/button";
-
 import { SearchInput } from "@/components/search-input";
 import { SortByDropdown } from "@/components/sort-by-dropdown";
 import { PaginationButtons } from "@/components/pagination-buttons";
 import { PokemonCard } from "@/components/pokemon-card";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-
 import { pokemonSearchSchema } from "@/api/search-pokemon-schema";
-import Link from "next/link";
-import { getAllPokemon } from "@/api/requests";
+import { pokedex } from "@/api/client";
+
+let cachedPokemonList: Pokemon[] | null = null;
+
+const getPokemonList = async () => {
+  if (cachedPokemonList !== null) {
+    return cachedPokemonList;
+  }
+  const { count } = await pokedex.getPokemonsList();
+  const pokemonList = await pokedex.getPokemonsList({
+    offset: 0,
+    limit: count,
+  });
+
+  const allPokemon: Pokemon[] = [];
+  const pokemonURLs = pokemonList.results.map((pokemon) => pokemon.url);
+  const chunkSize = 100;
+  // Split the requests into chunks of 100
+  const chunks: string[][] = Array.from(
+    { length: Math.ceil(pokemonURLs.length / chunkSize) },
+    (_, i) => pokemonURLs.slice(i * chunkSize, i * chunkSize + chunkSize)
+  );
+  for (let i = 0; i < chunks.length; i += 1) {
+    const chunk = chunks[i];
+    await Promise.all(
+      chunk.map(async (pokemonURL, index) => {
+        const pokemon: Pokemon = await fetch(pokemonURL, {
+          cache: "force-cache",
+        }).then((res) => res.json());
+        allPokemon.push(pokemon);
+        return pokemon;
+      })
+    );
+  }
+  cachedPokemonList = allPokemon;
+  return allPokemon;
+};
 
 export default async function Home({
   searchParams,
@@ -20,7 +55,7 @@ export default async function Home({
   const { sortBy, sortOrder, searchText, searchBy, offset, pageSize } =
     pokemonSearchSchema.parse(searchParams);
 
-  const allPokemon = await getAllPokemon();
+  const allPokemon = await getPokemonList();
 
   const filteredList = allPokemon
     .filter((pokemon) => {
@@ -43,7 +78,7 @@ export default async function Home({
       return p2[sortBy] > p1[sortBy] ? -1 : 1;
     });
 
-  const pokemonList = filteredList.slice(offset, offset + pageSize);
+  const page = filteredList.slice(offset, offset + pageSize);
   const totalCount = filteredList.length;
 
   return (
@@ -73,11 +108,11 @@ export default async function Home({
         />
       </div>
       <div className="flex h-full flex-grow justify-center">
-        {pokemonList.length === 0 ? (
+        {page.length === 0 ? (
           <span key="empty">No Pokémon found.</span>
         ) : (
           <div className="grid h-full w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {pokemonList.map((pokemon) => (
+            {page.map((pokemon) => (
               <div key={pokemon.id}>
                 <PokemonCard
                   pokemon={pokemon}
@@ -89,7 +124,7 @@ export default async function Home({
           </div>
         )}
       </div>
-      {pokemonList.length !== 0 && (
+      {page.length !== 0 && (
         <PaginationButtons
           searchParams={searchParams}
           totalCount={totalCount}

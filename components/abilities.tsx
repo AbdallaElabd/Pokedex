@@ -6,10 +6,10 @@ import Highlighter from "react-highlight-words";
 import { buttonVariants } from "./button";
 import { capitalize } from "@/utils/capitalize";
 import Link from "next/link";
-import { PokemonAbility } from "pokenode-ts";
+import { type AbilityElement } from "pokedex-promise-v2";
 
 interface AbilitiesProps {
-  abilities: PokemonAbility[];
+  abilities: AbilityElement[];
   highlightText?: string;
 }
 
